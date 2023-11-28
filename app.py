@@ -5,9 +5,12 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def home():
-    return render_template('base.html')
+def Connexion():
+    return render_template("./connexion/connexion.html")
 
+@app.route('/inscriptionacces')
+def inscription1():
+    return render_template("./inscription/inscriptionacces.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

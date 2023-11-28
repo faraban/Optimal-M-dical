@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static',filename='./css/style.css')}}">
+        <title>Inscription</title>
+    </head>
+    <body>
+        <div class="HeaderAlpha">
+            <div class="Alpha1">
+                <a href="/inscriptionacces">
+                    <img class="imginscr" src="./static/img/Logo Optimal-Médical-02.png" alt="Logo de optimal medical">
+                </a>
+            </div>
+            <div class="Alpha2"></div>
+        </div>
+        <div class="mainInscription">
+                <div class="mainSecond">
+                    <form>
+                        <div class="form-groupLogo">
+                            <label for="logo">Télécharger votre logo</label>
+                            <input type="file" id="logo" name="logo">
+                        </div>
+
+                        <div class="form-groupInscri">
+                            <label for="username">Nom d’établissement sanitaire :</label>
+                            <input type="text" class="form-control2" id="username" placeholder="">
+                        </div>
+                        <div class="form-groupInscri">
+                            <label for="username">Numéro d'immatriculation de l'établissement :</label>
+                            <input type="text" class="form-control2" id="username" placeholder="">
+                        </div>
+                        <div class="form-groupInscriAdresse">
+                            <label for="username">Adresse :</label>
+                            <div class="Adresse">
+                                <input type="text" class="form-control3" id="username" placeholder="Région">
+                                <input type="text" class="form-control3" id="username" placeholder="Département">
+                                <input type="text" class="form-control3" id="username" placeholder="Commune">
+                                <input type="text" class="form-control3" id="username" placeholder="Localisation">
+                            </div>
+                        </div>
+                        <div class="form-groupInscri">
+                            <label for="username">E-mail :</label>
+                            <input type="text" class="form-control2" id="username" placeholder="">
+                        </div>
+                         <div class="boutoninscri">
+                             <button type="button" class="btninscri">Précedant </button>
+                             <button type="button" class="btninscri2">Suivant ></button>
+                         </div>
+
+                    </form>
+                    
+                </div>
+        </div>
+    </body>
+</html>
