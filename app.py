@@ -18,9 +18,15 @@ def inscriptioninfos():
 def inscriptionacces():
     return render_template("./inscription/inscriptionacces.html")
 
+@app.route('/ListeService')
+def ListeService():
+    return render_template("./inscription/inscriptionservice.html ")
+
 @app.route('/AjoutService')
 def AjoutService():
     return render_template("./inscription/inscriptionservice0.html ")
+
+
 
 #................Fin brayane route (Inscription)#
 
