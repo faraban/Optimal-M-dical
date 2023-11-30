@@ -1,92 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static',filename='./css/style.css')}}">
-        <title>Inscriptioninfos</title>
-    </head>
-    <body>
-        <div class="HeaderAlpha">
-            <div class="Alpha1">
-                <a href="/inscriptionacces">
-                    <img class="imginscr" src="./static/img/Logo Optimal-Médical-02.png" alt="Logo de optimal medical">
-                </a>
-            </div>
-            <div class="Alpha2"></div>
-        </div>
-        <div class="mainone">
-            <div>
-                <div id="pI"> <p>1</p> </div>
-                <hr>
-                <div id="pI2"> <p>2</p> </div>
-                <hr>
-                <div id="pI2"> <p>3</p> </div>
-            </div>
-        </div>
-        <div class="mainInscription">
-            <div class="mainSecond">
-                <form>
-                    <div class="form-groupLogo">
-                        <label for="logo">Télécharger votre logo</label>
-                        <input type="file" id="logo" name="logo">
-                    </div>
+{% extends './inscription/base.html' %} 
 
-                    <div class="form-groupInscri">
-                        <label for="username">Nom d’établissement sanitaire :</label>
-                        <input type="text" class="form-control2" id="username" placeholder="">
-                    </div>
-                    <div class="form-groupInscri">
-                        <label for="username">Numéro d'immatriculation de l'établissement :</label>
-                        <input type="text" class="form-control2" id="username" placeholder="">
-                    </div>
-                    <div class="form-groupInscriAdresse">
-                        <label for="username">Adresse :</label>
-                        <div class="Adresse">
-                            <select type="text" class="form-control3" name="region" id="region">
-                                <option value="ile-de-france">Île-de-France</option>
-                                <option value="paris">Paris</option>
-                                <option value="hauts-de-seine">Hauts-de-Seine</option>
-                                <option value="val-de-marne">Val-de-Marne</option>
-                                <option value="seine-saint-denis">Seine-Saint-Denis</option>
-                                <option value="val-d'oise">Val-d'Oise</option>
-                            </select>
 
-                            <select type="text" class="form-control3" name="Département" id="Département">
-                                <option value="01">Ain</option>
-                                <option value="02">Aisne</option>
-                                <option value="03">Allier</option>
-                                <option value="04">Alpes-de-Haute-Provence</option>
-                                <option value="05">Hautes-Alpes</option>
-                                <option value="06">Alpes-Maritimes</option>
-                                <option value="07">Ardèche</option>
-                                <option value="08">Ardennes</option>
-                            </select>
-
-                            <select type="text" class="form-control3" name="Commune" id="Commune">
-                                <option value="paris">Paris</option>
-                                <option value="saint-denis">Saint-Denis</option>
-                                <option value="cergy">Cergy</option>
-                                <option value="montrouge">Montrouge</option>
-                                <option value="villeneuve-la-garenne">Villeneuve-la-Garenne</option>
-                                <option value="villiers-sur-marne">Villiers-sur-Marne</option>
-                            </select>
-
-                            <input type="text" class="form-control3" id="username" placeholder="Localisation">
-                        </div>
-                    </div>
-                    <div class="form-groupInscri">
-                        <label for="username">E-mail :</label>
-                        <input type="text" class="form-control2" id="username" placeholder="">
-                    </div>
-                </form>
+{%block content %}
+<div class="mainone">
+    <div>
+        <div id="pI"> <p>1</p> </div>
+        <hr>
+        <div id="pI2"> <p>2</p> </div>
+        <hr>
+        <div id="pI2"> <p>3</p> </div>
+    </div>
+</div>
+<div class="mainInscription">
+    <div class="mainSecond">
+        <form>
+            <div class="form-groupLogo">
+                <label for="logo">Télécharger votre logo</label>
+                <input type="file" id="logo" name="logo">
             </div>
-        </div>
-        <div class="footerinscri">
-            <div id="btn3">
-               <button type="button" class="btninscri">< Précedant </button>
-               <button type="submit" class="btninscri2">Suivant ></button>
+
+            <div class="form-groupInscri">
+                <label for="username">Nom d’établissement sanitaire :</label>
+                <input type="text" class="form-control2" id="username" placeholder="">
             </div>
-        </div>
-    </body>
-</html>
+            <div class="form-groupInscri">
+                <label for="username">Numéro d'immatriculation de l'établissement :</label>
+                <input type="text" class="form-control2" id="username" placeholder="">
+            </div>
+            <div class="form-groupInscriAdresse">
+                <label for="username">Adresse :</label>
+                <div class="Adresse">
+                    <select type="text" class="form-control3" name="region" id="region">
+                        <option value="ile-de-france">Île-de-France</option>
+                        <option value="paris">Paris</option>
+                        <option value="hauts-de-seine">Hauts-de-Seine</option>
+                        <option value="val-de-marne">Val-de-Marne</option>
+                        <option value="seine-saint-denis">Seine-Saint-Denis</option>
+                        <option value="val-d'oise">Val-d'Oise</option>
+                    </select>
+
+                    <select type="text" class="form-control3" name="Département" id="Département">
+                        <option value="01">Ain</option>
+                        <option value="02">Aisne</option>
+                        <option value="03">Allier</option>
+                        <option value="04">Alpes-de-Haute-Provence</option>
+                        <option value="05">Hautes-Alpes</option>
+                        <option value="06">Alpes-Maritimes</option>
+                        <option value="07">Ardèche</option>
+                        <option value="08">Ardennes</option>
+                    </select>
+
+                    <select type="text" class="form-control3" name="Commune" id="Commune">
+                        <option value="paris">Paris</option>
+                        <option value="saint-denis">Saint-Denis</option>
+                        <option value="cergy">Cergy</option>
+                        <option value="montrouge">Montrouge</option>
+                        <option value="villeneuve-la-garenne">Villeneuve-la-Garenne</option>
+                        <option value="villiers-sur-marne">Villiers-sur-Marne</option>
+                    </select>
+
+                    <input type="text" class="form-control3" id="username" placeholder="Localisation">
+                </div>
+            </div>
+            <div class="form-groupInscri">
+                <label for="username">E-mail :</label>
+                <input type="text" class="form-control2" id="username" placeholder="">
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footerinscri">
+    <div id="btn3">
+        <a href='/' class="btninscri">< Précedant </a>
+        <a href='/ListeService' class="btninscri2">Suivant ></a>
+    </div>
+</div>
+{%endblock%}

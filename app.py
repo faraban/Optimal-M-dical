@@ -16,7 +16,8 @@ def inscriptioninfos():
 
 @app.route('/inscriptionacces')
 def inscriptionacces():
-    return render_template("./inscription/inscriptionacces.html")
+    data=''
+    return render_template("./inscription/inscriptionacces.html",data=data)
 
 @app.route('/ListeService')
 def ListeService():

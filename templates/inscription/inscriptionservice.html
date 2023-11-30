@@ -1,73 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static',filename='./css/style.css')}}">
-        <title>Liste des services</title>
-    </head>
-    <body>
-        <div class="HeaderAlpha">
-            <div class="Alpha1">
-                <a href="/inscriptionacces">
-                    <img class="imginscr" src="./static/img/Logo Optimal-Médical-02.png" alt="Logo de optimal medical">
-                </a>
-            </div>
-            <div class="Alpha2"></div>
+{% extends './inscription/base.html' %} 
+
+
+{%block content %}
+<div class="mainone">
+    <div>
+        <div id="pI"> <p>1</p> </div>
+        <hr>
+        <div id="pI"> <p>2</p> </div>
+        <hr>
+        <div id="pI2"> <p>3</p> </div>
+    </div>
+</div>
+<div class="mainInscription">
+    <div class="mainSecond">
+        <div class="mainSecondSer1">
+            <a href='/AjoutService' class="btninscriAjL">Ajouter un service </a>
         </div>
-        <div class="mainone">
-            <div>
-                <div id="pI"> <p>1</p> </div>
-                <hr>
-                <div id="pI"> <p>2</p> </div>
-                <hr>
-                <div id="pI2"> <p>3</p> </div>
-            </div>
+        <div class="mainSecondSer2">
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>Services</th>
+                    <th>Capacité d’accueil</th>
+                    <th>Actions</th>
+                </tr>
+                {% for row in data %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>
+                            <a class="modif">Modifier</a>
+                            <a class="suppr" >Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
-        <div class="mainInscription">
-            <div class="mainSecond">
-                <div class="mainSecondSer1">
-                    <button type="submit" class="btninscriAjL">Ajouter un service </button>
-                </p></div>
-                <div class="mainSecondSer2">
-                    <table id="entete">
-                        <tr class="tete">
-                            <th>id</th>
-                            <th>Services</th>
-                            <th>Capacité d’accueil</th>
-                            <th>Actions</th>
-                        </tr >
-                        <tr>
-                            <td>1</td>
-                            <td>Ebolakouassikouadikro</td>
-                            <td>2</td>
-                            <td>
-                                <div class="action_container">
-                                  <button class="modif"><a href="">Modifier</a></button>
-                                  <button class="suppr"><a href="">Supprimer</a></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Sida</td>
-                            <td>2</td>
-                            <td>
-                                <div class="action_container">
-                                <button class="modif"><a href="">Modifier</a></button>
-                                <button class="suppr"><a href="">Supprimer</a></button>
-                                </div>
-                            </td>
-                        </tr>
-                  </table>
-                </div>
-            </div>
-        </div>
-        <div class="footerinscri">
-            <div id="btn3">
-               <button type="button" class="btninscri">< Précedant </button>
-               <button type="submit" class="btninscri2">Suivant ></button>
-            </div>
-        </div>
-    </body>
-</html>
+    </div>
+</div>
+<div class="footerinscri">
+    <div id="btn3">
+        <a href='/inscriptioninfos' class="btninscri">< Précedant </a>
+        <a href='/' class="btninscri2">Suivant ></a>
+    </div>
+</div>
+{%endblock%}
