@@ -8,9 +8,22 @@ app = Flask(__name__)
 def Connexion():
     return render_template("./connexion/connexion.html")
 
+#................brayane route (Inscription)#
+
+@app.route('/inscriptioninfos')
+def inscriptioninfos():
+    return render_template("./inscription/inscriptioninfos.html")
+
 @app.route('/inscriptionacces')
-def inscription1():
+def inscriptionacces():
     return render_template("./inscription/inscriptionacces.html")
+
+@app.route('/AjoutService')
+def AjoutService():
+    return render_template("./inscription/inscriptionservice0.html ")
+
+#................Fin brayane route (Inscription)#
+
 
 if __name__ == "__main__":
     app.run(debug=True)

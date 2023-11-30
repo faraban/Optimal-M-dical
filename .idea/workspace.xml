@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0a2d75a2-5484-47b6-9b6a-f1c4c413487a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Optimal-Medical.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Optimal-Medical.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/connexion/connexion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/connexion/connexion.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/inscription/inscriptionacces.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inscription/inscriptionacces.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inscription/inscriptioninfos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inscription/inscriptioninfos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/inscription/inscriptionservice0.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/inscription/inscriptionservice0.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
