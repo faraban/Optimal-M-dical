@@ -94,12 +94,12 @@ body {
     border : 1px solid #CCC;
 }
  
- /* ..................................................Hearder inscriptioon.......................................... */
+ /* ..................................................Inscriptiooninfo.......................................... */
  
   /* .............Header inscription ....... */
  
   .HeaderAlpha{
-     height: 100px;
+     height: 80px;
      width: 100%;
      display: flex;
      flex-direction: column;
@@ -108,7 +108,7 @@ body {
  
   .HeaderAlpha .Alpha1{
      height: 75%;
-     width: 100%;
+     width: 95%;
      display: flex;
      align-items: center;
      margin-left : 20px;
@@ -126,27 +126,68 @@ body {
   }
  
  
-   /* ............main inscription ....... */
- 
+   /* ............main inscriptioninfos ....... */
+
+.mainone{
+    height: 75px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.mainone div{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
  .mainInscription{
-     height: 443px;
+     height: 380px;
      width: 100%;
      display: flex;
      justify-content: center;
      align-items: center;
-     background-color: white;
-     margin-top: 20px;
+     margin-top: 2px;
  }
  
  .mainSecond{
      justify-content: center;
      align-items: center;
-     height: 95%;
-     width: 70%;
-     display: flex; 
+     height: 100%;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
  }
+
+
  
- 
+#pI{
+    height: 30px;
+    width: 40px;
+    border-radius: 50% ;
+    color: white;
+    background-color: #1D5C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pI2{
+    height: 30px;
+    width: 40px;
+    border-radius: 50%;
+    border-radius: 50%;
+    border-color: green;
+    border-style: dotted;
+    color: #1D5C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
  .form-groupInscri{
      display: flex; 
      flex-direction: column;
@@ -160,6 +201,7 @@ body {
      display: flex; 
      flex-direction: column;
      padding: 10px;
+     margin: 10px;
      color: #000D82;
      border: 1px dashed black;
  }
@@ -180,11 +222,12 @@ body {
      color: #000D82;
 }
 
-#.boutoninscri{
-     height: 40px;
-     width: 100%px;
-     display: flex;
-     justify content: space between;
+.Adresse{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .form-control3{
@@ -193,12 +236,14 @@ body {
      color: black;
      border-radius: 5px;
      border : 3px solid #000D82;
+    
  }
 
 .btninscri{
      height: 30px;
      width: 100px;
      color: #000D82;
+     border : 1px solid #000D82;
      border-radius: 5px;
      background-color: #FFF;
 }
@@ -210,3 +255,25 @@ body {
      border-radius: 5px;
      background-color: #1D5C00;
 }
+
+
+.footerinscri{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+#btn3{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+
+   /* .....................main inscriptionacces .......................... */
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static',filename='./css/style.css')}}">
+        <title>InscriptionAjoutService</title>
+    </head>
+    <body>
+        <div class="HeaderAlpha">
+            <div class="Alpha1">
+                <a href="/inscriptionacces">
+                    <img class="imginscr" src="./static/img/Logo Optimal-Médical-02.png" alt="Logo de optimal medical">
+                </a>
+            </div>
+            <div class="Alpha2"></div>
+        </div>
+        <div class="mainone">
+            <div>
+                <div id="pI"> <p>1</p> </div>
+                <hr>
+                <div id="pI"> <p>2</p> </div>
+                <hr>
+                <div id="pI2"> <p>3</p> </div>
+            </div>
+        </div>
+        <div class="mainInscription">
+            <div class="mainSecond">
+                <form>
+                    <div class="form-groupInscri">
+                        <label for="username">Nom du service :</label>
+                        <input type="text" class="form-control2" id="username" placeholder="">
+                    </div>
+                    <div class="form-groupInscri">
+                        <label for="username">Capacité d’accueil :</label>
+                        <input type="text" class="form-control2" id="username" placeholder="">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footerinscri">
+            <div id="btn3">
+               <button type="button" class="btninscri">< Précedant </button>
+               <button type="submit" class="btninscri2">Ajout ></button>
+            </div>
+        </div>
+    </body>
+</html>
