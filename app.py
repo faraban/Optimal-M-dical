@@ -8,6 +8,18 @@ app = Flask(__name__)
 def Connexion():
     return render_template("./connexion/connexion.html")
 
+@app.route('/monhopital')
+def monhopital():
+    return render_template("./utilisateur/utilisateurhôpital.html")
+
+@app.route('/monprofil')
+def monprofil():
+    return render_template("./utilisateur/utilisateurprofil.html")
+
+@app.route('/transfert')
+def transfert():
+    return render_template("./utilisateur/utilisateurtransfert.html")
+
 #................brayane route (Inscription)#
 
 @app.route('/inscriptioninfos')
