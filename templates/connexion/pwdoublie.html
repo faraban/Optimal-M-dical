@@ -1,0 +1,31 @@
+{% extends './inscription/base.html' %} 
+
+
+{%block content %}
+<main>
+      <section class="contener">
+        <div class="RetrouverMotDePasse">
+          <h2>RETROUVER VOTRE COMPTE</h2>
+          <div class="cadreEmail">
+            <div class="cadreEmail0">
+              <div class="titre">
+                <h6>E-mail de recupération du mot de passe</h6>
+              </div>
+              <div class="form">
+                <form action="" method="get">
+                  <label for="mail"></label>
+                  <input
+                    type="e-mail"
+                    name="mail"
+                    id="mail"
+                    placeholder="Exemple@gmail.com"
+                  />
+                </form>
+                <a href="/CodeDeVerification.html">Suivant</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+{%endblock%}

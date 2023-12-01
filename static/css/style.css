@@ -547,3 +547,132 @@ td {
     width: 40px;
 }
 
+
+
+.seconnecter form {
+  display: flex;
+  margin: auto;
+  width: 90%;
+  height: 52%;
+  display: flex;
+  justify-content: space-around;
+}
+.seconnecter input {
+  padding: 10px;
+  border: 2px solid #000d82;
+  width: 300px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+.seconnecter button {
+  width: 15%;
+  height: 50%;
+  border-radius: 10px;
+  background-color: #1d5c00;
+  color: aliceblue;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+nav .traitbleu {
+  width: 100%;
+  height: 20%;
+  background-color: #000d82;
+  border: none;
+}
+
+.contener {
+  width: 100%;
+  height: 800px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.contener .RetrouverMotDePasse {
+  width: 50%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* align-items: center; */
+}
+.contener .RetrouverMotDePasse h2 {
+  font-size: 35px;
+}
+.contener .RetrouverMotDePasse .cadreEmail {
+  width: 100%;
+  height: 60%;
+  background-color: #000d82;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contener .RetrouverMotDePasse .cadreEmail .cadreEmail0 {
+  width: 90%;
+  height: 50%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contener .RetrouverMotDePasse .cadreEmail .cadreEmail0 .titre {
+  width: 94%;
+  height: 30%;
+  font-size: 33px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+.cadreEmail .cadreEmail0 .titre h6 {
+  font-weight: 100px;
+}
+
+.contener .RetrouverMotDePasse .cadreEmail .form {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.contener .RetrouverMotDePasse .cadreEmail .form form {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.contener .RetrouverMotDePasse .cadreEmail .form input {
+  height: 75%;
+  padding: 10px;
+  border: 2px solid #000d82;
+  border-radius: 10px;
+  color: #636363;
+  font-size: 20px;
+  border: none;
+}
+.contener .RetrouverMotDePasse .cadreEmail .form a {
+  width: 25%;
+  height: 100%;
+  text-decoration: none;
+}
+.contener .RetrouverMotDePasse .cadreEmail .form button {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #000d82;
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+  text-align: center;
+}
+.contener .RetrouverMotDePasse a {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: end;
+  /* text-decoration: none; */
+}
+

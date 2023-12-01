@@ -39,7 +39,17 @@ def ListeService():
 def AjoutService():
     return render_template("./inscription/inscriptionservice0.html ")
 
+@app.route('/pwdcode')
+def pwdcode():
+    return render_template("./connexion/pwdcode.html")
 
+@app.route('/pwdreset')
+def pwdreset():
+    return render_template("./connexion/pwdreset.html")
+
+@app.route('/pwdoublie')
+def pwdoublie():
+    return render_template("./connexion/pwdoublie.html")
 
 #................Fin brayane route (Inscription)#
 
