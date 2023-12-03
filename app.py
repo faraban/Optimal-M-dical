@@ -4,9 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
 
-@app.route('/')
-def Connexion():
-    return render_template("./connexion/connexion.html")
+
+
+#  utilisateurs 
 
 @app.route('/monhopital')
 def monhopital():
@@ -38,6 +38,14 @@ def ListeService():
 @app.route('/AjoutService')
 def AjoutService():
     return render_template("./inscription/inscriptionservice0.html ")
+
+
+#     connexion 
+
+@app.route('/')
+def Connexion():
+    return render_template("./connexion/connexion.html")
+
 
 @app.route('/pwdcode')
 def pwdcode():

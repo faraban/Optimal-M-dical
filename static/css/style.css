@@ -5,11 +5,117 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
+a{
+    text-align: center;
+    text-decoration: none;
 }
 
 
+
+/* css de la nav bar */
+
+nav {
+    height: 120px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+   }
+
+nav .nav{
+    height: 90px;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+}
+
+nav .trait_bleu{
+    height: 30px;
+    width: 100%;
+    background-color: #000D82;
+ }
+
+
+nav .nav .search {
+    padding-top: 30px;
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+nav .nav .search input[type=text] {
+    border: solid;
+    background: #f1f1f1;
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+nav .nav .search button {
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+nav .nav .search button img {
+    width: 30px;
+    height: 40px;
+}
+
+nav .nav .user {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .nav .user img {
+    width: 40px;
+    height: 40px;
+}
+
+nav .nav .img-case {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+nav .nav .img-case img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn {
+    background: #f05462;
+    color: white;
+    text-align: center;
+}
+
+.btn:hover {
+    color: #f05462;
+    background: white;
+    padding: 3px 8px;
+    border: 2px solid #f05462;
+}
+
+ /* div_logo et logo  */
+
+nav .div_logo{
+    padding-left: 100px;
+    width: 100%;
+    height: 90px;
+ }
+
+.div_logo img {
+    height: 85px;
+    width: 180px;
+  }
+
+
+  
  /* ..................................Header Connnexion........................................................... */
  .header{
      height: 150px;
@@ -24,11 +130,10 @@ body {
      height: 60%;
      width: 200px;
    }
- 
- 
+
  /* ..................................................Main Connexion.......................................... */
- 
- .mainConnexion{
+
+.mainConnexion{
      height: 440px;
      width: 100%;
      display: flex;
@@ -65,7 +170,7 @@ body {
      border : 3px solid #000D82;
  }
  
- .btn {
+ .colocations  .btn {
      margin-top: 10px;
      height: 30px;
      width: 460px;
@@ -96,40 +201,135 @@ body {
 .colocations hr{
     border : 1px solid #CCC;
 }
- 
- /* ..................................................Inscriptiooninfo.......................................... */
- 
-  /* .............Header inscription ....... */
- 
-  nav {
-     height: 150px;
-     width: 100%;
-     display: flex;
-     flex-direction: column;
-    }
 
-  nav .logo_inscr{
-     margin-left: 80px;
-     padding: 10px;
-     width: 150px;
-     height: 80px;
-  }
- 
-  nav .trait_bleu{
-     height: 25%;
-     width: 100%;
-     background-color: #000D82;
-  }
- 
- 
-   /* ............main inscriptioninfos ....... */
 
-.mainone{
-    height: 75px;
+/* mot de passe oublié */
+
+main {
+    padding-top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+} 
+
+main .contener_form{
+    width: 40%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+main .form{
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    color: #ffffff;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    background-color:#000D82;
+}
+
+main .form input {
+    margin-top: 10px;
+    width: 400px;
+    height: 30px;
+    padding: 20%px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: none;
+  }
+
+main .form1{
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    background-color:#000D82;
+}
+
+main .form1 input {
+    margin-top: 10px;
+    width: 400px;
+    height: 30px;
+    padding: 20%px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: none;
+  }
+
+main .contener_form h2,p{
+    color: #000D82;
+    margin-bottom: 10px;
+}
+
+main .form a, .form1 a {
+    width: 150px;
+    height: 30px;
+    margin-top: 28px;
+    margin-right: 10px;
+    font-size: 25px;
+    color: #ffffff;
+    border-radius: 5px;
+    background-color: #1D5C00;
+}
+
+ 
+/* trait de progression inscription */
+
+.mainone ul {
+    padding-top: 30px;
+    height: 70px;
     width: 100%;
     display: flex;
     justify-content: center;
 }
+
+.mainone ul .trait1{
+    border-color: #1D5C00;
+    border-style: dotted;
+    border-width: 2px;
+    margin-top: 13px;
+    height: 5px;
+    width: 100px;
+}
+
+.mainone ul .trait2{
+    background-color: #1D5C00;
+    margin-top: 13px;
+    height: 5px;
+    width: 100px;
+}
+
+#pI{
+    height: 30px;
+    width: 40px;
+    border-radius: 50% ;
+    color: white;
+    background-color: #1D5C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pI2{
+    height: 30px;
+    width: 40px;
+    border-radius: 50%;
+    border-color: green;
+    border-style: dotted;
+    color: #1D5C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+ /* ............main inscriptioninfos ....... */
+
 
 .mainone div{
     height: 100%;
@@ -156,33 +356,6 @@ body {
      display: flex;
      flex-direction: column;
  }
-
-
- 
-#pI{
-    height: 30px;
-    width: 40px;
-    border-radius: 50% ;
-    color: white;
-    background-color: #1D5C00;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#pI2{
-    height: 30px;
-    width: 40px;
-    border-radius: 50%;
-    border-radius: 50%;
-    border-color: green;
-    border-style: dotted;
-    color: #1D5C00;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 
  .form-groupInscri{
      display: flex; 
@@ -269,9 +442,7 @@ body {
 }
 
 
-
-
-   /* .....................main inscriptionacces .......................... */
+/* .....................main inscriptionacces .......................... */
 
 
 .mainSecondSer1{
@@ -329,106 +500,17 @@ tr{
 }
 
 
+
+/*  MON HôPITAL */
+
+
 /* n                                 dg d                              dd                      ddd        */
 
-nav .nav {
-    position: fixed;
-    width: 100%;
-    height: 10vh;
-    background: rgb(15, 121, 38);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
 
-
-nav .nav .search {
-    flex: 3;
-    display: flex;
-    justify-content: center;
-}
-
-nav .nav .search input[type=text] {
-    border: none;
-    background: #f1f1f1;
-    padding: 10px;
-    width: 50%;
-}
-
-nav .nav .search button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-nav .nav .search button img {
-    width: 30px;
-    height: 30px;
-}
-
-nav .nav .user {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav .nav .user img {
-    width: 40px;
-    height: 40px;
-}
-
-nav .nav .user .img-case {
-    position: relative;
-    width: 50px;
-    height: 50px;
-}
-
-nav .nav .user .img-case img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+/* 
 
 
 
-a {
-    text-decoration: none;
-}
-
-li {
-    list-style: none;
-}
-
-h1,
-h2 {
-    color: #444;
-}
-
-h3 {
-    color: #999;
-}
-
-.btn {
-    background: #f05462;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-}
-
-.btn:hover {
-    color: #f05462;
-    background: white;
-    padding: 3px 8px;
-    border: 2px solid #f05462;
-}
 
 .title {
     display: flex;
@@ -580,99 +662,5 @@ nav .traitbleu {
   height: 20%;
   background-color: #000d82;
   border: none;
-}
-
-.contener {
-  width: 100%;
-  height: 800px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.contener .RetrouverMotDePasse {
-  width: 50%;
-  height: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  /* align-items: center; */
-}
-.contener .RetrouverMotDePasse h2 {
-  font-size: 35px;
-}
-.contener .RetrouverMotDePasse .cadreEmail {
-  width: 100%;
-  height: 60%;
-  background-color: #000d82;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.contener .RetrouverMotDePasse .cadreEmail .cadreEmail0 {
-  width: 90%;
-  height: 50%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.contener .RetrouverMotDePasse .cadreEmail .cadreEmail0 .titre {
-  width: 94%;
-  height: 30%;
-  font-size: 33px;
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-}
-.cadreEmail .cadreEmail0 .titre h6 {
-  font-weight: 100px;
-}
-
-.contener .RetrouverMotDePasse .cadreEmail .form {
-  width: 100%;
-  height: 70%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-.contener .RetrouverMotDePasse .cadreEmail .form form {
-  width: 65%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.contener .RetrouverMotDePasse .cadreEmail .form input {
-  height: 75%;
-  padding: 10px;
-  border: 2px solid #000d82;
-  border-radius: 10px;
-  color: #636363;
-  font-size: 20px;
-  border: none;
-}
-.contener .RetrouverMotDePasse .cadreEmail .form a {
-  width: 25%;
-  height: 100%;
-  text-decoration: none;
-}
-.contener .RetrouverMotDePasse .cadreEmail .form button {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  background-color: #ffffff;
-  color: #000d82;
-  font-size: 25px;
-  font-weight: bold;
-  border: none;
-  text-align: center;
-}
-.contener .RetrouverMotDePasse a {
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: end;
-  /* text-decoration: none; */
-}
+} */
 

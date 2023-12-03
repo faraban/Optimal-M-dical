@@ -1,4 +1,25 @@
-{% extends './inscription/base.html' %} 
+{% extends '/base.html' %} 
 
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
 
-{%block content %}{%endblock%}
+{%block content %}
+<main>
+    <div class='contener_form'>
+        <h2>
+          Veillez entrer un nouveau mot de passe
+        </h2>
+        <div class="form1">
+            <form >
+            <label for="password">Nouveau mot de passe</label>
+            <input type="password" name="password" id="CodeVerification" placeholder="0000" />
+            <br/>
+            <label for="password">Confirmer le nouveau mot de passe</label>
+            <input type="password" name="password" id="CodeVerification" placeholder="0000" />
+            </form>
+            <a href="#">Valider</a>
+        </div>
+    </div>
+  </main>
+{%endblock%}

@@ -1,31 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static',filename='./css/style.css')}}">
-    <title>Admin Panel</title>
-</head>
- 
-<body> 
-    {%block content %}{%endblock%}
-    <nav>
-        <div class="nav">
-            <div class="search">
-                <input type="text" placeholder="Search..">
-                <button type="submit"><img src="{{ url_for('static',filename='./img/search.png')}}" alt=""></button>
-            </div>
-            <div class="user">
-                <a href="#" class="btn">Add New</a>
-                <img src="{{ url_for('static',filename='./img/notifications.png')}}" alt="">
-                <div class="img-case">
-                    <img src="{{ url_for('static',filename='./img/user.pn')}}" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="trait_bleu"></div>
-    <nav>
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/navelement.html' %} 
+{%endblock%}
+
+{%block content %}
     <div class="side-menu">
         <div class="brand-name">
             <h1>Brand</h1>
@@ -169,5 +148,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{%endblock%}

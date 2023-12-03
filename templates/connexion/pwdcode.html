@@ -1,38 +1,26 @@
+{% extends '/base.html' %} 
 
-{% extends './inscription/base.html' %} 
-
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
 
 {%block content %}
 <main>
-      <section class="contener">
-        <div class="RetrouverMotDePasse">
-          <h2>Code de vérification</h2>
-          <p>
-            Nous avons envoyé un code de vérification par mail, entrez le
-            <br />
-            code à quatre (4) chiffres s'il vous plaît
-          </p>
-          <div class="cadreEmail">
-            <div class="cadreEmail0">
-              <div class="titre">
-                <h6>Code à quatre (4) chiffres</h6>
-              </div>
-              <div class="form">
-                <form action="" method="get">
-                  <label for="password"></label>
-                  <input
-                    type="password"
-                    name="password"
-                    id="CodeVerification"
-                    placeholder="0000"
-                  />
-                </form>
-                <a href="#"><button class="connexion">Suivant</button></a>
-              </div>
-            </div>
-          </div>
-          <a href="#"><p>Renvoyer le mail</p></a>
-        </div>
-      </section>
-    </main>
-    {%endblock%}
+  <div class='contener_form'>
+    <div>
+      <h2>Code de vérification</h2>
+      <p>
+        Nous avons envoyé un code de vérification par mail, entrez le code à quatre (4) chiffres s'il vous plaît
+      </p>
+    </div>
+    <div class="form">
+      <form action="" method="get">
+        <label for="password">Code à quatre (4) chiffres</label>
+        <input type="password" name="password" id="CodeVerification" placeholder="0000" />
+      </form>
+      <a href='/pwdreset'>Suivant</a>
+    </div>
+    <a href="#"><p>Renvoyer le mail</p></a>
+  </div>
+</main>
+{%endblock%}
