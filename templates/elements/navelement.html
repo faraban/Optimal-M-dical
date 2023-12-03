@@ -1,13 +1,15 @@
-<div class="img-case">
-    <img src="{{ url_for('static',filename='./img/user.pn')}}" alt="">
-</div>
-<div class="search">
-    <input type="text" placeholder="Search..">
-    <button type="submit"><img src="{{ url_for('static',filename='./img/search.png')}}" alt=""></button>
-</div>
-<div class="user">
-    <a href="#" class="btn">Mon Hôpital</a>
-    <a href="#" class="btn">Transfert</a>
-    <a href="#" class="btn"><img src="{{ url_for('static',filename='./img/notifications.png')}}" alt=""></a>
-    <a href="#" class="btn">Profil</a>
+<div class='nav_bar'>
+   <div class="img-case">
+        <img src="{{ url_for('static',filename='./img/defaut_image.jpg')}}" alt="">
+    </div>
+    <div class="search">
+        <input type="text" placeholder="Search..">
+        <button type="submit"><img src="{{ url_for('static',filename='./img/search.png')}}" alt=""></button>
+    </div>
+    <div class="user">
+        <a href="#" >Mon Hôpital</a>
+        <a href="#" >Transfert</a>
+        <img src="{{ url_for('static',filename='./img/notifications.png')}}" alt="">
+        <a href="#" >Profil</a>
+    </div>
 </div>
