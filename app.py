@@ -68,7 +68,7 @@ def connexion():
         cursor.execute('''
         SELECT * FROM Users 
         INNER JOIN Informations ON Informations.IdInformation = Users.IdInformation
-        WHERE NomUser = ? OR Email = ?
+        WHERE NomUtilisateur = ? OR Email = ?
         ''', (user, user))
         users = cursor.fetchone()
         if users:
