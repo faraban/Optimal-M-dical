@@ -1,7 +1,10 @@
 from flask import Flask, url_for, render_template, request, flash, redirect, abort, session
 from werkzeug.security import generate_password_hash, check_password_hash
+import pyodbc
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'clés_flash'
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -48,8 +51,39 @@ def ajoutservice():
 # ................Fin brayane route (Inscription)#
 #     connexion 
 
-@app.route('/')
+@app.route("/", methods=["GET", "POST"])
+def accueil():
+    if 'loggedin' in session:
+        return render_template("/connexion/accueil.html", username=session['username'], title="accueil")
+    return redirect(url_for('connexion'))
+
+
+@app.route("/connexion", methods=["GET", "POST"])
 def connexion():
+    if request.method == 'POST':
+        user = request.form["identifiant"]
+        password = request.form["password"]
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute('''
+        SELECT * FROM Users 
+        INNER JOIN Informations ON Informations.IdInformation = Users.IdInformation
+        WHERE NomUser = ? OR Email = ?
+        ''', (user, user))
+        users = cursor.fetchone()
+        if users:
+            user_pswd = users[2]
+            if check_password_hash(user_pswd, password):
+                session['loggedin'] = True
+                session['Id'] = users[0]
+                session['username'] = users[1]
+                return redirect(url_for('accueil'))
+            else:
+                flash("Mot de passe incorrect !", 'info')
+                return redirect(url_for('connexion'))
+        else:
+            flash("Identifiant incorrect !", 'info')
+            return redirect(url_for('connexion'))
     return render_template("./connexion/connexion.html")
 
 
