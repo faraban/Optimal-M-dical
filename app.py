@@ -12,8 +12,8 @@ DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\SQLEXPRESS;Database=OptimalMed
 
 @app.route('/monhopital')
 def monhopital():
-    
-    return render_template("./utilisateur/utilisateurhôpital.html")
+    value=['stable','Rémission','Aggravation','Critique','Guérison','Chronique','Rémission','partielle','Rééducation']
+    return render_template("./utilisateur/utilisateurhôpital.html",value=value)
 
 
 @app.route('/monprofil')
@@ -23,7 +23,8 @@ def monprofil():
 
 @app.route('/transfert')
 def transfert():
-    return render_template("./utilisateur/utilisateurtransfert.html")
+    value=['stable','Rémission','Aggravation','Critique','Guérison','Chronique','Rémission','partielle','Rééducation']
+    return render_template("./utilisateur/utilisateurtransfert.html",value=value)
 
 
 # ................brayane route (Inscription)#

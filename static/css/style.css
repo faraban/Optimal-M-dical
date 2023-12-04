@@ -605,26 +605,22 @@ td {
     padding: 20px 15px;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
 } 
 
 .container .cards .card {
-    width: 250px;
-    height: 150px;
+    width: 20%;
+    height: 60px;
     background: white;
     margin: 20px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .container .content-2 {
-    min-height: 60vh;
+    min-height: 80%;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    flex-wrap: wrap;
 }
 
 .container  .content-2 .recent-payments {
@@ -638,9 +634,8 @@ td {
 }
 
 .container .content-2 .new-students {
-    flex: 2;
     background: white;
-    min-height: 50vh;
+    min-height: 20%;
     margin: 0 25px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
@@ -650,4 +645,4 @@ td {
 .container .content-2 .new-students table td:nth-child(1) img {
     height: 40px;
     width: 40px;
-} 
+ }

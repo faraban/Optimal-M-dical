@@ -12,37 +12,42 @@
     <div class="container">
         <div class="cards">
             <div class="card">
-                {% for row in value %}
-                
-                {% endfor %}
-                form_html = '''
-    <form method="POST">
-        <select name="selected_value">
-        form_html += f'<option value="{value}">{value}</option>'
-    
-    form_html += '''
-        </select>
-        <input type="submit" value="Sélectionner">
-    </form>
-    '''
+                <form method="POST">
+                    <select name="selected_value">
+                        {% for cont in value  %}
+                             <option >{{ cont }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
             <div class="card">
-                <div class="box">
-                    <h1>53</h1>
-                    <h3>Teachers</h3>
-                </div>
+                <form method="POST">
+                    <select name="selected_value">
+                        {% for cont in value  %}
+                             <option >{{ cont }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
             <div class="card">
-                <div class="box">
-                    <h1>5</h1>
                     <h3>Schools</h3>
-                </div>
+                    <form method="POST">
+                        <select name="selected_value">
+                            {% for cont in value  %}
+                                 <option >{{ cont }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
             </div>
             <div class="card">
-                <div class="box">
-                    <h1>350000</h1>
                     <h3>Income</h3>
-                </div>
+                    <form method="POST">
+                        <select name="selected_value">
+                            {% for cont in value  %}
+                                 <option >{{ cont }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
             </div>
         </div>
         <div class="content-2">
