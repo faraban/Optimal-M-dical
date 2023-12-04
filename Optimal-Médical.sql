@@ -1,4 +1,4 @@
-CREATE DATABASE OptimalMedical
+CREATE DATABASE OptimalMedical;
 
 CREATE TABLE Adresses(
 IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -68,4 +68,3 @@ FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation),
 IdEtatPatient INT,
 FOREIGN KEY (IdEtatPatient) REFERENCES EtatPatient(IdEtatPatient)
 );
-

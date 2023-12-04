@@ -12,21 +12,24 @@
     <div class="container">
         <div class="cards">
             <div class="card">
-                <div class="box">
-                    <h1>2194</h1>
-                    <h3>Students</h3>
-                </div>
-                <div class="icon-case">
-                    <img src="{{ url_for('static',filename='./img/students.png')}}" alt="">
-                </div>
+                {% for row in value %}
+                
+                {% endfor %}
+                form_html = '''
+    <form method="POST">
+        <select name="selected_value">
+        form_html += f'<option value="{value}">{value}</option>'
+    
+    form_html += '''
+        </select>
+        <input type="submit" value="Sélectionner">
+    </form>
+    '''
             </div>
             <div class="card">
                 <div class="box">
                     <h1>53</h1>
                     <h3>Teachers</h3>
-                </div>
-                <div class="icon-case">
-                    <img src="{{ url_for('static',filename='./img/teachers.png')}}" alt="">
                 </div>
             </div>
             <div class="card">
@@ -34,105 +37,79 @@
                     <h1>5</h1>
                     <h3>Schools</h3>
                 </div>
-                <div class="icon-case">
-                    <img src="{{ url_for('static',filename='./img/schools.png')}}" alt="">
-                </div>
             </div>
             <div class="card">
                 <div class="box">
                     <h1>350000</h1>
                     <h3>Income</h3>
                 </div>
-                <div class="icon-case">
-                    <img src="{{ url_for('static',filename='./img/income.png')}}" alt="">
-                </div>
             </div>
         </div>
         <div class="content-2">
             <div class="recent-payments">
                 <div class="title">
-                    <h2>Recent Payments</h2>
-                    <a href="#" class="btn">View All</a>
+                    <h2>Mettre à jour les disponibilités</h2>
                 </div>
                 <table>
                     <tr>
-                        <th>Name</th>
-                        <th>School</th>
-                        <th>Amount</th>
-                        <th>Option</th>
+                        <th>Services</th>
+                        <th>Nombres de place</th>
+                        <th>places occuppé</th>
+                        <th></th>
+                        <th>Fils d'attente</th>
+                        <th></th>
                     </tr>
+                    {% for row in data %}
                     <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">View</a></td>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>
+                            <a class="edit" href="{{ url_for('modifier', item_id=row[0],type=cat ) }}">Modifier</a>
+                            <a class="delete" href="{{ url_for('supprimer', item_id=row[0],type=cat ) }}">Supprimer</a>
+                        </td>
+                        <td>{{ row[2] }}</td>
+                        <td>
+                            <a class="edit" href="{{ url_for('modifier', item_id=row[0],type=cat ) }}">Modifier</a>
+                            <a class="delete" href="{{ url_for('supprimer', item_id=row[0],type=cat ) }}">Supprimer</a>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">View</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">View</a></td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
             <div class="new-students">
-                <div class="title">
-                    <h2>New Students</h2>
-                    <a href="#" class="btn">View All</a>
-                </div>
-                <table>
-                    <tr>
-                        <th>Profile</th>
-                        <th>Name</th>
-                        <th>option</th>
-                    </tr>
-                    <tr>
-                        <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
-                        <td>John Steve Doe</td>
-                        <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
-                    </tr>
-                    <tr>
-                        <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
-                        <td>John Steve Doe</td>
-                        <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
-                    </tr>
-                    <tr>
-                        <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
-                        <td>John Steve Doe</td>
-                        <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
-                    </tr>
-                    <tr>
-                        <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
-                        <td>John Steve Doe</td>
-                        <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
-                    </tr>
+                    <div class="title">
+                        <h2>New Students</h2>
+                        <a href="#" class="btn">View All</a>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Profile</th>
+                            <th>Name</th>
+                            <th>option</th>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
+                            <td>John Steve Doe</td>
+                            <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
+                            <td>John Steve Doe</td>
+                            <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
+                            <td>John Steve Doe</td>
+                            <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ url_for('static',filename='./img/user.png')}}" alt=""></td>
+                            <td>John Steve Doe</td>
+                            <td><img src="{{ url_for('static',filename='./img/info.png')}}" alt=""></td>
+                        </tr>
 
-                </table>
-            </div>
+                    </table>
+                </div>
         </div>
   </div>
 {%endblock%}

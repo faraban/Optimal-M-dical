@@ -4,7 +4,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-E924B14\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -12,6 +12,7 @@ DSN = 'Driver={SQL Server};Server=DESKTOP-E924B14\\SQLEXPRESS;Database=OptimalMe
 
 @app.route('/monhopital')
 def monhopital():
+    
     return render_template("./utilisateur/utilisateurhôpital.html")
 
 
