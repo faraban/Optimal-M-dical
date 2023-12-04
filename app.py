@@ -4,9 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
 
-@app.route('/')
-def Connexion():
-    return render_template("./connexion/connexion.html")
+
+
+#  utilisateurs 
 
 
 @app.route('/monhopital')
@@ -47,7 +47,30 @@ def AjoutService():
     return render_template("./inscription/inscriptionservice0.html ")
 
 
+<<<<<<< HEAD
 # ................Fin brayane route (Inscription)#
+=======
+#     connexion 
+
+@app.route('/')
+def Connexion():
+    return render_template("./connexion/connexion.html")
+
+
+@app.route('/pwdcode')
+def pwdcode():
+    return render_template("./connexion/pwdcode.html")
+
+@app.route('/pwdreset')
+def pwdreset():
+    return render_template("./connexion/pwdreset.html")
+
+@app.route('/pwdoublie')
+def pwdoublie():
+    return render_template("./connexion/pwdoublie.html")
+
+#................Fin brayane route (Inscription)#
+>>>>>>> 6ffb3c69d4e9d0da3abb3d9800ab5675e0982269
 
 
 if __name__ == "__main__":

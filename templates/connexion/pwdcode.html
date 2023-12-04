@@ -1,0 +1,24 @@
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
+
+{%block content %}
+  <div class='contener_form'>
+    <div>
+      <h2>Code de vérification</h2>
+      <p>
+        Nous avons envoyé un code de vérification par mail, entrez le code à quatre (4) chiffres s'il vous plaît
+      </p>
+    </div>
+    <div class="form">
+      <form action="" method="get">
+        <label for="password">Code à quatre (4) chiffres</label>
+        <input type="password" name="password" id="CodeVerification" placeholder="0000" />
+      </form>
+      <a href='/pwdreset'>Suivant</a>
+    </div>
+    <a href="#"><p>Renvoyer le mail</p></a>
+  </div>
+{%endblock%}

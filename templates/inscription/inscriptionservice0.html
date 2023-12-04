@@ -1,16 +1,10 @@
-{% extends './inscription/base.html' %} 
+{% extends '/base.html' %} 
 
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
 
 {%block content %}
-<div class="mainone">
-    <div>
-        <div id="pI"> <p>1</p> </div>
-        <hr>
-        <div id="pI"> <p>2</p> </div>
-        <hr>
-        <div id="pI2"> <p>3</p> </div>
-    </div>
-</div>
 <div class="mainInscription">
     <div class="mainSecond">
         <form>

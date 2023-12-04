@@ -5,11 +5,170 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
+a{
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 
+
+/* css de la nav bar */
+
+nav {
+    height: 120px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+   }
+
+nav .nav{
+    height: 90px;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+}
+
+nav .trait_bleu{
+    height: 30px;
+    width: 100%;
+    background-color: #000D82;
+ }
+
+ nav .nav .nav_bar{
+    padding-top: 30px;
+    display: flex;
+    height: 90px;
+    width: 100%;
+    background-color: #ffffff;
+    justify-content: center;
+ }
+
+
+nav .nav .nav_bar .search {
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+}
+
+nav .nav .nav_bar .search input[type=text] {
+    border: solid;
+    background: #f1f1f1;
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+nav .nav .nav_bar .search button {
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+nav .nav .nav_bar .search button img {
+    width: 30px;
+    height: 40px;
+}
+
+nav .nav .nav_bar .user {
+    display: flex;
+    width: 40%;
+}
+
+nav .nav .nav_bar .user img {
+    width: 40px;
+    height: 40px;
+}
+
+nav .nav .nav_bar .img-case {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+nav .nav .nav_bar .img-case img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.nav_bar .user a {
+    background:#1D5C00;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 180px;
+    border-radius: 5px;
+    margin-left: 5%;
+    color: white;
+    text-align: center;
+}
+
+.nav_bar .user img {
+    margin-left: 5%;
+    color: white;
+    text-align: center;
+}
+
+.nav_bar .user a:hover {
+    color:#000D82;
+    background: white;
+    padding: 3px 8px;
+    border: 2px solid #1D5C00;
+}
+
+
+/*  bar de filtrage  */
+
+.side-menu {
+    background: #000D82;
+    width: 20%;
+    min-height: 100vh;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu h1 {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.side-menu li {
+    font-size: 24px;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+}
+
+.side-menu li:hover {
+    background: white;
+    color:#1D5C00;
+}
+
+
+
+
+ /* div_logo et logo  */
+
+nav .div_logo{
+    padding-left: 100px;
+    width: 100%;
+    height: 90px;
+ }
+
+.div_logo img {
+    height: 85px;
+    width: 180px;
+  }
+
+
+  
  /* ..................................Header Connnexion........................................................... */
  .header{
      height: 150px;
@@ -24,11 +183,10 @@ body {
      height: 60%;
      width: 200px;
    }
- 
- 
+
  /* ..................................................Main Connexion.......................................... */
- 
- .mainConnexion{
+
+.mainConnexion{
      height: 440px;
      width: 100%;
      display: flex;
@@ -65,7 +223,7 @@ body {
      border : 3px solid #000D82;
  }
  
- .btn {
+ .colocations  .btn {
      margin-top: 10px;
      height: 30px;
      width: 460px;
@@ -96,40 +254,134 @@ body {
 .colocations hr{
     border : 1px solid #CCC;
 }
- 
- /* ..................................................Inscriptiooninfo.......................................... */
- 
-  /* .............Header inscription ....... */
- 
-  nav {
-     height: 150px;
-     width: 100%;
-     display: flex;
-     flex-direction: column;
-    }
 
-  nav .logo_inscr{
-     margin-left: 80px;
-     padding: 10px;
-     width: 150px;
-     height: 80px;
-  }
- 
-  nav .trait_bleu{
-     height: 25%;
-     width: 100%;
-     background-color: #000D82;
-  }
- 
- 
-   /* ............main inscriptioninfos ....... */
 
-.mainone{
-    height: 75px;
+/* mot de passe oublié */
+
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+} 
+
+main .contener_form{
+    width: 40%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+main .form{
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    color: #ffffff;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    background-color:#000D82;
+}
+
+main .form input {
+    margin-top: 10px;
+    width: 400px;
+    height: 30px;
+    padding: 20%px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: none;
+  }
+
+main .form1{
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    color: #FFF;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    background-color:#000D82;
+}
+
+main .form1 input {
+    margin-top: 10px;
+    width: 400px;
+    height: 30px;
+    padding: 20%px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: none;
+  }
+
+main .contener_form h2,p{
+    color: #000D82;
+    margin-bottom: 10px;
+}
+
+main .form a, .form1 a {
+    width: 150px;
+    height: 30px;
+    margin-top: 28px;
+    margin-right: 10px;
+    font-size: 25px;
+    color: #ffffff;
+    border-radius: 5px;
+    background-color: #1D5C00;
+}
+
+ 
+/* trait de progression inscription */
+
+.mainone ul {
+    padding-top: 30px;
+    height: 70px;
     width: 100%;
     display: flex;
     justify-content: center;
 }
+
+.mainone ul .trait1{
+    border-color: #1D5C00;
+    border-style: dotted;
+    border-width: 2px;
+    margin-top: 13px;
+    height: 5px;
+    width: 100px;
+}
+
+.mainone ul .trait2{
+    background-color: #1D5C00;
+    margin-top: 13px;
+    height: 5px;
+    width: 100px;
+}
+
+#pI{
+    height: 30px;
+    width: 40px;
+    border-radius: 50% ;
+    color: white;
+    background-color: #1D5C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pI2{
+    height: 30px;
+    width: 40px;
+    border-radius: 50%;
+    border-color: green;
+    border-style: dotted;
+    color: #1D5C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+ /* ............main inscriptioninfos ....... */
+
 
 .mainone div{
     height: 100%;
@@ -156,33 +408,6 @@ body {
      display: flex;
      flex-direction: column;
  }
-
-
- 
-#pI{
-    height: 30px;
-    width: 40px;
-    border-radius: 50% ;
-    color: white;
-    background-color: #1D5C00;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#pI2{
-    height: 30px;
-    width: 40px;
-    border-radius: 50%;
-    border-radius: 50%;
-    border-color: green;
-    border-style: dotted;
-    color: #1D5C00;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 
  .form-groupInscri{
      display: flex; 
@@ -269,9 +494,7 @@ body {
 }
 
 
-
-
-   /* .....................main inscriptionacces .......................... */
+/* .....................main inscriptionacces .......................... */
 
 
 .mainSecondSer1{
@@ -329,108 +552,10 @@ tr{
 }
 
 
-/* n                                 dg d                              dd                      ddd        */
 
-nav .nav {
-    position: fixed;
-    width: 100%;
-    height: 10vh;
-    background: rgb(15, 121, 38);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
+/*  MON HôPITAL */
 
-
-nav .nav .search {
-    flex: 3;
-    display: flex;
-    justify-content: center;
-}
-
-nav .nav .search input[type=text] {
-    border: none;
-    background: #f1f1f1;
-    padding: 10px;
-    width: 50%;
-}
-
-nav .nav .search button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-nav .nav .search button img {
-    width: 30px;
-    height: 30px;
-}
-
-nav .nav .user {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav .nav .user img {
-    width: 40px;
-    height: 40px;
-}
-
-nav .nav .user .img-case {
-    position: relative;
-    width: 50px;
-    height: 50px;
-}
-
-nav .nav .user .img-case img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-
-
-a {
-    text-decoration: none;
-}
-
-li {
-    list-style: none;
-}
-
-h1,
-h2 {
-    color: #444;
-}
-
-h3 {
-    color: #999;
-}
-
-.btn {
-    background: #f05462;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-}
-
-.btn:hover {
-    color: #f05462;
-    background: white;
-    padding: 3px 8px;
-    border: 2px solid #f05462;
-}
-
-.title {
+ .title {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -448,62 +573,21 @@ td {
     padding: 8px;
 }
 
-.side-menu {
-    position: fixed;
-    background: #f05462;
-    width: 20vw;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
 
-.side-menu .brand-name {
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.side-menu li {
-    font-size: 24px;
-    padding: 10px 40px;
-    color: white;
-    display: flex;
-    align-items: center;
-}
-
-.side-menu li:hover {
-    background: white;
-    color: #f05462;
-}
-
-.container {
-    position: absolute;
-    right: 0;
-    width: 80vw;
+.main .container {
+    width: 90%;
     height: 100vh;
-    background: #f1f1f1;
 }
 
-
-
-
-.container .content {
-    position: relative;
-    margin-top: 10vh;
-    min-height: 90vh;
-    background: #f1f1f1;
-}
-
-.container .content .cards {
+.container  .cards {
+    width: 100%;
     padding: 20px 15px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-}
+} 
 
-.container .content .cards .card {
+.container .cards .card {
     width: 250px;
     height: 150px;
     background: white;
@@ -514,7 +598,7 @@ td {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.container .content .content-2 {
+.container .content-2 {
     min-height: 60vh;
     display: flex;
     justify-content: space-around;
@@ -522,7 +606,7 @@ td {
     flex-wrap: wrap;
 }
 
-.container .content .content-2 .recent-payments {
+.container  .content-2 .recent-payments {
     min-height: 50vh;
     flex: 5;
     background: white;
@@ -532,7 +616,7 @@ td {
     flex-direction: column;
 }
 
-.container .content .content-2 .new-students {
+.container .content-2 .new-students {
     flex: 2;
     background: white;
     min-height: 50vh;
@@ -542,8 +626,7 @@ td {
     flex-direction: column;
 }
 
-.container .content .content-2 .new-students table td:nth-child(1) img {
+.container .content-2 .new-students table td:nth-child(1) img {
     height: 40px;
     width: 40px;
-}
-
+} 

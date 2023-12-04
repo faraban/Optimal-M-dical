@@ -1,15 +1,18 @@
-{% extends './inscription/base.html' %} 
+{% extends '/base.html' %} 
 
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
 
 {%block content %}
 <div class="mainone">
-    <div>
-        <div id="pI"> <p>1</p> </div>
-        <hr>
-        <div id="pI2"> <p>2</p> </div>
-        <hr>
-        <div id="pI2"> <p>3</p> </div>
-    </div>
+    <ul>
+        <li id="pI"> <p>1</p> </li> 
+        <div class='trait1'></div>
+        <li id="pI2"> <p>2</p> </li>
+        <div class='trait1'></div>
+        <li id="pI2"> <p>3</p> </li>
+    </ul>
 </div>
 <div class="mainInscription">
     <div class="mainSecond">

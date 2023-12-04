@@ -1,0 +1,17 @@
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
+
+{%block content %} 
+    <div class='contener_form'>
+      <div class="form">
+        <form >
+          <label for="mail">veillez entrer le mail de votre compte</label>
+          <input type="e-mail" name="mail" id="mail" placeholder="Exemple@gmail.com" />
+        </form>
+        <a href="/pwdcode">Suivant</a>
+      </div>
+    </div>
+{%endblock%}
