@@ -5,47 +5,49 @@
 {%endblock%}
 
 {%block content %}
-<div class="mainone">
-    <ul>
-        <li id="pI"> <h3>1</h3> </li> 
-        <div class='trait1'></div>
-        <li id="pI"> <h3>2</h3> </li>
-        <div class='trait1'></div>
-        <li id="pI2"> <h3>3</h3> </li>
-    </ul>
-</div>
-<div class="mainInscription">
-    <div class="mainSecond">
-        <div class="mainSecondSer1">
-            <a href='/AjoutService' class="btninscriAjL">Ajouter un service </a>
-        </div>
-        <div class="mainSecondSer2">
-            <table>
-                <tr>
-                    <th>id</th>
-                    <th>Services</th>
-                    <th>Capacité d’accueil</th>
-                    <th>Actions</th>
-                </tr>
-                {% for row in data %}
+<div class='infos'>
+    <div class="mainone">
+        <ul>
+            <li id="pI"> <h3>1</h3> </li> 
+            <div class='trait1'></div>
+            <li id="pI"> <h3>2</h3> </li>
+            <div class='trait1'></div>
+            <li id="pI2"> <h3>3</h3> </li>
+        </ul>
+    </div>
+    <div class="mainInscription">
+        <div class="mainSecond">
+            <div class="mainSecondSer1">
+                <a href='/AjoutService' class="btninscriAjL">Ajouter un service </a>
+            </div>
+            <div class="mainSecondSer2">
+                <table>
                     <tr>
-                        <td>{{ row[0] }}</td>
-                        <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>
-                            <a class="modif">Modifier</a>
-                            <a class="suppr" >Supprimer</a>
-                        </td>
+                        <th>id</th>
+                        <th>Services</th>
+                        <th>Capacité d’accueil</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}
-            </table>
+                    {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>
+                                <a class="modif">Modifier</a>
+                                <a class="suppr" >Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<div class="footerinscri">
-    <div id="btn3">
-        <a href='/inscriptioninfos' class="btninscri">< Précedant </a>
-        <a href='/inscriptionacces' class="btninscri2">Suivant ></a>
+    <div class="footerinscri">
+        <div id="btn3">
+            <a href='/inscriptioninfos' class="btninscri">< Précedant </a>
+            <a href='/inscriptionacces' class="btninscri2">Suivant ></a>
+        </div>
     </div>
 </div>
 {%endblock%}

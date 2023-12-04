@@ -269,7 +269,6 @@ nav .div_logo{
     width: 100%;
     display: flex;
     justify-content: center;
-    flex-direction: column;
 } 
 
 main .contener_form{
@@ -278,6 +277,7 @@ main .contener_form{
     padding: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 
@@ -391,6 +391,11 @@ main .form a, .form1 a {
 
 
  /* ............main inscriptioninfos ....... */
+
+main .info{
+    display: flex;
+    flex-direction: column;
+}
 
 
 .mainone div{
@@ -525,8 +530,7 @@ main .form a, .form1 a {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: self-start;
-
+    align-items: self-start;>
 }
 
 #entete{
@@ -534,15 +538,14 @@ main .form a, .form1 a {
     height: 10px;   
 }
 
-.btninscriAjL{
+ .btninscriAjL{
     height: 30px;
     width: 135px;
     color: white;
     border-radius: 5px;
     background-color: #000D82;
-    display: flex;
-     justify-content: center;
-     align-items: center;
+    text-align: center;
+    align-items: center;
 }
 
 .tete{

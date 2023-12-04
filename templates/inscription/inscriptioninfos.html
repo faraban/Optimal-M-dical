@@ -5,78 +5,80 @@
 {%endblock%}
 
 {%block content %}
-<div class="mainone">
-    <ul>
-        <li id="pI"> <h3>1</h3> </li> 
-        <div class='trait1'></div>
-        <li id="pI2"> <h3>2</h3> </li>
-        <div class='trait1'></div>
-        <li id="pI2"> <h3>3</h3> </li>
-    </ul>
-</div>
-<div class="mainInscription">
-    <div class="mainSecond">
-        <form>
-            <div class="form-groupLogo">
-                <label for="logo">Télécharger votre logo</label>
-                <input type="file" id="logo" name="logo">
-            </div>
-
-            <div class="form-groupInscri">
-                <label for="username">Nom d’établissement sanitaire :</label>
-                <input type="text" class="form-control2" id="username" placeholder="">
-            </div>
-            <div class="form-groupInscri">
-                <label for="username">Numéro d'immatriculation de l'établissement :</label>
-                <input type="text" class="form-control2" id="username" placeholder="">
-            </div>
-            <div class="form-groupInscriAdresse">
-                <label for="username">Adresse :</label>
-                <div class="Adresse">
-                    <select type="text" class="form-control3" name="region" id="region">
-                        <option value="ile-de-france">Île-de-France</option>
-                        <option value="paris">Paris</option>
-                        <option value="hauts-de-seine">Hauts-de-Seine</option>
-                        <option value="val-de-marne">Val-de-Marne</option>
-                        <option value="seine-saint-denis">Seine-Saint-Denis</option>
-                        <option value="val-d'oise">Val-d'Oise</option>
-                    </select>
-
-                    <select type="text" class="form-control3" name="Département" id="Département">
-                        <option value="01">Ain</option>
-                        <option value="02">Aisne</option>
-                        <option value="03">Allier</option>
-                        <option value="04">Alpes-de-Haute-Provence</option>
-                        <option value="05">Hautes-Alpes</option>
-                        <option value="06">Alpes-Maritimes</option>
-                        <option value="07">Ardèche</option>
-                        <option value="08">Ardennes</option>
-                    </select>
-
-                    <select type="text" class="form-control3" name="Commune" id="Commune">
-                        <option value="paris">Paris</option>
-                        <option value="saint-denis">Saint-Denis</option>
-                        <option value="cergy">Cergy</option>
-                        <option value="montrouge">Montrouge</option>
-                        <option value="villeneuve-la-garenne">Villeneuve-la-Garenne</option>
-                        <option value="villiers-sur-marne">Villiers-sur-Marne</option>
-                    </select>
-
-                    <input type="text" class="form-control3" id="username" placeholder="Localisation">
-                    
-                </div>
-            </div>
-            <div class="form-groupInscri">
-                <label for="username">E-mail :</label>
-                <input type="text" class="form-control2" id="username" placeholder="">
-            </div>
-        </form>
+<div class='infos'>
+    <div class="mainone">
+        <ul>
+            <li id="pI"> <h3>1</h3> </li> 
+            <div class='trait1'></div>
+            <li id="pI2"> <h3>2</h3> </li>
+            <div class='trait1'></div>
+            <li id="pI2"> <h3>3</h3> </li>
+        </ul>
     </div>
-</div>
-<div class="footerinscri">
-    <div id="btn3">
-        <a href='/' class="btninscri">< Précedant </a>
-        <a href='/ListeService' class="btninscri2">Suivant ></a>
+    <div class="mainInscription">
+        <div class="mainSecond">
+            <form>
+                <div class="form-groupLogo">
+                    <label for="logo">Télécharger votre logo</label>
+                    <input type="file" id="logo" name="logo">
+                </div>
+
+                <div class="form-groupInscri">
+                    <label for="username">Nom d’établissement sanitaire :</label>
+                    <input type="text" class="form-control2" id="username" placeholder="">
+                </div>
+                <div class="form-groupInscri">
+                    <label for="username">Numéro d'immatriculation de l'établissement :</label>
+                    <input type="text" class="form-control2" id="username" placeholder="">
+                </div>
+                <div class="form-groupInscriAdresse">
+                    <label for="username">Adresse :</label>
+                    <div class="Adresse">
+                        <select type="text" class="form-control3" name="region" id="region">
+                            <option value="ile-de-france">Île-de-France</option>
+                            <option value="paris">Paris</option>
+                            <option value="hauts-de-seine">Hauts-de-Seine</option>
+                            <option value="val-de-marne">Val-de-Marne</option>
+                            <option value="seine-saint-denis">Seine-Saint-Denis</option>
+                            <option value="val-d'oise">Val-d'Oise</option>
+                        </select>
+
+                        <select type="text" class="form-control3" name="Département" id="Département">
+                            <option value="01">Ain</option>
+                            <option value="02">Aisne</option>
+                            <option value="03">Allier</option>
+                            <option value="04">Alpes-de-Haute-Provence</option>
+                            <option value="05">Hautes-Alpes</option>
+                            <option value="06">Alpes-Maritimes</option>
+                            <option value="07">Ardèche</option>
+                            <option value="08">Ardennes</option>
+                        </select>
+
+                        <select type="text" class="form-control3" name="Commune" id="Commune">
+                            <option value="paris">Paris</option>
+                            <option value="saint-denis">Saint-Denis</option>
+                            <option value="cergy">Cergy</option>
+                            <option value="montrouge">Montrouge</option>
+                            <option value="villeneuve-la-garenne">Villeneuve-la-Garenne</option>
+                            <option value="villiers-sur-marne">Villiers-sur-Marne</option>
+                        </select>
+
+                        <input type="text" class="form-control3" id="username" placeholder="Localisation">
+                        
+                    </div>
+                </div>
+                <div class="form-groupInscri">
+                    <label for="username">E-mail :</label>
+                    <input type="text" class="form-control2" id="username" placeholder="">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footerinscri">
+        <div id="btn3">
+            <a href='/' class="btninscri">< Précedant </a>
+            <a href='/ListeService' class="btninscri2">Suivant ></a>
+        </div>
     </div>
 </div>
 {%endblock%}
