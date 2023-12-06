@@ -6,6 +6,9 @@
 
 {%block content %}
   <div class='contener_form'>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{message}}</div>
+    {% endfor %}
     <div>
       <h2>Code de vérification</h2>
       <p>
@@ -14,11 +17,11 @@
     </div>
     <div class="form">
       <form action="" method="get">
-        <label for="password">Code à quatre (4) chiffres</label>
-        <input type="password" name="password" id="CodeVerification" placeholder="0000" />
+        <label for="code">Code à quatre (4) chiffres</label>
+        <input type="password" name="code" id="CodeVerification" placeholder="0000" />
+        <a href='/pwdreset'>Suivant</a>
       </form>
-      <a href='/pwdreset'>Suivant</a>
+      <a href="#"><p>Renvoyer le mail</p></a>
     </div>
-    <a href="#"><p>Renvoyer le mail</p></a>
   </div>
 {%endblock%}
