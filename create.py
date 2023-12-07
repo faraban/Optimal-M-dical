@@ -11,9 +11,6 @@
 #                     VALUES (?)
 #                 ''', (user))
 #     conn.commit()
-    
-    
-
 
 # liste2=['stable','Rémission','Aggravation','Critique','Guérison','Chronique','Rémission','partielle','Rééducation']
 # for user in liste2:

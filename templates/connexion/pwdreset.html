@@ -13,13 +13,13 @@
            <div class="flash">{{message}}</div>
         {% endfor %}
         <div class="form1">
-            <form >
-            <label for="password">Nouveau mot de passe</label>
-            <input type="password" name="password" id="password" placeholder="0000" />
-            <br/>
-            <label for="password1">Confirmer le nouveau mot de passe</label>
-            <input type="password" name="password1" id="password1" placeholder="0000" />
-            <a href="#">Valider</a>
+            <form method='POST'>
+                <label for="password">Nouveau mot de passe</label>
+                <input type="password" name="password" id="password" placeholder="0000" />
+                <br/>
+                <label for="password1">Confirmer le nouveau mot de passe</label>
+                <input type="password" name="password1" id="password1" placeholder="0000" />
+                <button type="submit" >Valider</button>
             </form>
         </div>
     </div>
