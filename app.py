@@ -72,7 +72,7 @@ def connexion():
         cursor.execute('''
         SELECT * FROM Users 
         INNER JOIN Informations ON Informations.IdInformation = Users.IdInformation
-        WHERE NomUtilisateur = ? OR Email = ?
+        WHERE Users.NomUtilisateur = ? OR Users.Email = ?
         ''', (user, user))
         users = cursor.fetchone()
         if users:
@@ -92,22 +92,23 @@ def connexion():
 
 href="{{ url_for('ajout', type=cat) }}"
 
-@app.route('/pwdoublie')
+@app.route('/pwdoublie',methods=["GET", "POST"])
 def pwdoublie():
     if request.method == 'POST':
-        email = request.form["mail"]
+        user = request.form["text"]
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
         cursor.execute('''
         SELECT * FROM Users 
         WHERE NomUtilisateur = ? OR Email = ?
-        ''', (email, email))
+        ''', (user, user))
         users = cursor.fetchone()
         conn.close()
-        id=users[0]
         if users:
             code =''.join([str(random.randint(0, 9)) for _ in range(4)])
-            envoicode(code,users[2])
+            session['code'] = code
+            session['email']=users[4]
+            envoicode(code,users[4])
             return redirect(url_for('pwdcode'))
         else:
             flash('le mail ou le nom d\'utilisateur n\'existe pas')
@@ -115,18 +116,23 @@ def pwdoublie():
 
 
 @app.route('/pwdcode',methods=["GET", "POST"])
-def pwdcode(code):
+def pwdcode():
+    code = session.get('code')
+    if not code:
+        flash('Code introuvable, veuillez demander un nouveau code')
+        return redirect(url_for('pwdoublie'))
     if request.method == 'POST':
         codesaisir = request.form["code"]
         if  codesaisir==code:
-            return redirect(url_for('pwdreset',id))
+            return redirect(url_for('pwdreset'))
         else:
             flash('veillez saisir le bon code de validation')
     return render_template("./connexion/pwdcode.html")
 
 
-@app.route('/pwdreset')
-def pwdreset(id):
+@app.route('/pwdreset',methods=["GET", "POST"])
+def pwdreset():
+    email = session.get('email')
     if request.method == 'POST':
         password = request.form["password"]
         password1 = request.form["password"]
@@ -136,9 +142,13 @@ def pwdreset(id):
             cursor = conn.cursor()
             cursor.execute(f'''
                         UPDATE users
-                        SET (IdProduit,NomProduit, CatProduit, PrixUnitaire)={(IdProduit,NomProduit, CatProduit, PrixUnitaire)}
-                        WHERE IdProduit = {id}
-                        ''',)
+                        SET Password = ?
+                        WHERE  Email = ?
+                        ''', (email, password))
+            conn.commit()
+            conn.close()
+            flash('votre mot de passe à bien été modifié, connectez vous')
+            return redirect(url_for('connexion'))
         else:
             flash('veillez saisir le même mot de passe dans les deux champs')
     return render_template("./connexion/pwdreset.html")

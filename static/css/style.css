@@ -7,10 +7,11 @@ body{
     font-family: 'Poppins', sans-serif;
 }
 
-a{
+a, button{
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    border: none;
 }
 
 <<<<<<< HEAD
@@ -339,7 +340,7 @@ main .contener_form h2,p{
     margin-bottom: 10px;
 }
 
-main .form a, .form1 a {
+main .form button, .form1 button {
     width: 150px;
     height: 30px;
     margin-top: 28px;
