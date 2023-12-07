@@ -65,7 +65,6 @@ def inscriptioninfos():
             return redirect(url_for('connexion'))
     return render_template("./inscription/inscriptioninfos.html")
 
-
 @app.route('/inscriptionacces')
 def inscriptionacces():
     data = ''
