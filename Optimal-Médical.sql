@@ -68,3 +68,27 @@ FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation),
 IdEtatPatient INT,
 FOREIGN KEY (IdEtatPatient) REFERENCES EtatPatient(IdEtatPatient)
 );
+
+-- Nouvelle table
+create table Commune(
+IdCommune int primary key identity(1, 1) not null,
+ListeCommune varchar(50)not null
+);
+
+create table Departement(
+IdDepartement int primary key identity(1, 1) not null,
+ListeDepartement varchar(50)not null
+);
+
+create table Region(
+IdRegion int primary key identity (1, 1) not null,
+ListeRegion varchar(50) not null
+);
+
+CREATE TABLE Adresses(
+IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
+FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
+FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion),
+PositionGeo GEOGRAPHY NOT NULL
+);

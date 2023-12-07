@@ -14,7 +14,13 @@ DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;
 
 @app.route('/monhopital')
 def monhopital():
-    value=['stable','Rémission','Aggravation','Critique','Guérison','Chronique','Rémission','partielle','Rééducation']
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute('''
+    SELECT * FROM EtatPatient 
+    ''')
+    value= cursor.fetchone()
+    conn.close()
     return render_template("./utilisateur/utilisateurhôpital.html",value=value)
 
 
@@ -33,8 +39,31 @@ def transfert():
 
 @app.route('/inscriptioninfos')
 def inscriptioninfos():
+    if request.method == 'POST':
+        user = request.form["identifiant"]
+        password = request.form["password"]
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute('''
+        SELECT * FROM Users 
+        INNER JOIN Informations ON Informations.IdInformation = Users.IdInformation
+        WHERE Users.NomUtilisateur = ? OR Users.Email = ?
+        ''', (user, user))
+        users = cursor.fetchone()
+        if users:
+            user_pswd = users[2]
+            if check_password_hash(user_pswd, password):
+                session['loggedin'] = True
+                session['Id'] = users[0]
+                session['username'] = users[1]
+                return redirect(url_for('accueil'))
+            else:
+                flash("Mot de passe incorrect !", 'info')
+                return redirect(url_for('connexion'))
+        else:
+            flash("Identifiant incorrect !", 'info')
+            return redirect(url_for('connexion'))
     return render_template("./inscription/inscriptioninfos.html")
-
 
 @app.route('/inscriptionacces')
 def inscriptionacces():
@@ -71,23 +100,21 @@ def connexion():
         cursor = conn.cursor()
         cursor.execute('''
         SELECT * FROM Users 
-        INNER JOIN Informations ON Informations.IdInformation = Users.IdInformation
-        WHERE Users.NomUtilisateur = ? OR Users.Email = ?
+        WHERE NomUtilisateur = ? OR Email = ?
         ''', (user, user))
-        users = cursor.fetchone()
-        if users:
-            user_pswd = users[2]
+        user = cursor.fetchone()
+        if user:
+            user_pswd = user[2]
             if check_password_hash(user_pswd, password):
                 session['loggedin'] = True
-                session['Id'] = users[0]
-                session['username'] = users[1]
+                session['Id'] = user[0]
+                session['username'] = user[1]
                 return redirect(url_for('accueil'))
             else:
                 flash("Mot de passe incorrect !", 'info')
                 return redirect(url_for('connexion'))
         else:
             flash("Identifiant incorrect !", 'info')
-            return redirect(url_for('connexion'))
     return render_template("./connexion/connexion.html")
 
 href="{{ url_for('ajout', type=cat) }}"
