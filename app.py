@@ -1,5 +1,7 @@
 from flask import Flask, url_for, render_template, request, flash, redirect, abort, session
 from werkzeug.security import generate_password_hash, check_password_hash
+from sendcode import envoicode
+import random
 import pyodbc
 
 app = Flask(__name__)
@@ -88,21 +90,58 @@ def connexion():
             return redirect(url_for('connexion'))
     return render_template("./connexion/connexion.html")
 
+href="{{ url_for('ajout', type=cat) }}"
 
-@app.route('/pwdcode')
-def pwdcode():
+@app.route('/pwdoublie')
+def pwdoublie():
+    if request.method == 'POST':
+        email = request.form["mail"]
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute('''
+        SELECT * FROM Users 
+        WHERE NomUtilisateur = ? OR Email = ?
+        ''', (email, email))
+        users = cursor.fetchone()
+        conn.close()
+        id=users[0]
+        if users:
+            code =''.join([str(random.randint(0, 9)) for _ in range(4)])
+            envoicode(code,users[2])
+            return redirect(url_for('pwdcode'))
+        else:
+            flash('le mail ou le nom d\'utilisateur n\'existe pas')
+    return render_template("./connexion/pwdoublie.html")
+
+
+@app.route('/pwdcode',methods=["GET", "POST"])
+def pwdcode(code):
+    if request.method == 'POST':
+        codesaisir = request.form["code"]
+        if  codesaisir==code:
+            return redirect(url_for('pwdreset',id))
+        else:
+            flash('veillez saisir le bon code de validation')
     return render_template("./connexion/pwdcode.html")
 
 
 @app.route('/pwdreset')
-def pwdreset():
+def pwdreset(id):
+    if request.method == 'POST':
+        password = request.form["password"]
+        password1 = request.form["password"]
+        if password1==password:
+            password=generate_password_hash(password)
+            conn = pyodbc.connect(DSN)
+            cursor = conn.cursor()
+            cursor.execute(f'''
+                        UPDATE users
+                        SET (IdProduit,NomProduit, CatProduit, PrixUnitaire)={(IdProduit,NomProduit, CatProduit, PrixUnitaire)}
+                        WHERE IdProduit = {id}
+                        ''',)
+        else:
+            flash('veillez saisir le même mot de passe dans les deux champs')
     return render_template("./connexion/pwdreset.html")
-
-
-@app.route('/pwdoublie')
-def pwdoublie():
-    return render_template("./connexion/pwdoublie.html")
-
 
 # ................Fin brayane route (Inscription)#
 
