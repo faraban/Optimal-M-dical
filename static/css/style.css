@@ -14,8 +14,6 @@ a, button{
     border: none;
 }
 
-<<<<<<< HEAD
-=======
 .flash{
     width: 60%;
     background-color: aquamarine;
@@ -24,7 +22,6 @@ a, button{
     padding: 10px;
     border-radius: 10px;
 }
->>>>>>> 40acb59e2b759155b3fdf47222c259e94d2d0c70
 
 /* css de la nav bar */
 
@@ -50,15 +47,42 @@ nav .trait_bleu{
     background-color: #000D82;
  }
 
- nav .nav .nav_bar{
-    padding-top: 30px;
-    display: flex;
+nav .nav .nav_bar{
     height: 90px;
     width: 100%;
     background-color: #ffffff;
-    justify-content: center;
- }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
+nav .nav .nav_bar .logos-case{
+    height: 90%;
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav .nav .nav_bar .logos-case img{
+    height: 90%;
+    width: 40%;
+}
+
+nav .nav .nav_bar .notification-case{
+    height: 90%;
+    width: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .nav .nav_bar .notification-case img{
+    height: 30%;
+    width: 50%;
+}
 
 nav .nav .nav_bar .search {
     margin-left: 5%;
