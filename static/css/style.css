@@ -13,6 +13,7 @@ a{
     cursor: pointer;
 }
 
+
 /* css de la nav bar */
 
 nav {
@@ -68,9 +69,9 @@ nav .nav .nav_bar .search button {
     border: none;
 }
 
-nav .nav .nav_bar .search button img {
-    width: 30px;
-    height: 40px;
+nav .nav .nav_bar .search img {
+    width: 100px;
+    height: 100px;
 }
 
 nav .nav .nav_bar .user {
@@ -128,7 +129,7 @@ nav .nav .nav_bar .img-case img {
 .side-menu {
     background: #000D82;
     width: 20%;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -530,7 +531,7 @@ main .info{
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: self-start;>
+    align-items: self-start;
 }
 
 #entete{
@@ -602,18 +603,44 @@ td {
 
 .container  .cards {
     width: 100%;
-    padding: 20px 15px;
     display: flex;
     justify-content: space-between;
 } 
 
 .container .cards .card {
-    width: 20%;
-    height: 60px;
+    width: 23%;
+    height: 100px;
     background: white;
     margin: 20px 10px;
-    text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.container .cards .card .box {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.container .cards .card .box h1,
+.container .cards .card .box h3 {
+    margin: 0;
+}
+.container .cards .card .icon-case {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.container .cards .card .icon-case img {
+    width: 50%;
+    height: 30%;
 }
 
 .container .content-2 {

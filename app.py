@@ -4,7 +4,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -105,6 +105,17 @@ def pwdoublie():
 
 
 # ................Fin brayane route (Inscription)#
+
+
+# ................yesufu route (Admin)#
+
+
+@app.route('/admin')
+def admin():
+    return render_template("./admin/admin.html")
+
+
+# ................Fin yesufu route (Admin)#
 
 
 if __name__ == "__main__":
