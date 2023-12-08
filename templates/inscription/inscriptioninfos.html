@@ -37,17 +37,9 @@
                         <div class="form-control3"> 
                             <form method="POST">
                                 <select name="selected_value">
-                                    {% for cont in value  %}
-                                        <option >{{ cont }}</option>
-                                    {% endfor %}
-                                </select>
-                            </form>
-                    -   </div>
-                        <div class="form-control3"> 
-                            <form method="POST">
-                                <select name="selected_value">
-                                    {% for cont in value  %}
-                                        <option >{{ cont }}</option>
+                                    <option  selected>Votre région</option>
+                                    {% for cont in Region  %}
+                                        <option >{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>
                             </form>
@@ -55,8 +47,19 @@
                         <div class="form-control3"> 
                             <form method="POST">
                                 <select name="selected_value">
-                                    {% for cont in value  %}
-                                         <option >{{ cont }}</option>
+                                    <option  selected>Votre département</option>
+                                    {% for cont in Departement  %}
+                                        <option >{{ cont[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+                        <div class="form-control3"> 
+                            <form method="POST">
+                                <select name="selected_value">
+                                    <option  selected>Votre commune</option>
+                                    {% for cont in Commune %}
+                                         <option >{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>
                             </form>

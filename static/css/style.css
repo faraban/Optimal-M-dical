@@ -480,13 +480,30 @@ main .info{
 }
 
 .form-control3{
-     height: 30px;
-     width: 127px;
-     color: black;
-     border-radius: 5px;
-     border : 3px solid #000D82;
+     height: 40px;
+     width: 140px;
+     
     
- }
+}
+.form-control3 form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+
+.form-control3 form select{
+    height: 100%;
+    width: 100%;
+    color: black;
+    border-radius: 5px;
+    border : 3px solid #000D82;
+   
+}
 
 .btninscri{
      height: 30px;

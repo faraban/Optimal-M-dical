@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -39,31 +39,19 @@ def transfert():
 
 @app.route('/inscriptioninfos')
 def inscriptioninfos():
-    if request.method == 'POST':
-        user = request.form["identifiant"]
-        password = request.form["password"]
-        conn = pyodbc.connect(DSN)
-        cursor = conn.cursor()
-        cursor.execute('''
-        SELECT * FROM Users 
-        INNER JOIN Informations ON Informations.IdInformation = Users.IdInformation
-        WHERE Users.NomUtilisateur = ? OR Users.Email = ?
-        ''', (user, user))
-        users = cursor.fetchone()
-        if users:
-            user_pswd = users[2]
-            if check_password_hash(user_pswd, password):
-                session['loggedin'] = True
-                session['Id'] = users[0]
-                session['username'] = users[1]
-                return redirect(url_for('accueil'))
-            else:
-                flash("Mot de passe incorrect !", 'info')
-                return redirect(url_for('connexion'))
-        else:
-            flash("Identifiant incorrect !", 'info')
-            return redirect(url_for('connexion'))
-    return render_template("./inscription/inscriptioninfos.html")
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()  
+    cursor.execute("SELECT * FROM Region") 
+    Region = cursor.fetchall()
+   
+    cursor.execute("SELECT * FROM Departement") 
+    Departement = cursor.fetchall()
+    
+    cursor.execute("SELECT * FROM Commune") 
+    Commune = cursor.fetchall()
+    conn.close()
+
+    return render_template("./inscription/inscriptioninfos.html", Region=Region, Departement=Departement, Commune=Commune)
 
 @app.route('/inscriptionacces')
 def inscriptionacces():
