@@ -7,9 +7,9 @@
         <button type="submit"><img src="{{ url_for('static',filename='./img/search.png')}}" alt=""></button>
     </div>
     <div class="user">
-        <a href="#" >Mon Hôpital</a>
-        <a href="#" >Transfert</a>
+        <a href="{{ url_for('monhopital')}}" >Mon Hôpital</a>
+        <a href="{{ url_for('transfert')}}" >Transfert</a>
         <img src="{{ url_for('static',filename='./img/notifications.png')}}" alt="">
-        <a href="#" >Profil</a>
+        <a href="{{ url_for('monprofil')}}" >Profil</a>
     </div>
 </div>

@@ -19,9 +19,9 @@ def monhopital():
     cursor.execute('''
     SELECT * FROM EtatPatient 
     ''')
-    value= cursor.fetchone()
+    value = cursor.fetchone()
     conn.close()
-    return render_template("./utilisateur/utilisateurhôpital.html",value=value)
+    return render_template("./utilisateur/utilisateurhôpital.html", value=value)
 
 
 @app.route('/monprofil')
@@ -31,8 +31,9 @@ def monprofil():
 
 @app.route('/transfert')
 def transfert():
-    value=['stable','Rémission','Aggravation','Critique','Guérison','Chronique','Rémission','partielle','Rééducation']
-    return render_template("./utilisateur/utilisateurtransfert.html",value=value)
+    value = ['stable', 'Rémission', 'Aggravation', 'Critique', 'Guérison', 'Chronique', 'Rémission', 'partielle',
+             'Rééducation']
+    return render_template("./utilisateur/utilisateurtransfert.html", value=value)
 
 
 # ................brayane route (Inscription)#
@@ -52,6 +53,7 @@ def inscriptioninfos():
     conn.close()
 
     return render_template("./inscription/inscriptioninfos.html", Region=Region, Departement=Departement, Commune=Commune)
+
 
 @app.route('/inscriptionacces')
 def inscriptionacces():
@@ -88,28 +90,28 @@ def connexion():
         cursor = conn.cursor()
         cursor.execute('''
         SELECT * FROM Users 
-        INNER JOIN Informations ON Informations.IdInformation = Users.IdInformation
-        WHERE Users.NomUtilisateur = ? OR Users.Email = ?
+        WHERE NomUtilisateur = ? OR Email = ?
         ''', (user, user))
-        users = cursor.fetchone()
-        if users:
-            user_pswd = users[2]
+        user = cursor.fetchone()
+        if user:
+            user_pswd = user[2]
             if check_password_hash(user_pswd, password):
                 session['loggedin'] = True
-                session['Id'] = users[0]
-                session['username'] = users[1]
+                session['Id'] = user[0]
+                session['username'] = user[1]
                 return redirect(url_for('accueil'))
             else:
                 flash("Mot de passe incorrect !", 'info')
                 return redirect(url_for('connexion'))
         else:
             flash("Identifiant incorrect !", 'info')
-            return redirect(url_for('connexion'))
     return render_template("./connexion/connexion.html")
 
-href="{{ url_for('ajout', type=cat) }}"
 
-@app.route('/pwdoublie',methods=["GET", "POST"])
+href = "{{ url_for('ajout', type=cat) }}"
+
+
+@app.route('/pwdoublie', methods=["GET", "POST"])
 def pwdoublie():
     if request.method == 'POST':
         user = request.form["text"]
@@ -122,17 +124,17 @@ def pwdoublie():
         users = cursor.fetchone()
         conn.close()
         if users:
-            code =''.join([str(random.randint(0, 9)) for _ in range(4)])
+            code = ''.join([str(random.randint(0, 9)) for _ in range(4)])
             session['code'] = code
-            session['email']=users[4]
-            envoicode(code,users[4])
+            session['email'] = users[4]
+            envoicode(code, users[4])
             return redirect(url_for('pwdcode'))
         else:
             flash('le mail ou le nom d\'utilisateur n\'existe pas')
     return render_template("./connexion/pwdoublie.html")
 
 
-@app.route('/pwdcode',methods=["GET", "POST"])
+@app.route('/pwdcode', methods=["GET", "POST"])
 def pwdcode():
     code = session.get('code')
     if not code:
@@ -140,21 +142,21 @@ def pwdcode():
         return redirect(url_for('pwdoublie'))
     if request.method == 'POST':
         codesaisir = request.form["code"]
-        if  codesaisir==code:
+        if codesaisir == code:
             return redirect(url_for('pwdreset'))
         else:
             flash('veillez saisir le bon code de validation')
     return render_template("./connexion/pwdcode.html")
 
 
-@app.route('/pwdreset',methods=["GET", "POST"])
+@app.route('/pwdreset', methods=["GET", "POST"])
 def pwdreset():
     email = session.get('email')
     if request.method == 'POST':
         password = request.form["password"]
         password1 = request.form["password"]
-        if password1==password:
-            password=generate_password_hash(password)
+        if password1 == password:
+            password = generate_password_hash(password)
             conn = pyodbc.connect(DSN)
             cursor = conn.cursor()
             cursor.execute(f'''
@@ -170,6 +172,7 @@ def pwdreset():
             flash('veillez saisir le même mot de passe dans les deux champs')
     return render_template("./connexion/pwdreset.html")
 
+
 # ................Fin brayane route (Inscription)#
 
 
@@ -179,6 +182,21 @@ def pwdreset():
 @app.route('/admin')
 def admin():
     return render_template("./admin/admin.html")
+
+
+@app.route('/historique')
+def historique():
+    return render_template("./admin/historiqueadmin.html")
+
+
+@app.route('/demande')
+def demande():
+    return render_template("./admin/demandeadmin.html")
+
+
+@app.route('/listeinscrit')
+def listeinscrit():
+    return render_template("./admin/listeinscrit.html")
 
 
 # ................Fin yesufu route (Admin)#

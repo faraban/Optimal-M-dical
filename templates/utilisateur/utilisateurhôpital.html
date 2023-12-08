@@ -12,6 +12,7 @@
     <div class="container">
         <div class="cards">
             <div class="card">
+                <h3>Services</h3>
                 <form method="POST">
                     <select name="selected_value">
                         {% for cont in value  %}
@@ -21,6 +22,7 @@
                 </form>
             </div>
             <div class="card">
+                <h3>commune</h3>
                 <form method="POST">
                     <select name="selected_value">
                         {% for cont in value  %}
@@ -30,24 +32,24 @@
                 </form>
             </div>
             <div class="card">
-                    <h3>Schools</h3>
-                    <form method="POST">
-                        <select name="selected_value">
-                            {% for cont in value  %}
-                                 <option >{{ cont }}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
+                <h3>Departement</h3>
+                <form method="POST">
+                    <select name="selected_value">
+                        {% for cont in value  %}
+                                <option >{{ cont }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
             <div class="card">
-                    <h3>Income</h3>
-                    <form method="POST">
-                        <select name="selected_value">
-                            {% for cont in value  %}
-                                 <option >{{ cont }}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
+                <h3>region</h3>
+                <form method="POST">
+                    <select name="selected_value">
+                        {% for cont in value  %}
+                                <option >{{ cont }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
         </div>
         <div class="content-2">

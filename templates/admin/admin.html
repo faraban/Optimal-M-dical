@@ -5,14 +5,7 @@
 {%endblock%}
 
 {%block content %}
-    <div class="side-menu">
-        <ul>
-            <li><img src="{{ url_for('static',filename='./img/dashboard (2).png')}}" alt="">&nbsp; <span>Dashboard</span> </li>
-            <li><img src="{{ url_for('static',filename='./img/reading-book (1).png')}}" alt="">&nbsp;<span>Histori</span> </li>
-            <li><img src="{{ url_for('static',filename='./img/teacher2.png')}}" alt="">&nbsp;<span>Teachers</span> </li>
-            <li><img src="{{ url_for('static',filename='./img/school.png')}}" alt="">&nbsp;<span>Schools</span> </li>
-        </ul>
-    </div>
+    {% include 'elements/sidebaradmin.html' %}
     <div class="container">
        
         <div class="content">
