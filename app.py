@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;' 
+DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;' 
 
 
 #  utilisateurs
@@ -67,17 +67,39 @@ def transfert():
 def inscriptioninfos():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()  
-    cursor.execute("SELECT * FROM Region") 
-    Region = cursor.fetchall()
+    cursor.execute("SELECT * FROM ListeRegion") 
+    ListeRegion = cursor.fetchall()
    
-    cursor.execute("SELECT * FROM Departement") 
-    Departement = cursor.fetchall()
+    cursor.execute("SELECT * FROM ListeDepartement") 
+    ListeDepartement = cursor.fetchall()
     
-    cursor.execute("SELECT * FROM Commune") 
-    Commune = cursor.fetchall()
+    cursor.execute("SELECT * FROM ListeCommune") 
+    ListeCommune = cursor.fetchall()
     conn.close()
+    
+    if request.method == "POST":
+        
+        Commune = request.form['selected_value3']
+        departement = request.form['selected_value2']
+        region = request.form['selected_value1'] 
+        
+        nom = request.form['Nom'] 
+        num = request.form['Num'] 
+        tel = request.form['Tel']
+         
+        conn = pyodbc.connect(DSN) 
+        cursor = conn.cursor() 
+        cursor.execute('''insert into Adresses (Commune, Departement, Region) 
+                       values(?,?,?)''',(Commune,departement,region))
+        cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone)
+                       VALUES (?, ?, ?)''', (nom, num, tel))
+        conn.commit() 
+        conn.close()
+        
+    return render_template("./inscription/inscriptioninfos.html", ListeRegion=ListeRegion, ListeDepartement=ListeDepartement, ListeCommune=ListeCommune)
 
-    return render_template("./inscription/inscriptioninfos.html", Region=Region, Departement=Departement, Commune=Commune)
+
+
 
 
 @app.route('/inscriptionacces')

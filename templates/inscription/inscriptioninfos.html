@@ -25,24 +25,24 @@
 
                 <div class="form-groupInscri">
                     <label for="name">Nom d’établissement sanitaire :</label>
-                    <input type="text" class="form-control2" id="name" placeholder="Nom d’établissement sanitaire">
+                    <input type="text" class="form-control2" name="Nom" id="name" placeholder="Nom d’établissement sanitaire">
                 </div>
                 <div class="form-groupInscri">
                     <label for="Matricule">Numéro d'immatriculation de l'établissement :</label>
-                    <input type="text" class="form-control2" id="Matricule" placeholder="Matricule">
+                    <input type="text" class="form-control2" name="Num" id="Matricule" placeholder="Matricule">
                 </div>
                 <div class="form-groupInscri">
                     <label for="Telephone">Telephone :</label>
-                    <input type="text" class="form-control2" id="Telephone" placeholder="Telephone">
+                    <input type="text" class="form-control2" name="Tel" id="Telephone" placeholder="Telephone">
                 </div>
                 <div class="form-groupInscriAdresse">
                     <label for="username">Adresse:</label>
                     <div class="Adresse">
                         <div class="form-control3"> 
                             <form method="POST">
-                                <select name="selected_value">
+                                <select name="selected_value1">
                                     <option  selected>Votre région</option>
-                                    {% for cont in Region  %}
+                                    {% for cont in ListeRegion  %}
                                         <option >{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>
@@ -50,9 +50,9 @@
                         </div>
                         <div class="form-control3"> 
                             <form method="POST">
-                                <select name="selected_value">
+                                <select name="selected_value2">
                                     <option  selected>Votre département</option>
-                                    {% for cont in Departement  %}
+                                    {% for cont in ListeDepartement  %}
                                         <option >{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>
@@ -60,9 +60,9 @@
                         </div>
                         <div class="form-control3"> 
                             <form method="POST">
-                                <select name="selected_value">
+                                <select name="selected_value3">
                                     <option  selected>Votre commune</option>
-                                    {% for cont in Commune %}
+                                    {% for cont in ListeCommune %}
                                          <option >{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>

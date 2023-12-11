@@ -503,15 +503,15 @@ main .info{
 }
 
 .Adresse{
-    height: 35px;
+    height: 40px;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .form-control3{
-     height: 40px;
+     height: 20px;
      width: 140px;
      
     
