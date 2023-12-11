@@ -1,15 +1,14 @@
 <div class='nav_bar'>
    <div class="img-case">
-        <img src="{{ url_for('static',filename='./img/defaut_image.jpg')}}" alt="">
+        <img src="{{ url_for('static',filename='./img/defaut_image.jpg')}}" alt="logo">
     </div>
     <div class="search">
-        <input type="text" placeholder="Search..">
         <button type="submit"><img src="{{ url_for('static',filename='./img/search.png')}}" alt=""></button>
+        <input type="text" placeholder="Search..">
     </div>
     <div class="user">
         <a href="{{ url_for('monhopital')}}" >Mon Hôpital</a>
         <a href="{{ url_for('transfert')}}" >Transfert</a>
-        <img src="{{ url_for('static',filename='./img/notifications.png')}}" alt="">
-        <a href="{{ url_for('monprofil')}}" >Profil</a>
+        <a class='profil' href="{{ url_for('monprofil')}}" >Profil</a>
     </div>
 </div>

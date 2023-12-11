@@ -1,0 +1,37 @@
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/navelement.html' %} 
+{%endblock%}
+
+{%block content %}
+<div class="container">
+    <div class="confirme_transfert">
+        <div class="confirme_transfert1">
+            <div class="title">
+                <h2>veillez vérifié et confirmé le tranfert du patient</h2>
+            </div>
+            <form method='POST'>
+                <div class="form-groupInscri">
+                    <label for="Etablissement">Etablissement de depart :</label>
+                    <input type="text" name='Etablissement' value="{{transf[0]}}" placeholder="Etablissement de depart">
+                </div>
+                <div class="form-groupInscri">
+                    <label for="Etablissement1">Etablissement d'accueil :</label>
+                    <input type="text" name="Etablissement1" value="{{transf[1]}}" placeholder="Etablissement d'accueil">
+                </div>
+                <div class="form-groupInscri">
+                    <label for="Service">Service d'affectation:</label>
+                    <input type="text" name='Service'value="{{transf[2]}}" placeholder="Service d'affectation">
+                </div>
+                <div class="form-groupInscri">
+                    <label for="etat">l'etat du patient :</label>
+                    <input type="txt" name='etat' value="{{transf[3]}}" placeholder="l'etat du patient">
+                </div>
+                <a href="/utilisateurtransfert">revevir</a>
+                <button type="submit" > confirmer </button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
