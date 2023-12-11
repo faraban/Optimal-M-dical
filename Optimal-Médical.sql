@@ -189,5 +189,7 @@ CREATE TABLE Transfert(
   FOREIGN KEY (IdService) REFERENCES Services(IdService),
   IdInformation INT NOT NULL,
   FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
+  Etat VARCHAR(30) NOT NULL,
+  FOREIGN KEY (Etat) REFERENCES EtatPatient(Etat)
   );
 
