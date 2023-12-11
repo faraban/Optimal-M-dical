@@ -599,7 +599,7 @@ main .info{
     height: 10px;   
 }
 
- .btninscriAjL{
+.btninscriAjL{
     height: 30px;
     width: 135px;
     color: white;
@@ -662,14 +662,14 @@ td {
 }
 
 .container  .cards {
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: space-between;
 } 
 
 .container .cards .card {
-    width: 23%;
-    height: 100px;
+    width: 20%;
+    height: 50px;
     background: white;
     margin: 20px 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -677,30 +677,6 @@ td {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-}
-.container .cards .card .box {
-    width: 50%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-}
-.container .cards .card .box h1,
-.container .cards .card .box h3 {
-    margin: 0;
-}
-.container .cards .card .icon-case {
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.container .cards .card .icon-case img {
-    width: 50%;
-    height: 30%;
 }
 
 .container .content-2 {

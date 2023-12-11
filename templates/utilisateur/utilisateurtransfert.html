@@ -8,48 +8,40 @@
 <div class="container">
     <div class="cards">
         <div class="card">
-            <div class="box"> 
-                <h3>Service</h3>
-            </div>
             <form method="POST">
                 <select name="selected_value">
-                    {% for cont in value  %}
+                    <option >par services</option>
+                    {% for cont in services  %}
                          <option >{{ cont }}</option>
                     {% endfor %}
                 </select>
             </form>
         </div>
         <div class="card">
-            <div class="box">
-                <h3>ville</h3>
-            </div>
             <form method="POST">
                 <select name="selected_value">
-                    {% for cont in value  %}
+                    <option >par communes</option>
+                    {% for cont in communes  %}
                          <option >{{ cont }}</option>
                     {% endfor %}
                 </select>
             </form>
         </div>
         <div class="card">
-            <div class="box">
-                <h3>region</h3>
-            </div>
             <form method="POST">
                 <select name="selected_value">
-                    {% for cont in value  %}
+                    <option >par regions</option>
+                    {% for cont in regions  %}
                          <option >{{ cont }}</option>
                     {% endfor %}
                 </select>
             </form>
         </div>
         <div class="card">
-            <div class="box">
-                <h3>departement</h3>
-            </div>
             <form method="POST">
                 <select name="selected_value">
-                    {% for cont in value  %}
+                    <option >par departements</option>
+                    {% for cont in departements %}
                          <option >{{ cont }}</option>
                     {% endfor %}
                 </select>
