@@ -6,50 +6,74 @@
 
 {%block content %}
 <div class="container">
-    <div class="cards">
-        <div class="card">
+    <div class="cardsm">
+        <div class="cardm">
             <form method="POST">
                 <select name="selected_value">
                     <option >par services</option>
                     {% for cont in services  %}
-                         <option >{{ cont }}</option>
+                         <option >{{ cont[1] }}</option>
                     {% endfor %}
                 </select>
             </form>
         </div>
-        <div class="card">
+        <div class="cardm">
             <form method="POST">
                 <select name="selected_value">
                     <option >par communes</option>
                     {% for cont in communes  %}
-                         <option >{{ cont }}</option>
+                         <option >{{ cont[1] }}</option>
                     {% endfor %}
                 </select>
             </form>
         </div>
-        <div class="card">
+        <div class="cardm">
             <form method="POST">
                 <select name="selected_value">
                     <option >par regions</option>
                     {% for cont in regions  %}
-                         <option >{{ cont }}</option>
+                         <option >{{ cont[1] }}</option>
                     {% endfor %}
                 </select>
             </form>
         </div>
-        <div class="card">
+        <div class="cardm">
             <form method="POST">
                 <select name="selected_value">
                     <option >par departements</option>
                     {% for cont in departements %}
-                         <option >{{ cont }}</option>
+                         <option >{{ cont[1] }}</option>
                     {% endfor %}
                 </select>
             </form>
         </div>
     </div>
     <div class="content-2">
-        <div class="recent-payments">
+        <div class="transfert_form">
+            <div class="title">
+                <h2>Formulaire de transfert</h2>
+            </div>
+            <form method='POST'>
+                <div class="form-groupInscri">
+                    <label for="Etablissement">Etablissement de depart :</label>
+                    <input type="text" name='Etablissement' placeholder="Etablissement de depart">
+                </div>
+                <div class="form-groupInscri">
+                    <label for="Etablissement1">Etablissement d'accueil :</label>
+                    <input type="text" name="Etablissement1"  placeholder="Etablissement d'accueil">
+                </div>
+                <div class="form-groupInscri">
+                    <label for="Service">Service d'affectation:</label>
+                    <input type="text" name='Service' placeholder="Service d'affectation">
+                </div>
+                <div class="form-groupInscri">
+                    <label for="etat">l'etat du patient :</label>
+                    <input type="txt" name='etat'  placeholder="l'etat du patient">
+                </div>
+                <button type="submit"> transferer </button>
+            </form>
+        </div>
+        <div class="disponibilite">
             <div class="title">
                 <h2>Mettre à jour les disponibilités</h2>
             </div>
@@ -78,25 +102,6 @@
                 </tr>
                 {% endfor %}
             </table>
-        </div>
-        <div class="new-students">
-            <div class="title">
-                <h2>Formulaire de transfert</h2>
-            </div>
-            <form>
-                <div class="form-groupInscri">
-                    <label for="Etablissement">Etablissement d'accueil</label>
-                    <input type="text" class="Etablissement" id="Etablissement" placeholder="">
-                </div>
-                <div class="form-groupInscri">
-                    <label for="Service">Service</label>
-                    <input type="Service" class="Service" id="Service" placeholder="">
-                </div>
-                <div class="form-groupInscri">
-                    <label for="pwd">Répéter le Mot de passe  :</label>
-                    <input type="password" class="form-control2" id="pwd" placeholder="">
-                </div>
-            </form>
         </div>
     </div>
 </div>

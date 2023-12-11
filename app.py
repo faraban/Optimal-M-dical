@@ -15,20 +15,42 @@ DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
 def monhopital():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
+    
+    cursor.execute('''
+    SELECT * FROM Nomservices 
+    ''')
+    services= cursor.fetchall()
+    
+    cursor.execute('''
+    SELECT * FROM commune 
+    ''')
+    communes= cursor.fetchall()
+ 
+    cursor.execute('''
+    SELECT * FROM region 
+    ''')
+    regions= cursor.fetchall()
+   
+    cursor.execute('''
+    SELECT * FROM departement 
+    ''')
+    departements = cursor.fetchall()
+
     cursor.execute('''
     SELECT * FROM EtatPatient 
     ''')
-    value = cursor.fetchall()
+    etats = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/utilisateurhôpital.html", value=value)
+    return render_template("./utilisateur/utilisateurhôpital.html",etats=etats, services=services,communes=communes,regions=regions,departements=departements)
 
 
 @app.route('/monprofil')
 def monprofil():
+    
     return render_template("./utilisateur/utilisateurprofil.html")
 
 
-@app.route('/transfert')
+@app.route('/transfert',methods=["GET", "POST"])
 def transfert():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -36,30 +58,36 @@ def transfert():
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
-    service= cursor.fetchall()
-    services=service[1]
+    services= cursor.fetchall()
     
     cursor.execute('''
     SELECT * FROM commune 
     ''')
-    commune= cursor.fetchall()
-    communes=commune[1]
-    
+    communes= cursor.fetchall()
+ 
     cursor.execute('''
     SELECT * FROM region 
     ''')
-    region= cursor.fetchall()
-    regions=region[1]
-    
+    regions= cursor.fetchall()
+   
     cursor.execute('''
     SELECT * FROM departement 
     ''')
-    departement = cursor.fetchall()
-    departements=departement[1]
+    departements = cursor.fetchall()
     conn.close()
-    
+    if request.method == 'POST':
+        Etablissement= request.form["Etablissement"]
+        Etablissement1 = request.form["Etablissement1"]
+        Service = request.form["Service"]
+        etat = request.form["etat"]
+        transf=[Etablissement,Etablissement1,Service,etat]
+        return render_template("./utilisateur/confirmetransfert.html",transf=transf)
     return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes,regions=regions,departements=departements)
 
+@app.route('/confirmetransfert')
+def confirmetransfert():
+    
+    return render_template("./utilisateur/confirmetransfert.html")
 
 # ................brayane route (Inscription)#
 
