@@ -13,7 +13,7 @@ DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
 
 @app.route('/monhopital')
 def monhopital():
-    conn = pyodbc.connect(DSN)
+    conn = pyodbc.connect(DSN)  
     cursor = conn.cursor()
     
     cursor.execute('''
@@ -164,6 +164,7 @@ def listeservice():
 
 @app.route('/AjoutService')
 def ajoutservice():
+    
     return render_template("./inscription/inscriptionservice0.html ")
 
 
