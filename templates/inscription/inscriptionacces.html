@@ -9,7 +9,7 @@
     <div class="mainone">
         <ul>
             <li id="pI"> <h3>1</h3> </li> 
-            <div class='trait1'></div>
+            <div class='trait2'></div>
             <li id="pI"> <h3>2</h3> </li>
             <div class='trait1'></div>
             <li id="pI"> <h3>3</h3> </li>
@@ -17,30 +17,28 @@
     </div>
     <div class="mainInscription">
         <div class="mainSecond">
-            <form>
+            <form method='POST'>
                 <div class="form-groupInscri">
                     <label for="username">Nom d’utilisateur :</label>
-                    <input type="text" class="form-control2" id="username" placeholder="">
+                    <input type="text" class="form-control2"  placeholder="Nom d’utilisateur" required>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="username">E-mail :</label>
-                    <input type="text" class="form-control2" id="username" placeholder="">
+                    <label for="email">E-mail :</label>
+                    <input type="email" class="form-control2"  placeholder="email" required>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="pwd">Mot de passe :</label>
-                    <input type="password" class="form-control2" id="pwd" placeholder="">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" class="form-control2"  placeholder="Mot de passe" required>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="pwd">Répéter le Mot de passe  :</label>
-                    <input type="password" class="form-control2" id="pwd" placeholder="">
+                    <label for="password1">Répéter le Mot de passe  :</label>
+                    <input type="password1" class="form-control2"  placeholder="Mot de passe" required>
+                </div>
+                <div id="btn3">
+                    <a href='/ListeService' class="btninscri">< Précedant </a>
+                    <a href='/inscriptionacces' class="btninscri2">Valider ></a>
                 </div>
             </form>
-        </div>
-    </div>
-    <div class="footerinscri">
-        <div id="btn3">
-            <a href='/ListeService' class="btninscri">< Précedant </a>
-            <a href='/inscriptionacces' class="btninscri2">Valider ></a>
         </div>
     </div>
 </div>

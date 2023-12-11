@@ -193,3 +193,38 @@ CREATE TABLE Transfert(
   FOREIGN KEY (Etat) REFERENCES EtatPatient(Etat)
   );
 
+]
+INSERT INTO NomServices
+VALUES 'médecine générale',
+        'immunologie',
+        'radiologie',
+        'chirurgie',
+        'neurologie',
+        'pneumologie',
+        'cardiologie',
+        'odontologie',
+        'dermatologie',
+        'traumatologie',
+        'médecine interne',
+        'endocrinologie',
+        'anatomo-pathologie',
+        'hématologie',
+        'gastro-entérologie',
+        'urologie',
+        'pharmacie',
+        'maternité',
+        'Pédiatrie',
+        'Service des grands brûlés';
+
+
+
+INSERT INTO EtatPatient
+VALUES 'stable',
+        'Rémission',
+        'Aggravation',
+        'Critique',
+        'Guérison',
+        'Chronique',
+        'Rémission',
+        'partielle',
+        'Rééducation';

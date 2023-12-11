@@ -6,11 +6,10 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;' 
 
 
 #  utilisateurs
-
 
 @app.route('/monhopital')
 def monhopital():
@@ -19,7 +18,7 @@ def monhopital():
     cursor.execute('''
     SELECT * FROM EtatPatient 
     ''')
-    value = cursor.fetchone()
+    value = cursor.fetchall()
     conn.close()
     return render_template("./utilisateur/utilisateurhôpital.html", value=value)
 
@@ -31,9 +30,35 @@ def monprofil():
 
 @app.route('/transfert')
 def transfert():
-    value = ['stable', 'Rémission', 'Aggravation', 'Critique', 'Guérison', 'Chronique', 'Rémission', 'partielle',
-             'Rééducation']
-    return render_template("./utilisateur/utilisateurtransfert.html", value=value)
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+    SELECT * FROM Nomservices 
+    ''')
+    service= cursor.fetchall()
+    services=service[1]
+    
+    cursor.execute('''
+    SELECT * FROM commune 
+    ''')
+    commune= cursor.fetchall()
+    communes=commune[1]
+    
+    cursor.execute('''
+    SELECT * FROM region 
+    ''')
+    region= cursor.fetchall()
+    regions=region[1]
+    
+    cursor.execute('''
+    SELECT * FROM departement 
+    ''')
+    departement = cursor.fetchall()
+    departements=departement[1]
+    conn.close()
+    
+    return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes,regions=regions,departements=departements)
 
 
 # ................brayane route (Inscription)#
@@ -57,8 +82,29 @@ def inscriptioninfos():
 
 @app.route('/inscriptionacces')
 def inscriptionacces():
-    data = ''
-    return render_template("./inscription/inscriptionacces.html", data=data)
+    if request.method == 'POST':
+        user = request.form["identifiant"]
+        password = request.form["password"]
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute('''
+        SELECT * FROM Users 
+        WHERE NomUtilisateur = ? OR Email = ?
+        ''', (user, user))
+        user = cursor.fetchone()
+        if user:
+            user_pswd = user[2]
+            if check_password_hash(user_pswd, password):
+                session['loggedin'] = True
+                session['Id'] = user[0]
+                session['username'] = user[1]
+                return redirect(url_for('accueil'))
+            else:
+                flash("Mot de passe incorrect !", 'info')
+                return redirect(url_for('connexion'))
+        else:
+            flash("Identifiant incorrect !", 'info')
+    return render_template("./inscription/inscriptionacces.html")
 
 
 @app.route('/ListeService')
@@ -106,9 +152,6 @@ def connexion():
         else:
             flash("Identifiant incorrect !", 'info')
     return render_template("./connexion/connexion.html")
-
-
-href = "{{ url_for('ajout', type=cat) }}"
 
 
 @app.route('/pwdoublie', methods=["GET", "POST"])
