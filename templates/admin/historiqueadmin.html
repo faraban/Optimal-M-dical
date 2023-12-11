@@ -9,53 +9,30 @@
     <div class="container">
         <div class="content-2">
             <div class="recent-payments">
-                <div class="title">
-                    <h2>Historiques des transferts</h2>
-                    <a href="#" class="btn">Voir plus</a>
-                </div>
                 <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>School</th>
-                        <th>Amount</th>
-                        <th>Option</th>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
+                    <div class="title">
+                        <caption>Historiques des transferts</caption>
+                    </div>
+                    <thead>
+                        <th>Départ</th>
+                        <th>Destination</th>
+                        <th>Service</th>
+                        <th>État du patient</th>
+                        <th>Date</th>
+                        <th>Heure</th>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                              <tr>
+                                  <td> {{ row[0] }} </td>
+                                  <td> {{ row[1] }} </td>
+                                  <td> {{ row[2] }} </td>
+                                  <td> {{ row[3] }} </td>
+                                  <td> {{ row[4] }} </td>
+                                  <td> {{ row[5] }} </td>
+                              </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
