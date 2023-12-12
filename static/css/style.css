@@ -45,7 +45,45 @@ nav .trait_bleu{
     height: 30px;
     width: 100%;
     background-color: #000D82;
- }
+}
+
+nav .nav .nav_bar_admin{
+    height: 90px;
+    width: 100%;
+    padding: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav .nav .nav_bar_admin .logos-case{
+    height: 90%;
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav .nav .nav_bar_admin .logos-case img{
+    height: 90%;
+    width: 40%;
+}
+
+nav .nav .nav_bar_admin .notification-case{
+    height: 90%;
+    width: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .nav .nav_bar_admin .notification-case img{
+    height: 30%;
+    width: 50%;
+}
 
 nav .nav .nav_bar{
     height: 90px;
@@ -754,7 +792,6 @@ td {
     flex-direction: column;
 }
 
-<<<<<<< HEAD
 .historique
 {
     width: 90%;
@@ -882,7 +919,7 @@ td {
 .inscrit table tr:nth-child(even) 
 {
     background-color: rgb(218, 218, 218);
-=======
+}
 .container  .content-2 .disponibilite {
     min-height: 80vh;
     width: 75%;
@@ -890,7 +927,6 @@ td {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     flex-direction: column;
->>>>>>> 07a26d0cd85c07b509b6c25bca1fc502c8451fc6
 }
 
 .container .content-2 .new-students {
