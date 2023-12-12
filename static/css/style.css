@@ -553,9 +553,9 @@ main .info{
 }
 
 .form-control3{
-     height: 20px;
+     height: 100px;
      width: 140px;
-     
+     margin-bottom: 10px;
     
 }
 .form-control3 form{
