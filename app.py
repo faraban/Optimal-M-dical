@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -125,6 +125,7 @@ def inscriptioninfos():
     return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region,
                            ListeDepartement=Departement, ListeCommune=Commune)
 
+
 @app.route('/AjoutService')
 def ajoutservice():
     conn = pyodbc.connect(DSN)
@@ -164,14 +165,9 @@ def inscriptionacces():
     return render_template("./inscription/inscriptionacces.html")
 
 
-
-
-@app.route('/AjoutService')
-def ajoutservice():
-
+@app.route('/AjoutServicee')
+def ajoutservicee():
     return render_template("./inscription/inscriptionservice0.html ")
-
-
 
 
 # ................Fin brayane route (Inscription)#
@@ -200,7 +196,7 @@ def connexion():
         user = cursor.fetchone()
         if user:
             user_pswd = user[2]
-            if user_pswd==password : #check_password_hash(user_pswd, password):
+            if user_pswd == password:   #check_password_hash(user_pswd, password):
                 session['loggedin'] = True
                 session['Id'] = user[0]
                 session['username'] = user[1]
