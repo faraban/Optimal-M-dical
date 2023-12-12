@@ -38,11 +38,11 @@
                         </tr>
                         {% for row in data %}
                               <tr>
-                                  <td> {{ row[2] }} </td>
+                                  <td> {{ row[0] }} </td>
                                   <td> {{ row[1] }} </td>
-                                  <td> {{ row[3] }} </td>
-                                  <td> {{ row[4], row[5], row[6] }} </td>
-                                  <td> {{ row[7] }} </td>
+                                  <td> {{ row[2] }} </td>
+                                  <td> {{ row[3], row[4], row[5] }} </td>
+                                  <td> {{ row[6] }} </td>
                                   <td><a href="#" class="btn">Voir</a></td>
                               </tr>
                         {% endfor %}

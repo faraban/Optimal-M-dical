@@ -13,24 +13,24 @@ DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;
 
 @app.route('/monhopital')
 def monhopital():
-    conn = pyodbc.connect(DSN)  
+    conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
-    
+
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
     services= cursor.fetchall()
-    
+
     cursor.execute('''
     SELECT * FROM commune 
     ''')
     communes= cursor.fetchall()
- 
+
     cursor.execute('''
     SELECT * FROM region 
     ''')
     regions= cursor.fetchall()
-   
+
     cursor.execute('''
     SELECT * FROM departement 
     ''')
@@ -46,7 +46,7 @@ def monhopital():
 
 @app.route('/monprofil')
 def monprofil():
-    
+
     return render_template("./utilisateur/utilisateurprofil.html")
 
 
@@ -60,71 +60,68 @@ def transfert():
     ''')
     service= cursor.fetchall()
     services=service[1]
-    
+
     cursor.execute('''
     SELECT * FROM commune 
     ''')
     commune= cursor.fetchall()
     communes=commune[1]
-    
+
     cursor.execute('''
     SELECT * FROM region 
     ''')
     region= cursor.fetchall()
     regions=region[1]
-    
+
     cursor.execute('''
     SELECT * FROM departement 
     ''')
     departement = cursor.fetchall()
     departements=departement[1]
     conn.close()
-    
+
     return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes,regions=regions,departements=departements)
+
 
 @app.route('/confirmetransfert')
 def confirmetransfert():
-    
+
     return render_template("./utilisateur/confirmetransfert.html")
 
 # ................brayane route (Inscription)#
 
+
 @app.route('/inscriptioninfos')
 def inscriptioninfos():
     conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()  
-    cursor.execute("SELECT * FROM Region") 
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Region")
     Region = cursor.fetchall()
-   
-    cursor.execute("SELECT * FROM Departement") 
+    cursor.execute("SELECT * FROM Departement")
     Departement = cursor.fetchall()
-    
-    cursor.execute("SELECT * FROM Commune") 
+    cursor.execute("SELECT * FROM Commune")
     Commune = cursor.fetchall()
     conn.close()
-
     if request.method == "POST":
         Commune = request.form['selected_value3']
         departement = request.form['selected_value2']
-        region = request.form['selected_value1'] 
-        localisation= "41°24'12.2\"N/2°10'26.5\"E"
-        
-        nom = request.form['Nom'] 
-        num = request.form['Num'] 
+        region = request.form['selected_value1']
+        localisation = "41°24'12.2\"N/2°10'26.5\"E"
+        nom = request.form['Nom']
+        num = request.form['Num']
         tel = request.form['Tel']
-        
-         
-        conn = pyodbc.connect(DSN) 
-        cursor = conn.cursor() 
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
         cursor.execute('''insert into Adresses (Commune, Departement, Region,PositionGeo) 
                        values(?,?,?,?)''',(Commune,departement,region,localisation))
         cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone)
                        VALUES (?, ?, ?)''', (nom, num, tel))
-        conn.commit() 
+        conn.commit()
         conn.close()
         return redirect(url_for('connexion'))
-        
-    return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region, ListeDepartement=Departement, ListeCommune=Commune)
+
+    return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region,
+                           ListeDepartement=Departement, ListeCommune=Commune)
 
 
 
@@ -164,7 +161,7 @@ def listeservice():
 
 @app.route('/AjoutService')
 def ajoutservice():
-    
+
     return render_template("./inscription/inscriptionservice0.html ")
 
 
@@ -177,9 +174,9 @@ def accueil():
         if session['username'] == 'admin':
             redirect (url_for('admin'))
         else:
-            redirect (url_for('monhopital'))  
+            redirect (url_for('monhopital'))
     return redirect(url_for('connexion'))
-  
+
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
     if request.method == 'POST':
@@ -302,7 +299,15 @@ def demande():
 #    if 'loggedin' in session:
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Informations")
+        cursor.execute("""
+            SELECT Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
+            , Region.NomRegion, Informations.Telephone
+            FROM Informations, Users, Adresses, Commune, Departement, Region
+            WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
+            AND Adresses.IdCommune = Commune.IdCommune
+            AND Adresses.IdDepartement = Departement.IdDepartement
+            AND Adresses.IdRegion = Region.IdRegion
+        """)
         data = cursor.fetchall()
         conn.close()
         return render_template("./admin/demandeadmin.html", data=data)
