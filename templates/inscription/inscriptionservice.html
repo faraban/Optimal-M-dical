@@ -18,14 +18,14 @@
     <div class="mainInscription">
         <div class="mainSecond">
             <div class="mainSecondSer1">
-                <a href='/AjoutService' class="btninscriAjL">Ajouter un service </a>
+                <a href="{{url_for('ajoutservice')}}" class="btninscriAjL">Ajouter un service </a>
             </div>
             <div class="mainSecondSer2">
                 <table>
                     <tr>
                         <th>id</th>
-                        <th>Services</th>
                         <th>Capacité d’accueil</th>
+                        <th>Services</th>
                         <th>Actions</th>
                     </tr>
                     {% for row in Services %}

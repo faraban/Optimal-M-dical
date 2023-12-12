@@ -8,23 +8,23 @@
 <div class='infos'>
     <div class="mainInscription">
         <div class="mainSecond">
-            <form>
+            <form method="post">
                 <div class="form-groupInscri">
                     <label for="username">Nom du service :</label>
-                    <select name="selected_value2">
-                        <option >------</option>
-                        {% for cont in nomservice  %}
-                            <option value={{ cont[0] }}>{{ cont[1] }}</option>
+                    <select name="selected_value">
+                        <option >-----------</option>
+                        {% for cont in services  %}
+                             <option value={{cont[0]}}>{{ cont[1] }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="username">Capacité d’accueil :</label>
-                    <input type="text" class="form-control2" name="capacité" id="username" placeholder="Capacité d’accueil" required>
+                    <label for="capacite">Capacité d’accueil :</label>
+                    <input type="text" class="form-control2" name="capacite" id="username" placeholder="Capacité d’accueil" required>
                 </div>
                 <div id="btn3">
                     <a href='/ListeService' class="btninscri">Précedant </a>
-                    <a href='/ListeService' class="btninscri2">Ajout ></a>
+                    <button type="submit" class="btninscri2">Ajout ></button>
                 </div>
             </form>
         </div>
