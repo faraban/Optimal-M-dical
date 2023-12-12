@@ -1,15 +1,5 @@
 CREATE DATABASE OptimalMedical;
 
-CREATE TABLE Adresses(
-  IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-  IdCommune INT NOT NULL,
-  FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
-  IdDepartement INT NOT NULL,
-  FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
-  IdRegion INT NOT NULL,
-  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion) 
-);
-
 CREATE TABLE Commune(
   IdCommune INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomCommune VARCHAR(50) NOT NULL UNIQUE
@@ -251,7 +241,7 @@ values ('abengourou'),
 		('tehini'),
 		('tengrela'),
 		('tiapoum'),
-		('tiassale'), 
+		('tiassale'),
 		('tie ndiekro'),
 		('tiebissou'),
 		('tieme'),
@@ -273,7 +263,18 @@ values ('abengourou'),
 		('zikisso')	,
 		('zouan hounien'),
 		('zoukougbeu'),
-		( 'zuenoula');	 
+		( 'zuenoula');
+
+
+CREATE TABLE Adresses(
+  IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+  IdCommune INT NOT NULL,
+  FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
+  IdDepartement INT NOT NULL,
+  FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
+  IdRegion INT NOT NULL,
+  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion)
+);
 
 CREATE TABLE Informations(
   IdInformation INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -329,7 +330,6 @@ CREATE TABLE Services(
   FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
 );
 
-##################
 CREATE TABLE Affiche (
 	IdAffiche INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
 	iduser int not null,
@@ -364,7 +364,6 @@ VALUES ('stable'),
         ('partielle'),
         ('Rééducation');
 
-##############
 CREATE TABLE Transfert(
   IdTransfert INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   IdService INT NOT NULL,
@@ -373,38 +372,37 @@ CREATE TABLE Transfert(
   FOREIGN KEY (Iduser) REFERENCES users(Iduser)
   );
 
-]
 INSERT INTO NomServices
-VALUES 'médecine générale',
-        'immunologie',
-        'radiologie',
-        'chirurgie',
-        'neurologie',
-        'pneumologie',
-        'cardiologie',
-        'odontologie',
-        'dermatologie',
-        'traumatologie',
-        'médecine interne',
-        'endocrinologie',
-        'anatomo-pathologie',
-        'hématologie',
-        'gastro-entérologie',
-        'urologie',
-        'pharmacie',
-        'maternité',
-        'Pédiatrie',
-        'Service des grands brûlés';
+VALUES  ('médecine générale'),
+        ('immunologie'),
+        ('radiologie'),
+        ('chirurgie'),
+        ('neurologie'),
+        ('pneumologie'),
+        ('cardiologie'),
+        ('odontologie'),
+        ('dermatologie'),
+        ('traumatologie'),
+        ('médecine interne'),
+        ('endocrinologie'),
+        ('anatomo-pathologie'),
+        ('hématologie'),
+        ('gastro-entérologie'),
+        ('urologie'),
+        ('pharmacie'),
+        ('maternité'),
+        ('Pédiatrie'),
+        ('Service des grands brûlés');
 
 
 
 INSERT INTO EtatPatient
-VALUES 'stable',
-        'Rémission',
-        'Aggravation',
-        'Critique',
-        'Guérison',
-        'Chronique',
-        'Rémission',
-        'partielle',
-        'Rééducation';
+VALUES ('stable'),
+       ('Rémission'),
+       ('Aggravation'),
+       ('Critique'),
+       ('Guérison'),
+       ('Chronique'),
+       ('Rémission'),
+       ('partielle'),
+       ('Rééducation');
