@@ -282,7 +282,7 @@ CREATE TABLE Informations(
   IdInformation INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   Nom VARCHAR(50) NOT NULL,
   Matricule VARCHAR(30) NOT NULL UNIQUE,
-  Telephone INTEGER NOT NULL,
+  Telephone VARCHAR(15) NOT NULL,
   IdAdresse INT NOT NULL,
   FOREIGN KEY (IdAdresse) REFERENCES Adresses(IdAdresse)
 );
