@@ -29,6 +29,7 @@ values  ('Abidjan'),
 		('Bondoukou'),
 		('Korhogo');
 
+
 INSERT INTO Region
 VALUES
   ('Gbôklé'),
@@ -61,6 +62,7 @@ VALUES
   ('Worodougou'),
   ('Bounkani'),
   ('Gontougo');
+
 
 insert into Commune
 values ('abengourou'),
@@ -321,6 +323,8 @@ VALUES ('médecine générale'),
         ('Pédiatrie'),
         ('Service des grands brûlés');
 
+
+
 CREATE TABLE Services(
   IdService INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NombrePlace INTEGER NOT NULL,
@@ -371,38 +375,3 @@ CREATE TABLE Transfert(
   Iduser INT NOT NULL,
   FOREIGN KEY (Iduser) REFERENCES users(Iduser)
   );
-
-INSERT INTO NomServices
-VALUES  ('médecine générale'),
-        ('immunologie'),
-        ('radiologie'),
-        ('chirurgie'),
-        ('neurologie'),
-        ('pneumologie'),
-        ('cardiologie'),
-        ('odontologie'),
-        ('dermatologie'),
-        ('traumatologie'),
-        ('médecine interne'),
-        ('endocrinologie'),
-        ('anatomo-pathologie'),
-        ('hématologie'),
-        ('gastro-entérologie'),
-        ('urologie'),
-        ('pharmacie'),
-        ('maternité'),
-        ('Pédiatrie'),
-        ('Service des grands brûlés');
-
-
-
-INSERT INTO EtatPatient
-VALUES ('stable'),
-       ('Rémission'),
-       ('Aggravation'),
-       ('Critique'),
-       ('Guérison'),
-       ('Chronique'),
-       ('Rémission'),
-       ('partielle'),
-       ('Rééducation');
