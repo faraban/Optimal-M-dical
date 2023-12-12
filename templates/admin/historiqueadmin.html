@@ -8,9 +8,11 @@
     {% include 'elements/sidebaradmin.html' %}
     <div class="container">
         <div class="content-2">
-            <div class="historique">
+            <div class="recent-payments">
                 <table>
-                    <caption>Historiques des transferts</caption>
+                    <div class="title">
+                        <caption>Historiques des transferts</caption>
+                    </div>
                     <thead>
                         <th>Départ</th>
                         <th>Destination</th>
@@ -20,22 +22,6 @@
                         <th>Heure</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                             <td>$120</td>
-                            <td><a href="#" class="btn">Voir</a></td>
-                        </tr>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>John Doe</td>
-                            <td>St. James College</td>
-                            <td>$120</td>
-                            <td><a href="#" class="btn">Voir</a></td>
-                        </tr>
                         {% for row in data %}
                               <tr>
                                   <td> {{ row[0] }} </td>

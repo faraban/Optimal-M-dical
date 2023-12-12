@@ -1,5 +1,15 @@
 CREATE DATABASE OptimalMedical;
 
+CREATE TABLE Adresses(
+  IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+  IdCommune INT NOT NULL,
+  FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
+  IdDepartement INT NOT NULL,
+  FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
+  IdRegion INT NOT NULL,
+  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion) 
+);
+
 CREATE TABLE Commune(
   IdCommune INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomCommune VARCHAR(50) NOT NULL UNIQUE
@@ -28,7 +38,6 @@ values  ('Abidjan'),
 		('Yamoussoukro'),
 		('Bondoukou'),
 		('Korhogo');
-
 
 INSERT INTO Region
 VALUES
@@ -62,7 +71,6 @@ VALUES
   ('Worodougou'),
   ('Bounkani'),
   ('Gontougo');
-
 
 insert into Commune
 values ('abengourou'),
@@ -265,18 +273,7 @@ values ('abengourou'),
 		('zikisso')	,
 		('zouan hounien'),
 		('zoukougbeu'),
-		( 'zuenoula');
-
-
-CREATE TABLE Adresses(
-  IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-  IdCommune INT NOT NULL,
-  FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
-  IdDepartement INT NOT NULL,
-  FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
-  IdRegion INT NOT NULL,
-  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion)
-);
+		( 'zuenoula');	 
 
 CREATE TABLE Informations(
   IdInformation INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -286,6 +283,7 @@ CREATE TABLE Informations(
   IdAdresse INT NOT NULL,
   FOREIGN KEY (IdAdresse) REFERENCES Adresses(IdAdresse)
 );
+
 
 CREATE TABLE Users(
   IdUser INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,

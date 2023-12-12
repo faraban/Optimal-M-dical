@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -54,7 +54,7 @@ def monprofil():
 def transfert():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
-
+    
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
@@ -76,8 +76,7 @@ def transfert():
     cursor.execute('''
     SELECT * FROM departement 
     ''')
-    departement = cursor.fetchall()
-    departements=departement[1]
+    departements = cursor.fetchall()
     conn.close()
 
     return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes,regions=regions,departements=departements)
@@ -103,6 +102,9 @@ def inscriptioninfos():
     Commune = cursor.fetchall()
     conn.close()
     if request.method == "POST":
+        nom = request.form['Nom'] 
+        num = request.form['Num'] 
+        tel = request.form['Tel']
         Commune = request.form['selected_value3']
         departement = request.form['selected_value2']
         region = request.form['selected_value1']
@@ -123,6 +125,14 @@ def inscriptioninfos():
     return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region,
                            ListeDepartement=Departement, ListeCommune=Commune)
 
+@app.route('/AjoutService')
+def ajoutservice():
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor() 
+    cursor.execute("SELECT * FROM nomservices") 
+    nomservices= cursor.fetchall()
+    conn.close()
+    return render_template("./inscription/inscriptionservice0.html ", nomservices=nomservices)
 
 
 
@@ -154,15 +164,14 @@ def inscriptionacces():
     return render_template("./inscription/inscriptionacces.html")
 
 
-@app.route('/ListeService')
-def listeservice():
-    return render_template("./inscription/inscriptionservice.html ")
 
 
 @app.route('/AjoutService')
 def ajoutservice():
 
     return render_template("./inscription/inscriptionservice0.html ")
+
+
 
 
 # ................Fin brayane route (Inscription)#
@@ -279,19 +288,7 @@ def admin():
 
 @app.route('/historique')
 def historique():
-    conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Transfert" """
-            SELECT Stock.Idstock, Produit.NomProduit, Magasin.NomMagasin, Stock.Quantitestock
-            FROM Stock
-            INNER JOIN Produit ON Produit.IdProduit=Stock.IdProduit
-            INNER JOIN Magasin ON Magasin.IdMagasin=Stock.IdMagasin
-        """
-
-                   )
-    data = cursor.fetchall()
-    conn.close()
-    return render_template("./admin/historiqueadmin.html", data=data)
+    return render_template("./admin/historiqueadmin.html")
 
 
 @app.route('/demande')
