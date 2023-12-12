@@ -19,17 +19,17 @@ def monhopital():
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
-    services= cursor.fetchall()
+    services = cursor.fetchall()
 
     cursor.execute('''
     SELECT * FROM commune 
     ''')
-    communes= cursor.fetchall()
+    communes = cursor.fetchall()
 
     cursor.execute('''
     SELECT * FROM region 
     ''')
-    regions= cursor.fetchall()
+    regions = cursor.fetchall()
 
     cursor.execute('''
     SELECT * FROM departement 
@@ -41,7 +41,8 @@ def monhopital():
     ''')
     etats = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/utilisateurhôpital.html",etats=etats, services=services,communes=communes,regions=regions,departements=departements)
+    return render_template("./utilisateur/utilisateurhôpital.html", etats=etats, services=services,
+                           communes=communes, regions=regions, departements=departements)
 
 
 @app.route('/monprofil')
@@ -50,7 +51,7 @@ def monprofil():
     return render_template("./utilisateur/utilisateurprofil.html")
 
 
-@app.route('/transfert',methods=["GET", "POST"])
+@app.route('/transfert', methods=["GET", "POST"])
 def transfert():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -58,20 +59,20 @@ def transfert():
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
-    service= cursor.fetchall()
-    services=service[1]
+    service = cursor.fetchall()
+    services = service[1]
 
     cursor.execute('''
     SELECT * FROM commune 
     ''')
-    commune= cursor.fetchall()
-    communes=commune[1]
+    commune = cursor.fetchall()
+    communes = commune[1]
 
     cursor.execute('''
     SELECT * FROM region 
     ''')
-    region= cursor.fetchall()
-    regions=region[1]
+    region = cursor.fetchall()
+    regions = region[1]
 
     cursor.execute('''
     SELECT * FROM departement 
@@ -79,7 +80,8 @@ def transfert():
     departements = cursor.fetchall()
     conn.close()
 
-    return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes,regions=regions,departements=departements)
+    return render_template("./utilisateur/utilisateurtransfert.html", services=services,
+                           communes=communes, regions=regions, departements=departements)
 
 
 @app.route('/confirmetransfert')
@@ -115,7 +117,7 @@ def inscriptioninfos():
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
         cursor.execute('''insert into Adresses (Commune, Departement, Region,PositionGeo) 
-                       values(?,?,?,?)''',(Commune,departement,region,localisation))
+                       values(?,?,?,?)''', (Commune, departement, region, localisation))
         cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone)
                        VALUES (?, ?, ?)''', (nom, num, tel))
         conn.commit()
@@ -131,11 +133,9 @@ def ajoutservice():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor() 
     cursor.execute("SELECT * FROM nomservices") 
-    nomservices= cursor.fetchall()
+    nomservices = cursor.fetchall()
     conn.close()
     return render_template("./inscription/inscriptionservice0.html ", nomservices=nomservices)
-
-
 
 
 @app.route('/inscriptionacces')
@@ -177,10 +177,11 @@ def ajoutservicee():
 def accueil():
     if 'loggedin' in session:
         if session['username'] == 'admin':
-            redirect (url_for('admin'))
+            redirect(url_for('admin'))
         else:
-            redirect (url_for('monhopital'))
+            redirect(url_for('monhopital'))
     return redirect(url_for('connexion'))
+
 
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
@@ -196,7 +197,7 @@ def connexion():
         user = cursor.fetchone()
         if user:
             user_pswd = user[2]
-            if user_pswd == password:   #check_password_hash(user_pswd, password):
+            if user_pswd == password:   # check_password_hash(user_pswd, password):
                 session['loggedin'] = True
                 session['Id'] = user[0]
                 session['username'] = user[1]
