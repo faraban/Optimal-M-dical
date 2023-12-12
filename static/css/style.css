@@ -45,7 +45,45 @@ nav .trait_bleu{
     height: 30px;
     width: 100%;
     background-color: #000D82;
- }
+}
+
+nav .nav .nav_bar_admin{
+    height: 90px;
+    width: 100%;
+    padding: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav .nav .nav_bar_admin .logos-case{
+    height: 90%;
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav .nav .nav_bar_admin .logos-case img{
+    height: 90%;
+    width: 40%;
+}
+
+nav .nav .nav_bar_admin .notification-case{
+    height: 90%;
+    width: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .nav .nav_bar_admin .notification-case img{
+    height: 30%;
+    width: 50%;
+}
 
 nav .nav .nav_bar{
     height: 90px;
@@ -789,4 +827,134 @@ td {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+
+/*......................................Main Mon profile......................................... */
+
+.Orlder{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.mainAlpha{
+    height: 600px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin : 35px;
+    padding: 20px;
+    border : 3px solid black;
+    border-radius: 5%;
+}
+
+.mainBravo{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.mainP2{
+    height: 100%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainP1{
+    height: 250PX;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border : 20px solid #1D5C00;
+    border-radius: 50%;
+}
+
+.form-profile{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    color: #000D82;
+}
+
+
+.form-controlProfi{
+    height: 30px;
+    width: 300px;
+    color: black;
+    border-radius: 5px;
+    border : 3px solid #000D82;
+}
+
+.form-profile2{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    color: #000D82;
+
+}
+
+
+.form-controlProfi2{
+    height: 30px;
+    width: 400px;
+    color: black;
+    border-radius: 5px;
+    border : 3px solid #000D82;
+}
+
+
+.mainbtnpro{
+    height: 30px;
+    width: 100px;
+    color: white;
+    border : 1px solid #000D82;
+    border-radius: 5px;
+    background-color: #000D82;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btnPRO{
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-controlprofil{
+    height: 25px;
+    width: 127px;
+    color: black;
+    border-radius: 5px;
+    border : 3px solid #000D82;
+}
+
+.form-insertlogo{
+    height: 200px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    color: #000D82;
+    border : 20px solid #000D82;
+    border-radius: 50%;
+}
+
+.Adresse{
+    height: 30px;
+    width: 400px;
 }

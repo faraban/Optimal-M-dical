@@ -251,7 +251,7 @@ values ('abengourou'),
 		('tehini'),
 		('tengrela'),
 		('tiapoum'),
-		('tiassale'), 
+		('tiassale'),
 		('tie ndiekro'),
 		('tiebissou'),
 		('tieme'),
@@ -321,6 +321,8 @@ VALUES ('médecine générale'),
         ('Pédiatrie'),
         ('Service des grands brûlés');
 
+
+
 CREATE TABLE Services(
   IdService INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NombrePlace INTEGER NOT NULL,
@@ -330,7 +332,6 @@ CREATE TABLE Services(
   FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
 );
 
-##################
 CREATE TABLE Affiche (
 	IdAffiche INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
 	iduser int not null,
@@ -365,7 +366,6 @@ VALUES ('stable'),
         ('partielle'),
         ('Rééducation');
 
-##############
 CREATE TABLE Transfert(
   IdTransfert INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   IdService INT NOT NULL,

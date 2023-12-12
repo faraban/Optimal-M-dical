@@ -5,5 +5,79 @@
 {%endblock%}
 
 {%block content %}
+    <div class="Orlder">
+        <div class="mainAlpha">
+            <div class="main2">
+                <h2>Mon profil</h2>
+            </div>
+            <div class="mainBravo">
+                <div class="mainP1">
+                    <div class="form-insertlogo">
+                        <label for="logo">Télécharger votre logo</label>
+                        <input type="file" id="logo" name="logo">
+                    </div>
+                </div>
+                <div class="mainP2">
+                    <P>Information sur mon établissement</P>
+                    <form>
+                        <div class="form-profile">
+                            <label for="username">Nom d’utilisateur :</label>
+                            <input type="text" class="form-controlProfi" id="username" placeholder="">
+                        </div>
+                        <div class="form-profile">
+                            <label for="pwd">Mot de passe :</label>
+                            <input type="password" class="form-controlProfi" id="pwd" placeholder="">
+                        </div>
+                        <div class="form-profile2">
+                            <label for="username">Nom d’établissement sanitaire :</label>
+                            <input type="text" class="form-controlProfi2" id="username" placeholder="">
+                        </div>
+                        <div class="form-profile2">
+                            <label for="username">Numéro d'immatriculation de l'établissement :</label>
+                            <input type="text" class="form-controlProfi2" id="username" placeholder="">
+                        </div>
+                        <div class="form-profile2">
+                            <label for="username">Adresse :</label>
+                            <div class="Adresse">
+                                <select type="text" class="form-controlprofil" name="region" id="region"></select>
+                                <select type="text" class="form-controlprofil" name="Département" id="Département"></select>
+                                <select type="text" class="form-controlprofil" name="Commune" id="Commune"></select>
+                                <input type="text" class="form-controlprofil" id="username" placeholder="Localisation">
+
+                            </div>
+                        </div>
+                        <div class="form-profile2">
+                            <label for="username">E-mail :</label>
+                            <input type="text" class="form-controlProfi2" id="username" placeholder="">
+                        </div>
+                        <div id="btnPRO">
+                            <a href="" class="mainbtnpro">Modifier</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mainSecondSer2">
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>Services</th>
+                    <th>Capacité d’accueil</th>
+                    <th>Actions</th>
+                </tr>
+                {% for row in data %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>
+                            <a class="modif">Modifier</a>
+                            <a class="suppr" >Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 
 {%endblock%}
