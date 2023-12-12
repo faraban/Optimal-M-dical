@@ -6,31 +6,31 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
 
 @app.route('/monhopital')
 def monhopital():
-    conn = pyodbc.connect(DSN)  
+    conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
-    
+
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
     services= cursor.fetchall()
-    
+
     cursor.execute('''
     SELECT * FROM commune 
     ''')
     communes= cursor.fetchall()
- 
+
     cursor.execute('''
     SELECT * FROM region 
     ''')
     regions= cursor.fetchall()
-   
+
     cursor.execute('''
     SELECT * FROM departement 
     ''')
@@ -46,7 +46,7 @@ def monhopital():
 
 @app.route('/monprofil')
 def monprofil():
-    
+
     return render_template("./utilisateur/utilisateurprofil.html")
 
 
@@ -58,35 +58,33 @@ def transfert():
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
-    services= cursor.fetchall()
-    
+    service= cursor.fetchall()
+    services=service[1]
+
     cursor.execute('''
     SELECT * FROM commune 
     ''')
-    communes= cursor.fetchall()
- 
+    commune= cursor.fetchall()
+    communes=commune[1]
+
     cursor.execute('''
     SELECT * FROM region 
     ''')
-    regions= cursor.fetchall()
-   
+    region= cursor.fetchall()
+    regions=region[1]
+
     cursor.execute('''
     SELECT * FROM departement 
     ''')
     departements = cursor.fetchall()
     conn.close()
-    if request.method == 'POST':
-        Etablissement= request.form["Etablissement"]
-        Etablissement1 = request.form["Etablissement1"]
-        Service = request.form["Service"]
-        etat = request.form["etat"]
-        transf=[Etablissement,Etablissement1,Service,etat]
-        return render_template("./utilisateur/confirmetransfert.html",transf=transf)
+
     return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes,regions=regions,departements=departements)
+
 
 @app.route('/confirmetransfert')
 def confirmetransfert():
-    
+
     return render_template("./utilisateur/confirmetransfert.html")
 
 
@@ -94,17 +92,14 @@ def confirmetransfert():
 @app.route('/inscriptioninfos',methods=["GET", "POST"])
 def inscriptioninfos():
     conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()  
-    cursor.execute("SELECT * FROM Region") 
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Region")
     Region = cursor.fetchall()
-   
-    cursor.execute("SELECT * FROM Departement") 
+    cursor.execute("SELECT * FROM Departement")
     Departement = cursor.fetchall()
-    
-    cursor.execute("SELECT * FROM Commune") 
+    cursor.execute("SELECT * FROM Commune")
     Commune = cursor.fetchall()
     conn.close()
-
     if request.method == "POST":
         nom = request.form['Nom'] 
         num = request.form['Num'] 
@@ -128,9 +123,7 @@ def inscriptioninfos():
         idinformation = cursor.fetchone()
         session['idinformation']=idinformation[0]
         conn.close()
-        return redirect(url_for('listeservice'))
-        
-    return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region, ListeDepartement=Departement, ListeCommune=Commune)
+        return redirect(url_for('connexion'))
 
 @app.route('/ListeService',methods=["GET", "POST"])
 def listeservice():
@@ -304,7 +297,22 @@ def historique():
 
 @app.route('/demande')
 def demande():
-    return render_template("./admin/demandeadmin.html")
+#    if 'loggedin' in session:
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
+            , Region.NomRegion, Informations.Telephone
+            FROM Informations, Users, Adresses, Commune, Departement, Region
+            WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
+            AND Adresses.IdCommune = Commune.IdCommune
+            AND Adresses.IdDepartement = Departement.IdDepartement
+            AND Adresses.IdRegion = Region.IdRegion
+        """)
+        data = cursor.fetchall()
+        conn.close()
+        return render_template("./admin/demandeadmin.html", data=data)
+#    return redirect(url_for('connexion'))
 
 
 @app.route('/listeinscrit')
