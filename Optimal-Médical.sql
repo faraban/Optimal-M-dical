@@ -20,20 +20,21 @@ CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomDepartement VARCHAR(50) NOT NULL UNIQUE
 );
-insert into Departement(ListeDepartement)
-values
-('Abidjan'),
-('Agboville'),
-('Aboisso'),
-('Dabou'),
-('Grand-Bassam'),
-('Gagnoa'),
-('Man'),
-('Odienné'),
-('Bouaké'),
-('Yamoussoukro'),
-('Bondoukou'),
-('Korhogo');
+
+insert into Departement
+values  ('Abidjan'),
+		('Agboville'),
+		('Aboisso'),
+		('Dabou'),
+		('Grand-Bassam'),
+		('Gagnoa'),
+		('Man'),
+		('Odienné'),
+		('Bouaké'),
+		('Yamoussoukro'),
+		('Bondoukou'),
+		('Korhogo');
+
 select * from Departement
 
 CREATE TABLE Region(
@@ -41,7 +42,7 @@ CREATE TABLE Region(
   NomRegion VARCHAR(50) NOT NULL UNIQUE
 );
 
-INSERT INTO Region(ListeRegion)
+INSERT INTO Region
 VALUES
   ('Gbôklé'),
   ('Nawa'),
@@ -74,57 +75,210 @@ VALUES
   ('Bounkani'),
   ('Gontougo');
 
-select * from Region
+select * from nomservices
 
-insert into Commune(ListeCommune)
-values
-('Agboville'),
-('Akoupé'),
-('Dabou'),
-('Jacqueville'),
-('Tiassalé'),
-('Man'),
-('Agboville'),
-('Akoupé'),
-('Dabou'),
-('Jacqueville'),
-('Tiassalé'),
-('Boundiali'),
-('Ferkessédougou'),
-('Tengréla'),
-('Kong'),
-('Bouaké'),
-('Sakassou'),
-('Dabakala'),
-('Béoumi'),
-('Banfora'),
-('Boromo'),
-('Houndé'),
-('Orodara'),
-('Abengourou'),
-('Abidjan'),
-('Bonoua'),
-('Grand-Bassam'),
-('Tiassalé'),
-('Dimbokro'),
-('Bocanda'),
-('M_Bahiakro'),
-('Oumé'),
-('Yamoussoukro'),
-('Divo'),
-('Tiébissou'),
-('Taabo'),
-('Daloa'),
-('Issia'),
-('Gagnoa'),
-('Bouaké'),
-('Béoumi'),
-('Sakassou'),
-('Dabakala'),
-('Abengourou'),
-('Bonoua'),
-('Grand-Bassam'),
-('Tiassalé');
+insert into Commune
+values ('abengourou'),
+		('abobo'),
+		('aboisso'),
+		('adiake'),
+		('adjame'),
+		 ('adzope'),
+		 ('affery'),
+		 ('agboville'),
+		 ('agnibilekro'),
+		 ('agou'),
+		('akoupe'),
+		('alepe'),
+		('anoumaba'),
+		('anyama'),
+		('arrah'),
+		('assinie mafia'),
+		('assuefry'),
+		('attecoube'),
+		('attiegouakro'),
+		('ayame'),
+		('azaguie'),
+		('bako'),
+		('bangolo'),
+		('bassawa'),
+		('bediala'),
+		 ('beoumi'),
+		 ('bettie'),
+		 ('biankouma'),
+		 ('bingerville'),
+		 ('binhouye'),
+		('blolequin'),
+		('bocanda'),
+		('bodokro'),
+		('bondoukou'),
+		('bongouanou'),
+		('bonieredougou'),
+		('bonon'),
+		('bonoua'),
+		('booko'),
+		('borotou'),
+		('botro'),
+		('bouafle'),
+		('bouake'),
+		('bouna'),
+		('boundiali'),
+		('brobo'),
+		('buyo'),
+		('cocody'),
+		('dabakala'),
+		('dabou'),
+		('daloa'),
+		('danane'),
+		('daoukro'),
+		('diabo'),
+		('dianra'),
+		('diawala'),
+		('didievi'),
+		('diegonefla'),
+		('dikodougou'),
+		('dimbokro'),
+		 ('dioulatiedougou'),
+		 ('divo'),
+		 ('djebonoua'),
+		 ('djekanou'),
+		 ('djibrosso'),
+		('doropo'),
+		('dualla'),
+		('duekoue'),
+		('ettrokro'),
+		('facobly'),
+		('ferkessedougou'),
+		('foumbolo'),
+		('fresco'),
+		('fronan'),
+		('gagnoa'),
+		('gbeleban'),
+		('gboguhe'),
+		('gbon'),
+		('gbonne'),
+		('gohitafla'),
+		('goulia'),
+		('grabo'),
+		('grand bassam'),
+		('grand bereby'),
+		('grand lahou'),
+		('grand zattry'),
+		('gueyo'),
+		('guiberoua'),
+		('guiembre'),
+		('guiglo'),
+		('guinteguela'),
+		('guitry'),
+		('hire'),
+		('issia'),
+		('jacqueville'),
+		('kanakono'),
+		('kani'),
+		('kaniasso'),
+		('karakoro'),
+		('kassere'),
+		('katiola'),
+		('kokoumbo'),
+		('kolia'),
+		('komborodougou'),
+		('kong'),
+		('kongasso'),
+		('koonan'),
+		('korhogo'),
+		('koro'),
+		('kouassi dattekro'),
+		('kouassi kouassikro'),
+		('kouibly'),
+		('koumassi'),
+		('koumbala'),
+		('koun fao'),
+		('kounahiri'),
+		('kouto'),
+		('lakota'),
+		('logouale'),
+		('mbahiakro'),
+		('mbatto'),
+		('mbengue'),
+		('madinani'),
+		('mafere'),
+		('man'),
+		('mankono'),
+		('marcory'),
+		('massala'),
+		('mayo'),
+		('meagui'),
+		('minignan'),
+		('morondo'),
+		('ndouci'),
+		('napie'),
+		('nassian'),
+		('niable'),
+		('niakaramadougou'),
+		('nielle'),
+		('niofoin'),
+		('odienne'),
+		('ouangolodougou'),
+		('ouaninou'),
+		('ouelle'),
+		('oume'),
+		('ouragahio'),
+		('plateau'),
+		('port bouet'),
+		('prikro'),
+		('rubino'),
+		('saioua'),
+		('sakassou'),
+		('samatiguila'),
+		('san pedro'),
+		('sandegue'),
+		('sangouine'),
+		('sarhala'),
+		('sassandra'),
+		('satama sokoro'),
+		('satama sokoura'),
+		('seguela'),
+		('seguelon'),
+		('seydougou'),
+		('sifie'),
+		('sikensi'),
+		('sinematiali'),
+		('sinfra'),
+		('sipilou'),
+		('sirasso'),
+		('songon'),
+		('soubre'),
+		('taabo'),
+		('tabou'),
+		('tafire'),
+		('tai'),
+		('tanda'),
+		('tehini'),
+		('tengrela'),
+		('tiapoum'),
+		('tiassale'), 
+		('tie ndiekro'),
+		('tiebissou'),
+		('tieme'),
+		('tiemelekro'),
+		('tieningboue'),
+		('tienko'),
+		('tioroniaradougou'),
+		('tortiya'),
+		('touba'),
+		('toulepleu'),
+		('toumodi'),
+		('transua'),
+		('treichville'),
+		('vavoua'),
+		('worofla'),
+		('yakasse attobrou'),
+		('yamoussoukro'),
+		('yopougon'),
+		('zikisso')	,
+		('zouan hounien'),
+		('zoukougbeu'),
+		( 'zuenoula');	 
 
 select * from Commune
 
@@ -132,16 +286,17 @@ CREATE TABLE Informations(
   IdInformation INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   Nom VARCHAR(50) NOT NULL,
   Matricule VARCHAR(30) NOT NULL UNIQUE,
-  Email VARCHAR(50) NOT NULL UNIQUE,
   Telephone INTEGER NOT NULL,
   IdAdresse INT NOT NULL,
   FOREIGN KEY (IdAdresse) REFERENCES Adresses(IdAdresse)
 );
-select * from Informations
+
+select * from users;
 
 CREATE TABLE Users(
   IdUser INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomUtilisateur VARCHAR(20) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL UNIQUE,
   Password VARCHAR(255) NOT NULL,
   IdInformation INT NOT NULL,
   FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
@@ -152,6 +307,28 @@ CREATE TABLE NomServices(
   NomService VARCHAR(70) NOT NULL UNIQUE
 );
 
+INSERT INTO NomServices
+VALUES ('médecine générale'),
+        ('immunologie'),
+        ('radiologie'),
+        ('chirurgie'),
+        ('neurologie'),
+        ('pneumologie'),
+        ('cardiologie'),
+        ('odontologie'),
+        ('dermatologie'),
+        ('traumatologie'),
+        ('médecine interne'),
+        ('endocrinologie'),
+        ('anatomo-pathologie'),
+        ('hématologie'),
+        ('gastro-entérologie'),
+        ('urologie'),
+        ('pharmacie'),
+        ('maternité'),
+        ('Pédiatrie'),
+        ('Service des grands brûlés');
+
 CREATE TABLE Services(
   IdService INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NombrePlace INTEGER NOT NULL,
@@ -160,22 +337,23 @@ CREATE TABLE Services(
   IdInformation INT NOT NULL,
   FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
 );
---PROBLEME SUR LE TYPE BOOLEAN DE CETTE TABLE
---CREATE TABLE Affiche (
---  IdAffiche INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
---  Disponible BOOLEAN NOT NULL,
---  Attente BOOLEAN NOT NULL,
---  IdInformation INT NOT NULL,
---  FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
---);
 
-
+CREATE TABLE Affiche (
+	IdAffiche INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+	iduser int not null,
+	service varchar(70) not null,
+	Disponible int NOT NULL,
+	Attente int NOT NULL,
+	IdInformation INT NOT NULL,
+	FOREIGN KEY (Iduser) REFERENCES users(Iduser),
+	FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
+);
 
 CREATE TABLE Reclamation(
   IdReclamation INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   Commentaire VARCHAR(150) NOT NULL,
-  IdInformation INT NOT NULL,
-  FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
+  Iduser INT NOT NULL,
+  FOREIGN KEY (Iduser) REFERENCES users(Iduser)
 );
 
 CREATE TABLE EtatPatient(
@@ -183,48 +361,21 @@ CREATE TABLE EtatPatient(
   Etat VARCHAR(30) NOT NULL
 );
 
+INSERT INTO EtatPatient
+VALUES ('stable'),
+        ('Rémission'),
+        ('Aggravation'),
+        ('Critique'),
+        ('Guérison'),
+        ('Chronique'),
+        ('Rémission'),
+        ('partielle'),
+        ('Rééducation');
+
 CREATE TABLE Transfert(
   IdTransfert INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   IdService INT NOT NULL,
   FOREIGN KEY (IdService) REFERENCES Services(IdService),
-  IdInformation INT NOT NULL,
-  FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
-  Etat VARCHAR(30) NOT NULL,
-  FOREIGN KEY (Etat) REFERENCES EtatPatient(Etat)
+  Iduser INT NOT NULL,
+  FOREIGN KEY (Iduser) REFERENCES users(Iduser)
   );
-
-]
-INSERT INTO NomServices
-VALUES 'médecine générale',
-        'immunologie',
-        'radiologie',
-        'chirurgie',
-        'neurologie',
-        'pneumologie',
-        'cardiologie',
-        'odontologie',
-        'dermatologie',
-        'traumatologie',
-        'médecine interne',
-        'endocrinologie',
-        'anatomo-pathologie',
-        'hématologie',
-        'gastro-entérologie',
-        'urologie',
-        'pharmacie',
-        'maternité',
-        'Pédiatrie',
-        'Service des grands brûlés';
-
-
-
-INSERT INTO EtatPatient
-VALUES 'stable',
-        'Rémission',
-        'Aggravation',
-        'Critique',
-        'Guérison',
-        'Chronique',
-        'Rémission',
-        'partielle',
-        'Rééducation';

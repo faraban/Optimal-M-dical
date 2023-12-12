@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;' 
+DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -95,13 +95,13 @@ def confirmetransfert():
 def inscriptioninfos():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()  
-    cursor.execute("SELECT * FROM ListeRegion") 
+    cursor.execute("SELECT * FROM Region") 
     ListeRegion = cursor.fetchall()
    
-    cursor.execute("SELECT * FROM ListeDepartement") 
+    cursor.execute("SELECT * FROM Departement") 
     ListeDepartement = cursor.fetchall()
     
-    cursor.execute("SELECT * FROM ListeCommune") 
+    cursor.execute("SELECT * FROM Commune") 
     ListeCommune = cursor.fetchall()
     conn.close()
     
@@ -174,10 +174,12 @@ def ajoutservice():
 @app.route("/", methods=["GET", "POST"])
 def accueil():
     if 'loggedin' in session:
-        return render_template("/connexion/accueil.html", username=session['username'], title="accueil")
+        if session['username'] == 'admin':
+            redirect (url_for('admin'))
+        else:
+            redirect (url_for('monhopital'))  
     return redirect(url_for('connexion'))
-
-
+  
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
     if request.method == 'POST':
@@ -192,7 +194,7 @@ def connexion():
         user = cursor.fetchone()
         if user:
             user_pswd = user[2]
-            if check_password_hash(user_pswd, password):
+            if user_pswd==password : #check_password_hash(user_pswd, password):
                 session['loggedin'] = True
                 session['Id'] = user[0]
                 session['username'] = user[1]
