@@ -17,7 +17,7 @@
     </div>
     <div class="mainInscription">
         <div class="mainSecond">
-            <form mrthod='POST'>
+            <form method='POST'>
                 <div class="form-groupLogo">
                     <label for="logo">Télécharger votre logo</label>
                     <input type="file" id="logo" name="logo">
@@ -43,7 +43,7 @@
                                 <select name="selected_value1">
                                     <option  selected>Votre région</option>
                                     {% for cont in ListeRegion  %}
-                                        <option >{{ cont[1] }}</option>
+                                        <option value={{ cont[0] }}>{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>
                             </form>
@@ -53,7 +53,7 @@
                                 <select name="selected_value2">
                                     <option  selected>Votre département</option>
                                     {% for cont in ListeDepartement  %}
-                                        <option >{{ cont[1] }}</option>
+                                        <option value={{ cont[0] }}>{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>
                             </form>
@@ -63,7 +63,7 @@
                                 <select name="selected_value3">
                                     <option  selected>Votre commune</option>
                                     {% for cont in ListeCommune %}
-                                         <option >{{ cont[1] }}</option>
+                                         <option value={{ cont[0] }}>{{ cont[1] }}</option>
                                     {% endfor %}
                                 </select>
                             </form>
@@ -74,7 +74,7 @@
                 <div class="footerinscri">
                     <div id="btn3">
                         <a href='/' class="btninscri">< Précedant </a>
-                        <a href='/ListeService' class="btninscri2">Suivant ></a>
+                        <button type='submit' class="btninscri2">Suivant ></button>
                     </div>
                 </div>
             </form>

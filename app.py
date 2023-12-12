@@ -102,27 +102,29 @@ def inscriptioninfos():
     cursor.execute("SELECT * FROM Commune") 
     Commune = cursor.fetchall()
     conn.close()
-    
+
     if request.method == "POST":
-        
         Commune = request.form['selected_value3']
         departement = request.form['selected_value2']
         region = request.form['selected_value1'] 
+        localisation= "41°24'12.2\"N/2°10'26.5\"E"
         
         nom = request.form['Nom'] 
         num = request.form['Num'] 
         tel = request.form['Tel']
+        
          
         conn = pyodbc.connect(DSN) 
         cursor = conn.cursor() 
-        cursor.execute('''insert into Adresses (Commune, Departement, Region) 
-                       values(?,?,?)''',(Commune,departement,region))
+        cursor.execute('''insert into Adresses (Commune, Departement, Region,PositionGeo) 
+                       values(?,?,?,?)''',(Commune,departement,region,localisation))
         cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone)
                        VALUES (?, ?, ?)''', (nom, num, tel))
         conn.commit() 
         conn.close()
+        return redirect(url_for('connexion'))
         
-    return render_template("./inscription/inscriptioninfos.html", ListeRegion=ListeRegion, ListeDepartement=ListeDepartement, ListeCommune=ListeCommune)
+    return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region, ListeDepartement=Departement, ListeCommune=Commune)
 
 
 
@@ -172,10 +174,12 @@ def ajoutservice():
 @app.route("/", methods=["GET", "POST"])
 def accueil():
     if 'loggedin' in session:
-        return render_template("/connexion/accueil.html", username=session['username'], title="accueil")
+        if session['username'] == 'admin':
+            redirect (url_for('admin'))
+        else:
+            redirect (url_for('monhopital'))  
     return redirect(url_for('connexion'))
-
-
+  
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
     if request.method == 'POST':
@@ -190,7 +194,7 @@ def connexion():
         user = cursor.fetchone()
         if user:
             user_pswd = user[2]
-            if check_password_hash(user_pswd, password):
+            if user_pswd==password : #check_password_hash(user_pswd, password):
                 session['loggedin'] = True
                 session['Id'] = user[0]
                 session['username'] = user[1]
