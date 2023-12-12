@@ -11,7 +11,12 @@
             <form>
                 <div class="form-groupInscri">
                     <label for="username">Nom du service :</label>
-                    <input type="text" class="form-control2" name="service" id="username" placeholder="">
+                    <select name="selected_value2">
+                        <option >------</option>
+                        {% for cont in nomservice  %}
+                            <option value={{ cont[0] }}>{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="form-groupInscri">
                     <label for="username">Capacité d’accueil :</label>

@@ -39,42 +39,38 @@
                     <label for="username">Adresse:</label>
                     <div class="Adresse">
                         <div class="form-control3"> 
-                            <form method="POST">
-                                <select name="selected_value1">
-                                    <option  selected>Votre région</option>
-                                    {% for cont in ListeRegion  %}
-                                        <option value={{ cont[0] }}>{{ cont[1] }}</option>
-                                    {% endfor %}
-                                </select>
-                            </form>
+                            <label for="selected_value1">Choisissez une region :</label>
+                            <select name="selected_value1">
+                                <option >------</option>
+                                {% for cont in ListeRegion  %}
+                                    <option value={{ cont[0] }}>{{ cont[1] }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="form-control3"> 
-                            <form method="POST">
-                                <select name="selected_value2">
-                                    <option  selected>Votre département</option>
-                                    {% for cont in ListeDepartement  %}
-                                        <option value={{ cont[0] }}>{{ cont[1] }}</option>
-                                    {% endfor %}
-                                </select>
-                            </form>
+                            <label for="selected_value2">Choisissez un département :</label>
+                            <select name="selected_value2">
+                                <option >------</option>
+                                {% for cont in ListeDepartement  %}
+                                    <option value={{ cont[0] }}>{{ cont[1] }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="form-control3"> 
-                            <form method="POST">
-                                <select name="selected_value3">
-                                    <option  selected>Votre commune</option>
-                                    {% for cont in ListeCommune %}
-                                         <option value={{ cont[0] }}>{{ cont[1] }}</option>
-                                    {% endfor %}
-                                </select>
-                            </form>
+                            <label for="selected_value3">Choisissez un commune :</label>
+                            <select name="selected_value3">
+                                <option >------</option>
+                                {% for cont in ListeCommune %}
+                                        <option value={{ cont[0] }}>{{ cont[1] }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
-                        <input type="text" class="form-control3" id="username" placeholder="Localisation">
                     </div>
                 </div>
                 <div class="footerinscri">
                     <div id="btn3">
                         <a href='/' class="btninscri">< Précedant </a>
-                        <button type='submit' class="btninscri2">Suivant ></button>
+                        <button type="submit" class="btninscri2">Suivant ></button>
                     </div>
                 </div>
             </form>

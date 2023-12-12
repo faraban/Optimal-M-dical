@@ -91,7 +91,7 @@ def confirmetransfert():
 
 # ................brayane route (Inscription)#
 
-@app.route('/inscriptioninfos')
+@app.route('/inscriptioninfos',methods=["GET", "POST"])
 def inscriptioninfos():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()  
@@ -106,31 +106,57 @@ def inscriptioninfos():
     conn.close()
 
     if request.method == "POST":
-        Commune = request.form['selected_value3']
-        departement = request.form['selected_value2']
-        region = request.form['selected_value1'] 
-        localisation= "41°24'12.2\"N/2°10'26.5\"E"
-        
         nom = request.form['Nom'] 
         num = request.form['Num'] 
         tel = request.form['Tel']
+        Commune = request.form['selected_value3']
+        departement = request.form['selected_value2']
+        region = request.form['selected_value1'] 
+        idadresse=Commune+departement+region
+        
         
          
         conn = pyodbc.connect(DSN) 
         cursor = conn.cursor() 
-        cursor.execute('''insert into Adresses (Commune, Departement, Region,PositionGeo) 
-                       values(?,?,?,?)''',(Commune,departement,region,localisation))
-        cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone)
-                       VALUES (?, ?, ?)''', (nom, num, tel))
+        
+        cursor.execute('''insert into Adresses (idadresse,idCommune, idDepartement, idRegion) 
+                       values(?,?,?,?)''',(idadresse,Commune,departement,region))
+        
+        cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone, idadresse)
+                       VALUES (?, ?, ?,?)''', (nom, num, tel,idadresse))
+        
         conn.commit() 
         conn.close()
-        return redirect(url_for('connexion'))
+        return redirect(url_for('listeservice'))
         
     return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region, ListeDepartement=Departement, ListeCommune=Commune)
 
+@app.route('/ListeService')
+def listeservice():
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()  
+    cursor.execute('''
+        SELECT * FROM services 
+        WHERE idiformation = ?
+        ''', (idiformation)) 
+    services = cursor.fetchall()
+   
+    cursor.execute("SELECT * FROM Departement") 
+    Departement = cursor.fetchall()
+    
+    cursor.execute("SELECT * FROM Commune") 
+    Commune = cursor.fetchall()
+    conn.close()
+    return render_template("./inscription/inscriptionservice.html ", services=services)
 
-
-
+@app.route('/AjoutService')
+def ajoutservice():
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor() 
+    cursor.execute("SELECT * FROM nomservices") 
+    nomservices= cursor.fetchall()
+    conn.close()
+    return render_template("./inscription/inscriptionservice0.html ", nomservices=nomservices)
 
 @app.route('/inscriptionacces')
 def inscriptionacces():
@@ -159,15 +185,10 @@ def inscriptionacces():
     return render_template("./inscription/inscriptionacces.html")
 
 
-@app.route('/ListeService')
-def listeservice():
-    return render_template("./inscription/inscriptionservice.html ")
 
 
-@app.route('/AjoutService')
-def ajoutservice():
-    
-    return render_template("./inscription/inscriptionservice0.html ")
+
+
 
 
 # ................Fin brayane route (Inscription)#
