@@ -204,7 +204,6 @@ VALUES ('médecine générale'),
         ('Service des grands brûlés');
 
 
-
 INSERT INTO EtatPatient
 VALUES ('stable'),
        ('Rémission'),
