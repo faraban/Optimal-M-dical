@@ -10,43 +10,43 @@
 
 {%block content %}
     <div class="container">
-        <div class="cards">
-            <div class="card">
-                <h3>Services</h3>
+        <div class="cardsm">
+            <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        {% for cont in value  %}
-                             <option >{{ cont }}</option>
+                        <option >par services</option>
+                        {% for cont in services  %}
+                             <option >{{ cont[1] }}</option>
                         {% endfor %}
                     </select>
                 </form>
             </div>
-            <div class="card">
-                <h3>commune</h3>
+            <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        {% for cont in value  %}
-                             <option >{{ cont }}</option>
+                        <option >par communes</option>
+                        {% for cont in communes  %}
+                             <option >{{ cont[1] }}</option>
                         {% endfor %}
                     </select>
                 </form>
             </div>
-            <div class="card">
-                <h3>Departement</h3>
+            <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        {% for cont in value  %}
-                                <option >{{ cont }}</option>
+                        <option >par regions</option>
+                        {% for cont in regions  %}
+                             <option >{{ cont[1] }}</option>
                         {% endfor %}
                     </select>
                 </form>
             </div>
-            <div class="card">
-                <h3>region</h3>
+            <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        {% for cont in value  %}
-                                <option >{{ cont }}</option>
+                        <option >par departements</option>
+                        {% for cont in departements %}
+                             <option >{{ cont[1] }}</option>
                         {% endfor %}
                     </select>
                 </form>
