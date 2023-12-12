@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;' 
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -32,32 +32,32 @@ def monprofil():
 def transfert():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
-    
+
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
     service= cursor.fetchall()
     services=service[1]
-    
+
     cursor.execute('''
     SELECT * FROM commune 
     ''')
     commune= cursor.fetchall()
     communes=commune[1]
-    
+
     cursor.execute('''
     SELECT * FROM region 
     ''')
     region= cursor.fetchall()
     regions=region[1]
-    
+
     cursor.execute('''
     SELECT * FROM departement 
     ''')
     departement = cursor.fetchall()
-    departements=departement[1]
+    departements = departement[1]
     conn.close()
-    
+
     return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes,regions=regions,departements=departements)
 
 
@@ -66,14 +66,14 @@ def transfert():
 @app.route('/inscriptioninfos')
 def inscriptioninfos():
     conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()  
-    cursor.execute("SELECT * FROM Region") 
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Region")
     Region = cursor.fetchall()
-   
-    cursor.execute("SELECT * FROM Departement") 
+
+    cursor.execute("SELECT * FROM Departement")
     Departement = cursor.fetchall()
-    
-    cursor.execute("SELECT * FROM Commune") 
+
+    cursor.execute("SELECT * FROM Commune")
     Commune = cursor.fetchall()
     conn.close()
 
@@ -229,12 +229,31 @@ def admin():
 
 @app.route('/historique')
 def historique():
-    return render_template("./admin/historiqueadmin.html")
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Transfert" """
+            SELECT Stock.Idstock, Produit.NomProduit, Magasin.NomMagasin, Stock.Quantitestock
+            FROM Stock
+            INNER JOIN Produit ON Produit.IdProduit=Stock.IdProduit
+            INNER JOIN Magasin ON Magasin.IdMagasin=Stock.IdMagasin
+        """
+
+                   )
+    data = cursor.fetchall()
+    conn.close()
+    return render_template("./admin/historiqueadmin.html", data=data)
 
 
 @app.route('/demande')
 def demande():
-    return render_template("./admin/demandeadmin.html")
+#    if 'loggedin' in session:
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Informations")
+        data = cursor.fetchall()
+        conn.close()
+        return render_template("./admin/demandeadmin.html", data=data)
+#    return redirect(url_for('connexion'))
 
 
 @app.route('/listeinscrit')

@@ -1,16 +1,5 @@
 CREATE DATABASE OptimalMedical
 
-CREATE TABLE Adresses(
-  IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-  IdCommune INT NOT NULL,
-  FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
-  IdDepartement INT NOT NULL,
-  FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
-  IdRegion INT NOT NULL,
-  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion),
-  PositionGeo GEOGRAPHY NOT NULL
-);
-
 CREATE TABLE Commune(
   IdCommune INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomCommune VARCHAR(50) NOT NULL UNIQUE
@@ -20,7 +9,8 @@ CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomDepartement VARCHAR(50) NOT NULL UNIQUE
 );
-insert into Departement(ListeDepartement)
+
+insert into Departement
 values
 ('Abidjan'),
 ('Agboville'),
@@ -34,6 +24,7 @@ values
 ('Yamoussoukro'),
 ('Bondoukou'),
 ('Korhogo');
+
 select * from Departement
 
 CREATE TABLE Region(
@@ -41,7 +32,7 @@ CREATE TABLE Region(
   NomRegion VARCHAR(50) NOT NULL UNIQUE
 );
 
-INSERT INTO Region(ListeRegion)
+INSERT INTO Region
 VALUES
   ('Gbôklé'),
   ('Nawa'),
@@ -76,36 +67,26 @@ VALUES
 
 select * from Region
 
-insert into Commune(ListeCommune)
+insert into Commune
 values
 ('Agboville'),
 ('Akoupé'),
 ('Dabou'),
-('Jacqueville'),
 ('Tiassalé'),
 ('Man'),
-('Agboville'),
-('Akoupé'),
-('Dabou'),
 ('Jacqueville'),
-('Tiassalé'),
 ('Boundiali'),
 ('Ferkessédougou'),
 ('Tengréla'),
 ('Kong'),
-('Bouaké'),
-('Sakassou'),
 ('Dabakala'),
-('Béoumi'),
 ('Banfora'),
 ('Boromo'),
 ('Houndé'),
 ('Orodara'),
-('Abengourou'),
 ('Abidjan'),
 ('Bonoua'),
 ('Grand-Bassam'),
-('Tiassalé'),
 ('Dimbokro'),
 ('Bocanda'),
 ('M_Bahiakro'),
@@ -120,13 +101,20 @@ values
 ('Bouaké'),
 ('Béoumi'),
 ('Sakassou'),
-('Dabakala'),
-('Abengourou'),
-('Bonoua'),
-('Grand-Bassam'),
-('Tiassalé');
+('Abengourou');
 
 select * from Commune
+
+CREATE TABLE Adresses(
+  IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+  IdCommune INT NOT NULL,
+  FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
+  IdDepartement INT NOT NULL,
+  FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
+  IdRegion INT NOT NULL,
+  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion),
+  PositionGeo GEOGRAPHY NOT NULL
+);
 
 CREATE TABLE Informations(
   IdInformation INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -188,43 +176,42 @@ CREATE TABLE Transfert(
   IdService INT NOT NULL,
   FOREIGN KEY (IdService) REFERENCES Services(IdService),
   IdInformation INT NOT NULL,
-  FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
-  Etat VARCHAR(30) NOT NULL,
-  FOREIGN KEY (Etat) REFERENCES EtatPatient(Etat)
+  FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation),
+  IdEtatPatient INT NOT NULL,
+  FOREIGN KEY (IdEtatPatient) REFERENCES EtatPatient(IdEtatPatient)
   );
 
-]
 INSERT INTO NomServices
-VALUES 'médecine générale',
-        'immunologie',
-        'radiologie',
-        'chirurgie',
-        'neurologie',
-        'pneumologie',
-        'cardiologie',
-        'odontologie',
-        'dermatologie',
-        'traumatologie',
-        'médecine interne',
-        'endocrinologie',
-        'anatomo-pathologie',
-        'hématologie',
-        'gastro-entérologie',
-        'urologie',
-        'pharmacie',
-        'maternité',
-        'Pédiatrie',
-        'Service des grands brûlés';
+VALUES ('médecine générale'),
+        ('immunologie'),
+        ('radiologie'),
+        ('chirurgie'),
+        ('neurologie'),
+        ('pneumologie'),
+        ('cardiologie'),
+        ('odontologie'),
+        ('dermatologie'),
+        ('traumatologie'),
+        ('médecine interne'),
+        ('endocrinologie'),
+        ('anatomo-pathologie'),
+        ('hématologie'),
+        ('gastro-entérologie'),
+        ('urologie'),
+        ('pharmacie'),
+        ('maternité'),
+        ('Pédiatrie'),
+        ('Service des grands brûlés');
 
 
 
 INSERT INTO EtatPatient
-VALUES 'stable',
-        'Rémission',
-        'Aggravation',
-        'Critique',
-        'Guérison',
-        'Chronique',
-        'Rémission',
-        'partielle',
-        'Rééducation';
+VALUES ('stable'),
+       ('Rémission'),
+       ('Aggravation'),
+       ('Critique'),
+       ('Guérison'),
+       ('Chronique'),
+       ('Rémission'),
+       ('partielle'),
+       ('Rééducation');

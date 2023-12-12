@@ -8,54 +8,45 @@
     {% include 'elements/sidebaradmin.html' %}
     <div class="container">
         <div class="content-2">
-            <div class="recent-payments">
-                <div class="title">
-                    <h2>Liste des demandes d'inscription</h2>
-                    <a href="#" class="btn">Voir plus</a>
-                </div>
+            <div class="demande">
                 <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>School</th>
-                        <th>Amount</th>
-                        <th>Option</th>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>St. James College</td>
-                        <td>$120</td>
-                        <td><a href="#" class="btn">Voir</a></td>
-                    </tr>
+                    <caption>Liste des demandes d'inscription</caption>
+                    <thead>
+                        <th>Matricule</th>
+                        <th>Nom d'établissement</th>
+                        <th>Email</th>
+                        <th>Adresse</th>
+                        <th>Téléphone</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>St. James College</td>
+                            <td>John Doe</td>
+                            <td>St. James College</td>
+                             <td>$120</td>
+                            <td><a href="#" class="btn">Voir</a></td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>St. James College</td>
+                            <td>John Doe</td>
+                            <td>St. James College</td>
+                            <td>$120</td>
+                            <td><a href="#" class="btn">Voir</a></td>
+                        </tr>
+                        {% for row in data %}
+                              <tr>
+                                  <td> {{ row[2] }} </td>
+                                  <td> {{ row[1] }} </td>
+                                  <td> {{ row[3] }} </td>
+                                  <td> {{ row[4], row[5], row[6] }} </td>
+                                  <td> {{ row[7] }} </td>
+                                  <td><a href="#" class="btn">Voir</a></td>
+                              </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>
