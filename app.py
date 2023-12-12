@@ -96,35 +96,37 @@ def inscriptioninfos():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()  
     cursor.execute("SELECT * FROM Region") 
-    ListeRegion = cursor.fetchall()
+    Region = cursor.fetchall()
    
     cursor.execute("SELECT * FROM Departement") 
-    ListeDepartement = cursor.fetchall()
+    Departement = cursor.fetchall()
     
     cursor.execute("SELECT * FROM Commune") 
-    ListeCommune = cursor.fetchall()
+    Commune = cursor.fetchall()
     conn.close()
-    
+
     if request.method == "POST":
-        
         Commune = request.form['selected_value3']
         departement = request.form['selected_value2']
         region = request.form['selected_value1'] 
+        localisation= "41°24'12.2\"N/2°10'26.5\"E"
         
         nom = request.form['Nom'] 
         num = request.form['Num'] 
         tel = request.form['Tel']
+        
          
         conn = pyodbc.connect(DSN) 
         cursor = conn.cursor() 
-        cursor.execute('''insert into Adresses (Commune, Departement, Region) 
-                       values(?,?,?)''',(Commune,departement,region))
+        cursor.execute('''insert into Adresses (Commune, Departement, Region,PositionGeo) 
+                       values(?,?,?,?)''',(Commune,departement,region,localisation))
         cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone)
                        VALUES (?, ?, ?)''', (nom, num, tel))
         conn.commit() 
         conn.close()
+        return redirect(url_for('connexion'))
         
-    return render_template("./inscription/inscriptioninfos.html", ListeRegion=ListeRegion, ListeDepartement=ListeDepartement, ListeCommune=ListeCommune)
+    return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region, ListeDepartement=Departement, ListeCommune=Commune)
 
 
 

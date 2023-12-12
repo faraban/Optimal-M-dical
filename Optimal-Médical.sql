@@ -1,4 +1,4 @@
-CREATE DATABASE OptimalMedical
+CREATE DATABASE OptimalMedical;
 
 CREATE TABLE Adresses(
   IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -7,8 +7,7 @@ CREATE TABLE Adresses(
   IdDepartement INT NOT NULL,
   FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
   IdRegion INT NOT NULL,
-  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion),
-  PositionGeo GEOGRAPHY NOT NULL
+  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion) 
 );
 
 CREATE TABLE Commune(
@@ -19,6 +18,11 @@ CREATE TABLE Commune(
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomDepartement VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE Region(
+  IdRegion INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+  NomRegion VARCHAR(50) NOT NULL UNIQUE
 );
 
 insert into Departement
@@ -34,13 +38,6 @@ values  ('Abidjan'),
 		('Yamoussoukro'),
 		('Bondoukou'),
 		('Korhogo');
-
-select * from Departement
-
-CREATE TABLE Region(
-  IdRegion INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-  NomRegion VARCHAR(50) NOT NULL UNIQUE
-);
 
 INSERT INTO Region
 VALUES
@@ -74,8 +71,6 @@ VALUES
   ('Worodougou'),
   ('Bounkani'),
   ('Gontougo');
-
-select * from nomservices
 
 insert into Commune
 values ('abengourou'),
@@ -280,8 +275,6 @@ values ('abengourou'),
 		('zoukougbeu'),
 		( 'zuenoula');	 
 
-select * from Commune
-
 CREATE TABLE Informations(
   IdInformation INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   Nom VARCHAR(50) NOT NULL,
@@ -290,8 +283,6 @@ CREATE TABLE Informations(
   IdAdresse INT NOT NULL,
   FOREIGN KEY (IdAdresse) REFERENCES Adresses(IdAdresse)
 );
-
-select * from users;
 
 CREATE TABLE Users(
   IdUser INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -338,6 +329,7 @@ CREATE TABLE Services(
   FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
 );
 
+##################
 CREATE TABLE Affiche (
 	IdAffiche INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
 	iduser int not null,
@@ -372,6 +364,7 @@ VALUES ('stable'),
         ('partielle'),
         ('Rééducation');
 
+##############
 CREATE TABLE Transfert(
   IdTransfert INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   IdService INT NOT NULL,
