@@ -90,8 +90,7 @@ def confirmetransfert():
     return render_template("./utilisateur/confirmetransfert.html")
 
 
-
-@app.route('/inscriptioninfos',methods=["GET", "POST"])
+@app.route('/inscriptioninfos', methods=["GET", "POST"])
 def inscriptioninfos():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -109,74 +108,77 @@ def inscriptioninfos():
         Commune = request.form['selected_value3']
         departement = request.form['selected_value2']
         region = request.form['selected_value1'] 
-        idadresse=Commune+departement+region
+        idadresse = Commune+departement+region
         conn = pyodbc.connect(DSN) 
         cursor = conn.cursor() 
         
         cursor.execute('''insert into Adresses (idadresse,idCommune, idDepartement, idRegion) 
-                       values(?,?,?,?)''',(idadresse,Commune,departement,region))
+                       values(?,?,?,?)''', (idadresse, Commune, departement, region))
         conn.commit()
         cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone, idadresse)
-                       VALUES (?, ?, ?,?)''', (nom, num, tel,idadresse))
+                       VALUES (?, ?, ?,?)''', (nom, num, tel, idadresse))
         conn.commit()
         cursor.execute(''' SELECT * FROM Informations 
                             WHERE Matricule = ?
-                            ''', (num)) 
+                            ''', num)
         idinformation = cursor.fetchone()
-        session['idinformation']=idinformation[0]
+        session['idinformation'] = idinformation[0]
         conn.close()
         return redirect(url_for('connexion'))
 
-@app.route('/ListeService',methods=["GET", "POST"])
+
+@app.route('/ListeService', methods=["GET", "POST"])
 def listeservice():
-    idiformation=session.get('idinformation')
+    idiformation = session.get('idinformation')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()  
     cursor.execute('''
         SELECT * FROM Informations 
         WHERE idinformation = ?
-        ''', (idiformation)) 
+        ''', idiformation)
     services = cursor.fetchall()
     conn.close()
     return render_template("./inscription/inscriptionservice.html ", services=services)
 
-@app.route('/AjoutService',methods=["GET", "POST"])
+
+@app.route('/AjoutService', methods=["GET", "POST"])
 def ajoutservice():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor() 
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
-    services= cursor.fetchall()
+    services = cursor.fetchall()
     if request.method == "POST":
-        idinformation=session.get('idinformation')
+        idinformation = session.get('idinformation')
         service = request.form['selected_value']
         capacite = request.form['capacite'] 
         cursor.execute('''INSERT INTO services (Nombreplace, idnomservice, idinformation)
-                       VALUES (?, ?, ?)''', (capacite, service,idinformation))
+                       VALUES (?, ?, ?)''', (capacite, service, idinformation))
         conn.commit() 
         conn.close()
         return redirect(url_for('listeservice'))
     return render_template("./inscription/inscriptionservice0.html ", services=services)
 
 
-@app.route('/inscriptionacces',methods=["GET", "POST"])
+@app.route('/inscriptionacces', methods=["GET", "POST"])
 def inscriptionacces():
     if request.method == 'POST':
-        idinformation=session.get('idinformation')
+        idinformation = session.get('idinformation')
         user = request.form["username"]
         mail = request.form["email"]
         password = request.form["password"]
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO users (nomutilisateur, email, password,idinformation)
-                       VALUES (?, ?, ?,?)''', (user, mail,generate_password_hash(password),idinformation))
+                       VALUES (?, ?, ?,?)''', (user, mail, generate_password_hash(password), idinformation))
         conn.commit() 
         conn.close()
         return redirect(url_for('connexion'))
     return render_template("./inscription/inscriptionacces.html")
 
 #     connexion 
+
 
 @app.route("/", methods=["GET", "POST"])
 def accueil():
@@ -202,7 +204,7 @@ def connexion():
         user = cursor.fetchone()
         if user:
             user_pswd = user[3]
-            if check_password_hash(user_pswd,password):
+            if check_password_hash(user_pswd, password):
                 session['loggedin'] = True
                 session['Id'] = user[0]
                 session['username'] = user[1]
@@ -219,6 +221,7 @@ def connexion():
 def deconnexion():
     session.clear()
     return redirect(url_for('connexion'))
+
 
 @app.route('/pwdoublie', methods=["GET", "POST"])
 def pwdoublie():
@@ -272,7 +275,7 @@ def pwdreset():
                         UPDATE users
                         SET Password = ?
                         WHERE  Email = ?
-                        ''', (password,email))
+                        ''', (password, email))
             conn.commit()
             conn.close()
             flash('votre mot de passe à bien été modifié, connectez vous')
