@@ -1,0 +1,88 @@
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/navelement.html' %} 
+{%endblock%}
+
+{%block filter %} 
+    {% include 'elements/filter.html' %} 
+{%endblock%}
+
+{%block content %}
+    <div class="container">
+        <div class="cardsm">
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option >par services</option>
+                        {% for cont in services  %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option >par communes</option>
+                        {% for cont in communes  %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option >par regions</option>
+                        {% for cont in regions  %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option >par departements</option>
+                        {% for cont in departements %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="content-2">
+            <div class="recent-payments">
+                <div class="title">
+                    <h2>Mettre à jour les disponibilités</h2>
+                </div>
+                <table>
+                    <tr>
+                        <th>Services</th>
+                        <th>Nombres de place</th>
+                        <th>places occuppé</th>
+                        <th></th>
+                        <th>Fils d'attente</th>
+                        <th></th>
+                    </tr>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>
+                            <a class="edit" href="{{ url_for('modifier', item_id=row[0],type=cat ) }}">Modifier</a>
+                            <a class="delete" href="{{ url_for('supprimer', item_id=row[0],type=cat ) }}">Supprimer</a>
+                        </td>
+                        <td>{{ row[2] }}</td>
+                        <td>
+                            <a class="edit" href="{{ url_for('modifier', item_id=row[0],type=cat ) }}">Modifier</a>
+                            <a class="delete" href="{{ url_for('supprimer', item_id=row[0],type=cat ) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+               
+                </div>
+        </div>
+  </div>
+{%endblock%}

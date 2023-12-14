@@ -186,7 +186,13 @@ nav .nav .nav_bar .img-case img {
     color: white;
     text-align: center;
 }
-
+ul a:hover{
+    color:black;
+    background-color: white;
+}
+ul a{
+    color: white;
+}
 
 .nav_bar .user img {
     margin-left: 5%;

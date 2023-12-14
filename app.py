@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -43,6 +43,79 @@ def monhopital():
     conn.close()
     return render_template("./utilisateur/utilisateurhôpital.html", etats=etats, services=services,
                            communes=communes, regions=regions, departements=departements)
+
+
+@app.route('/transfertECR')
+def transfertECR():
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    SELECT * FROM Nomservices 
+    ''')
+    services = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM commune 
+    ''')
+    communes = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM region 
+    ''')
+    regions = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM departement 
+    ''')
+    departements = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM EtatPatient 
+    ''')
+    etats = cursor.fetchall()
+    conn.close()
+    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services,
+                           communes=communes, regions=regions, departements=departements)
+
+
+
+@app.route('/transferteffectué')
+def transferteffectué():
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    SELECT * FROM Nomservices 
+    ''')
+    services = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM commune 
+    ''')
+    communes = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM region 
+    ''')
+    regions = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM departement 
+    ''')
+    departements = cursor.fetchall()
+
+    cursor.execute('''
+    SELECT * FROM EtatPatient 
+    ''')
+    etats = cursor.fetchall()
+    conn.close()
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,
+                           communes=communes, regions=regions, departements=departements)
+
+
+
+
 
 
 @app.route('/monprofil')
@@ -106,7 +179,7 @@ def inscriptioninfos():
         num = request.form['Num'] 
         tel = request.form['Tel']
         Commune = request.form['selected_value3']
-        departement = request.form['selected_value2']
+        departement = request.form['selected_value2'] 
         region = request.form['selected_value1'] 
         idadresse = Commune+departement+region
         conn = pyodbc.connect(DSN) 
