@@ -109,12 +109,34 @@ def transferteffectué():
     SELECT * FROM EtatPatient 
     ''')
     etats = cursor.fetchall()
+    
+    cursor.execute("""
+            SELECT Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
+            , Region.NomRegion, Informations.Telephone
+            FROM Informations, Users, Adresses, Commune, Departement, Region
+            WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
+            AND Adresses.IdCommune = Commune.IdCommune
+            AND Adresses.IdDepartement = Departement.IdDepartement
+            AND Adresses.IdRegion = Region.IdRegion
+        """)
+    data = cursor.fetchall()
+    
     conn.close()
     return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,
                            communes=communes, regions=regions, departements=departements)
-
-
-
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute("""
+            SELECT Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
+            , Region.NomRegion, Informations.Telephone
+            FROM Informations, Users, Adresses, Commune, Departement, Region
+            WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
+            AND Adresses.IdCommune = Commune.IdCommune
+            AND Adresses.IdDepartement = Departement.IdDepartement
+            AND Adresses.IdRegion = Region.IdRegion
+        """)
+    data = cursor.fetchall()
+    conn.close()
 
 
 
