@@ -834,7 +834,7 @@ td {
 
 .historique table tr:nth-child(odd) 
 {
-    
+    background-color: transparent;
 }
 .historique table tr:nth-child(even) 
 {
@@ -877,7 +877,7 @@ td {
 
 .demande table tr:nth-child(odd) 
 {
-    
+    background-color: transparent;
 }
 .demande table tr:nth-child(even) 
 {
@@ -920,7 +920,7 @@ td {
 
 .inscrit table tr:nth-child(odd) 
 {
-    
+    background-color: transparent;
 }
 .inscrit table tr:nth-child(even) 
 {
