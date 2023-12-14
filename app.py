@@ -111,14 +111,12 @@ def transferteffectué():
     etats = cursor.fetchall()
     
     cursor.execute("""
-            SELECT Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
-            , Region.NomRegion, Informations.Telephone
-            FROM Informations, Users, Adresses, Commune, Departement, Region
-            WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
-            AND Adresses.IdCommune = Commune.IdCommune
-            AND Adresses.IdDepartement = Departement.IdDepartement
-            AND Adresses.IdRegion = Region.IdRegion
-        """)
+                   select NomServices.NomService, Services.NombrePlace, Affiche.Disponible, Affiche.Attente
+                   from Services, Affiche, Informations, NomServices
+                   where Services.IdInformation = Informations.IdInformation
+                   and Affiche.IdInformation = Informations.IdInformation
+                   and Services.IdNomService = NomServices.IdNomServices
+                   """)
     data = cursor.fetchall()
     
     conn.close()
