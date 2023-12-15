@@ -28,6 +28,7 @@ a, button{
 nav {
     height: 120px;
     width: 100%;
+    background-color: #FFF;
     display: flex;
     flex-direction: column;
     position: sticky;
@@ -35,31 +36,30 @@ nav {
    }
 
 nav .nav{
-    height: 90px;
+    height: 90%;
     width: 100%;
-    background-color: #ffffff;
     display: flex;
+
 }
 
 nav .trait_bleu{
-    height: 30px;
+    height: 10%;
     width: 100%;
     background-color: #000D82;
 }
 
 nav .nav .nav_bar_admin{
-    height: 90px;
+    height: 100%;
     width: 100%;
-    padding: 20px;
-    margin-left: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 }
 
 nav .nav .nav_bar_admin .logos-case{
-    height: 90%;
-    width: 35%;
+    height: 75%;
+    width: 40%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -86,11 +86,10 @@ nav .nav .nav_bar_admin .notification-case img{
 }
 
 nav .nav .nav_bar{
-    height: 90px;
+    height: 100%;
     width: 100%;
     padding: 20px;
     margin-left: 20px;
-    background-color: #ffffff;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -798,6 +797,108 @@ td {
     flex-direction: column;
 }
 
+.main .container-admin {
+    width: 90%;
+    height: 100vh;
+}
+
+.container-admin .cards {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+} 
+
+.container-admin .cards-center {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+.container-admin .cards .card {
+    width: 23%;
+    height: 100px;
+    background: white;
+    margin: 20px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container-admin  .cardsm {
+    width: 60%;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+} 
+
+.container-admin .cardsm .cardm {
+    width: 20%;
+    height: 50px;
+    background: white;
+    margin: 20px 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container-admin .cardsm .cardm form,select{
+    width: 100%;
+    height: 40px;
+    background: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    align-items: center;
+}
+
+.container-admin .cards .card .box { 
+    width: 50%; 
+    height: 50%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    justify-content: center; 
+} 
+.container-admin .cards .card .box h1, 
+.container-admin .cards .card .box h3 { 
+    margin: 0; 
+} 
+.container-admin .cards .card .icon-case { 
+    width: 30%; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
+} 
+.container-admin .cards .card .icon-case img { 
+    width: 50%; 
+    height: 30%; 
+}
+
+.container-admin .content-2 {
+    min-height: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.container-admin  .content-2 .recent-payments {
+    min-height: 50vh;
+    flex: 5;
+    background: white;
+    margin: 0 25px 25px 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+
 .historique
 {
     width: 90%;
@@ -964,3 +1065,170 @@ td {
     display: flex;
     justify-content: center;
 }
+.container-admin  .content-2 .disponibilite {
+    min-height: 80vh;
+    width: 75%;
+    background: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+
+.container-admin .content-2 .new-students {
+    background: white;
+    min-height: 20%;
+    margin: 0 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+
+.container-admin .content-2 .transfert_form {
+    background: white;
+    width: 22%;
+    height: 80vh;
+    margin-right: 3%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+}
+
+.container-admin .content-2 .new-students table td:nth-child(1) img {
+    height: 40px;
+    width: 40px;
+ }
+
+.container-admin .confirme_transfert{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/*......................................Main Mon profile......................................... */ 
+ 
+.Orlder{ 
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+ 
+} 
+ 
+.mainAlpha{ 
+    height: 600px; 
+    width: 60%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    margin : 35px; 
+    padding: 20px; 
+    border : 3px solid black; 
+    border-radius: 5%; 
+} 
+ 
+.mainBravo{ 
+    height: 100%; 
+    width: 100%; 
+    display: flex; 
+} 
+ 
+.mainP2{ 
+    height: 100%; 
+    width: 60%; 
+    display: flex; 
+    justify-content: center; 
+    flex-direction: column; 
+    align-items: center; 
+} 
+ 
+.mainP1{ 
+    height: 250PX; 
+    width: 300px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border : 20px solid #1D5C00; 
+    border-radius: 50%; 
+} 
+ 
+.form-profile{ 
+    display: flex; 
+    flex-direction: column; 
+    padding: 10px; 
+    color: #000D82; 
+} 
+ 
+ 
+.form-controlProfi{ 
+    height: 30px; 
+    width: 300px; 
+    color: black; 
+    border-radius: 5px; 
+    border : 3px solid #000D82; 
+} 
+ 
+.form-profile2{ 
+    display: flex; 
+    flex-direction: column; 
+    padding: 10px; 
+    color: #000D82; 
+ 
+} 
+ 
+ 
+.form-controlProfi2{ 
+    height: 30px; 
+    width: 400px; 
+    color: black; 
+    border-radius: 5px; 
+    border : 3px solid #000D82; 
+} 
+ 
+ 
+.mainbtnpro{ 
+    height: 30px; 
+    width: 100px; 
+    color: white; 
+    border : 1px solid #000D82; 
+    border-radius: 5px; 
+    background-color: #000D82; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+} 
+ 
+#btnPRO{ 
+    height: 30px; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+} 
+ 
+.form-controlprofil{ 
+    height: 25px; 
+    width: 127px; 
+    color: black; 
+    border-radius: 5px; 
+    border : 3px solid #000D82; 
+} 
+ 
+.form-insertlogo{ 
+    height: 200px; 
+    width: 250px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    padding: 10px; 
+    margin: 10px; 
+    color: #000D82; 
+    border : 20px solid #000D82; 
+    border-radius: 50%; 
+} 
+ 
+.Adresse{ 
+    height: 30px; 
+    width: 400px; 
+} 

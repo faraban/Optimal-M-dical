@@ -6,7 +6,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
 
 
 #  utilisateurs
@@ -79,7 +79,6 @@ def transfertECR():
                            communes=communes, regions=regions, departements=departements)
 
 
-
 @app.route('/transferteffectué')
 def transferteffectué():
     conn = pyodbc.connect(DSN)
@@ -112,10 +111,6 @@ def transferteffectué():
     conn.close()
     return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,
                            communes=communes, regions=regions, departements=departements)
-
-
-
-
 
 
 @app.route('/monprofil')
@@ -200,6 +195,7 @@ def inscriptioninfos():
         return redirect(url_for('connexion'))
 
 
+
 @app.route('/ListeService', methods=["GET", "POST"])
 def listeservice():
     idiformation = session.get('idinformation')
@@ -272,16 +268,17 @@ def connexion():
         cursor = conn.cursor()
         cursor.execute('''
         SELECT * FROM Users 
-        WHERE NomUtilisateur = ? OR Email = ?
+        WHERE NomUtilisateur = ? OR email = ?
         ''', (user, user))
         user = cursor.fetchone()
         if user:
             user_pswd = user[3]
-            if check_password_hash(user_pswd, password):
+            # if check_password_hash(user_pswd, password):
+            if password == user_pswd:
                 session['loggedin'] = True
                 session['Id'] = user[0]
                 session['username'] = user[1]
-                return redirect(url_for('accueil'))
+                return redirect(url_for('monhopital'))
             else:
                 flash("Mot de passe incorrect !", 'info')
                 return redirect(url_for('connexion'))
@@ -366,12 +363,43 @@ def pwdreset():
 
 @app.route('/admin')
 def admin():
-    return render_template("./admin/admin.html")
+    #    if 'loggedin' in session:
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute(""" SELECT * FROM Informations """)
+    inscrit = cursor.fetchall()
+    nbrinscrit = len(inscrit)
+    cursor.execute(""" SELECT * FROM Transfert """)
+    transfert = cursor.fetchall()
+    nbrtransfert = len(transfert)
+    cursor.execute(""" SELECT * FROM Reclamation """)
+    reclamation = cursor.fetchall()
+    nbrreclamation = len(reclamation)
+    conn.close()
+    return render_template("./admin/admin.html", nbrinscrit=nbrinscrit, nbrtransfert=nbrtransfert,
+                           nbrreclamation=nbrreclamation)
+    #    return redirect(url_for('connexion'))
 
 
 @app.route('/historique')
 def historique():
-    return render_template("./admin/historiqueadmin.html")
+    #    if 'loggedin' in session:
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute("""
+                SELECT Informations.Nom, Informations.Nom, NomServices.NomService, EtatPatient.Etat, Transfert.Temps
+                FROM Transfert, Users, EtatPatient, Services, NomServices, Informations
+                WHERE Transfert.IdUserDep = Users.IdUser 
+                AND Transfert.IdUserDes = Users.IdUser
+                AND Users.IdInformation = Informations.IdInformation
+                AND Transfert.IdService = Services.IdService
+                AND NomServices.IdNomServices = Services.IdNomService
+                AND Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
+            """)
+    data = cursor.fetchall()
+    conn.close()
+    return render_template("./admin/historiqueadmin.html", data=data)
+    #    return redirect(url_for('connexion'))
 
 
 @app.route('/demande')
