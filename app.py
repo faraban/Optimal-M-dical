@@ -6,9 +6,9 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
 
-
+#DESKTOP-FRGCPSS
 #  utilisateurs
 
 @app.route('/monhopital')
@@ -41,8 +41,7 @@ def monhopital():
     ''')
     etats = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/utilisateurhôpital.html", etats=etats, services=services,
-                           communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/utilisateurhôpital.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements)
 
 
 @app.route('/transfertECR')
@@ -75,8 +74,7 @@ def transfertECR():
     ''')
     etats = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services,
-                           communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements)
 
 
 @app.route('/transferteffectué')
@@ -119,8 +117,7 @@ def transferteffectué():
     data = cursor.fetchall()
     
     conn.close()
-    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,
-                           communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements)
 
 
 @app.route('/monprofil')
@@ -158,8 +155,7 @@ def transfert():
     departements = cursor.fetchall()
     conn.close()
 
-    return render_template("./utilisateur/utilisateurtransfert.html", services=services,
-                           communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes, regions=regions, departements=departements)
 
 
 @app.route('/confirmetransfert')
@@ -202,7 +198,9 @@ def inscriptioninfos():
         idinformation = cursor.fetchone()
         session['idinformation'] = idinformation[0]
         conn.close()
-        return redirect(url_for('connexion'))
+        return redirect(url_for('listeservice'))
+    return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region, ListeDepartement=Departement, ListeCommune=Commune) 
+ 
 
 
 @app.route('/ListeService', methods=["GET", "POST"])
