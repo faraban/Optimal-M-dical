@@ -108,6 +108,16 @@ def transferteffectué():
     SELECT * FROM EtatPatient 
     ''')
     etats = cursor.fetchall()
+    
+    cursor.execute("""
+                   select NomServices.NomService, Services.NombrePlace, Affiche.Disponible, Affiche.Attente
+                   from Services, Affiche, Informations, NomServices
+                   where Services.IdInformation = Informations.IdInformation
+                   and Affiche.IdInformation = Informations.IdInformation
+                   and Services.IdNomService = NomServices.IdNomServices
+                   """)
+    data = cursor.fetchall()
+    
     conn.close()
     return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,
                            communes=communes, regions=regions, departements=departements)
