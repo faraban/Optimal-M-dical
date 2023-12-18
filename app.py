@@ -382,8 +382,14 @@ def admin():
     cursor.execute(""" SELECT * FROM Reclamation """)
     reclamation = cursor.fetchall()
     nbrreclamation = len(reclamation)
+    cursor.execute(""" SELECT TOP 5 *
+                    FROM Informations
+                    ORDER BY IdInformation DESC """)
+    inscritrec = cursor.fetchall()
+
     conn.close()
-    return render_template("./admin/admin.html", nbrinscrit=nbrinscrit, nbrtransfert=nbrtransfert,nbrreclamation=nbrreclamation)
+    return render_template("./admin/admin.html", nbrinscrit=nbrinscrit, nbrtransfert=nbrtransfert,
+                           nbrreclamation=nbrreclamation, inscritrec=inscritrec)
     #    return redirect(url_for('connexion'))
 
 
@@ -393,14 +399,15 @@ def historique():
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
     cursor.execute("""
-                SELECT Informations.Nom, Informations.Nom, NomServices.NomService, EtatPatient.Etat, Transfert.Temps
-                FROM Transfert, Users, EtatPatient, Services, NomServices, Informations
-                WHERE Transfert.IdUserDep = Users.IdUser 
-                AND Transfert.IdUserDes = Users.IdUser
-                AND Users.IdInformation = Informations.IdInformation
-                AND Transfert.IdService = Services.IdService
-                AND NomServices.IdNomServices = Services.IdNomService
-                AND Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
+                SELECT InfoDep.Nom, InfoDes.Nom, NomServices.NomService, EtatPatient.Etat, Transfert.Temps
+                FROM Transfert 
+                INNER JOIN Users AS UsersDep ON Transfert.IdUserDep = UsersDep.IdUser
+                INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+                INNER JOIN Informations AS InfoDep ON UsersDep.IdInformation = InfoDep.IdInformation
+                INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+                INNER JOIN Services ON Transfert.IdService = Services.IdService
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                INNER JOIN EtatPatient ON Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
             """)
     data = cursor.fetchall()
     conn.close()
