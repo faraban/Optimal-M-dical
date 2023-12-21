@@ -5,6 +5,8 @@ CREATE TABLE Commune(
   NomCommune VARCHAR(50) NOT NULL UNIQUE
 );
 
+select * from adresses
+
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomDepartement VARCHAR(50) NOT NULL UNIQUE
@@ -16,13 +18,14 @@ CREATE TABLE Region(
 );
 
 CREATE TABLE Adresses(
-  IdAdresse INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+  IdAdresse INT PRIMARY KEY NOT NULL,
   IdCommune INT NOT NULL,
   FOREIGN KEY (IdCommune) REFERENCES Commune(IdCommune),
   IdDepartement INT NOT NULL,
   FOREIGN KEY (IdDepartement) REFERENCES Departement(IdDepartement),
   IdRegion INT NOT NULL,
-  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion)
+  FOREIGN KEY (IdRegion) REFERENCES Region(IdRegion),
+  positiongeo varchar(100) not null
 );
 
 	insert into Departement

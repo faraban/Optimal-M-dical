@@ -1,6 +1,8 @@
 from flask import Flask, url_for, render_template, request, flash, redirect, abort, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from sendcode import envoicode
+import os
+import requests
 import random
 import pyodbc
 
@@ -14,6 +16,8 @@ DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
 
 @app.route('/monhopital')
 def monhopital():
+    
+    lien=session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
@@ -42,11 +46,12 @@ def monhopital():
     ''')
     etats = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/utilisateurhôpital.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/utilisateurhôpital.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements,lien=lien)
 
 
 @app.route('/transfertECR')
 def transfertECR():
+    lien=session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
@@ -80,6 +85,7 @@ def transfertECR():
 
 @app.route('/transferteffectué')
 def transferteffectué():
+    lien=session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
@@ -129,6 +135,7 @@ def monprofil():
 
 @app.route('/transfert', methods=["GET", "POST"])
 def transfert():
+    lien=session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
     
@@ -176,31 +183,86 @@ def inscriptioninfos():
     cursor.execute("SELECT * FROM Commune")
     Commune = cursor.fetchall()
     conn.close()
-    if request.method == "POST":
-        nom = request.form['Nom'] 
-        num = request.form['Num'] 
-        tel = request.form['Tel']
-        Commune = request.form['selected_value3']
-        departement = request.form['selected_value2'] 
-        region = request.form['selected_value1'] 
-        idadresse = Commune+departement+region
+    if request.method == "POST": 
+        
         conn = pyodbc.connect(DSN) 
         cursor = conn.cursor() 
         
-        cursor.execute('''insert into Adresses (idadresse,idCommune, idDepartement, idRegion) 
-                       values(?,?,?,?)''', (idadresse, Commune, departement, region))
-        conn.commit()
-        cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone, idadresse)
-                       VALUES (?, ?, ?,?)''', (nom, num, tel, idadresse))
-        conn.commit()
+        nom = request.form['Nom'] 
+        num = request.form['Num'] 
+        tel = request.form['Tel']
+        
+        cursor.execute(''' SELECT * FROM Informations 
+                            WHERE Nom = ?
+                            ''', nom)
+        a= cursor.fetchone()
         cursor.execute(''' SELECT * FROM Informations 
                             WHERE Matricule = ?
                             ''', num)
-        idinformation = cursor.fetchone()
-        session['idinformation'] = idinformation[0]
-        conn.close()
-        return redirect(url_for('listeservice'))
-    return render_template("./inscription/inscriptioninfos.html", ListeRegion=Region, ListeDepartement=Departement, ListeCommune=Commune) 
+        b= cursor.fetchone()
+        cursor.execute(''' SELECT * FROM Informations 
+                            WHERE Telephone = ?
+                            ''', tel)
+        c= cursor.fetchone()
+        if a:
+            flash("Ce nom exist déjà!", 'info')
+    
+        elif b:
+            flash("Matricule déjà existant!", 'info')
+            
+        elif c:
+            flash(" déjà existant!", 'info')
+            
+        else:
+            nCommune = request.form['selected_value3']
+            ndepartement = request.form['selected_value2'] 
+            nregion = request.form['selected_value1'] 
+            if nCommune=='option':
+                flash("veillez choisir une commune!", 'info')
+            elif ndepartement=='option':
+                flash("veillez choisir un departement!", 'info')
+            elif nregion=='option':
+                flash("veillez choisir une region!", 'info')
+            else:
+                image = request.files['logo']
+                if image.filename == '':
+                    flash("Aucun fichier sélectionné !", 'info')
+                else:
+                    url=f'static/img/{nom}/'
+                    if not os.path.exists(url):
+                        os.makedirs(url)
+                    image.save(url + image.filename)
+                    
+                    try:
+                        response = requests.get('https://ipinfo.io/json')
+                        data = response.json()
+                        coordinates = data['loc'].split(',')
+                        latitude = coordinates[0]
+                        longitude= coordinates[1]
+                    except Exception as e:
+                        latitude= None
+                        longitude=None  
+                        
+                    localisation=latitude+' '+longitude
+                    idadresse = tel[-10:]
+    
+                
+                    cursor.execute('''insert into Adresses (idadresse,idCommune, idDepartement, idRegion,positiongeo) 
+                                values(?,?,?,?,?)''', (idadresse, nCommune, ndepartement, nregion,localisation))
+                    conn.commit() 
+                    
+                    cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone, idadresse,lienimg)
+                                VALUES (?, ?, ?,?,?)''', (nom, num, tel, idadresse,url + image.filename))
+                    conn.commit()
+                    
+                    cursor.execute(''' SELECT * FROM Informations 
+                                        WHERE Matricule = ?
+                                        ''', num)
+                    idinformation = cursor.fetchone()
+                    session['idinformation'] = idinformation[0]
+                    conn.close()
+                    return redirect(url_for('listeservice'))
+    return render_template("./inscription/inscriptioninfos.html", Region=Region,Departement=Departement,Commune=Commune) 
  
 
 
@@ -209,10 +271,12 @@ def listeservice():
     idiformation = session.get('idinformation')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()  
-    cursor.execute('''
-        SELECT * FROM Informations 
-        WHERE idinformation = ?
-        ''', idiformation)
+    cursor.execute("""
+                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService
+                FROM services
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                WHERE IdInformation = ?
+            """,idiformation)
     services = cursor.fetchall()
     conn.close()
     return render_template("./inscription/inscriptionservice.html ", services=services)
@@ -245,13 +309,38 @@ def inscriptionacces():
         user = request.form["username"]
         mail = request.form["email"]
         password = request.form["password"]
+        password1 = request.form["password1"]
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
-        cursor.execute('''INSERT INTO users (nomutilisateur, email, password,idinformation)
-                       VALUES (?, ?, ?,?)''', (user, mail, generate_password_hash(password), idinformation))
-        conn.commit() 
-        conn.close()
-        return redirect(url_for('connexion'))
+        
+        cursor.execute(''' SELECT * FROM users 
+                            WHERE NomUtilisateur = ?
+                            ''', user)
+        b= cursor.fetchone()
+        
+        cursor.execute(''' SELECT * FROM users 
+                            WHERE email = ?
+                            ''', mail)
+        c= cursor.fetchone()
+        
+        if b:
+            flash("NomUtilisateur déjà existant!", 'info')
+            
+        elif c:
+            flash("Email déjà existant!", 'info')
+        
+        else:
+            if len(password)<8:
+               flash("le mot de passe doit être superieur ou égal à 8 caractère!", 'info') 
+            elif password!=password1:
+                flash("Repétez le même mot de passe!", 'info') 
+            else:
+                categorie='Attente'
+                cursor.execute('''INSERT INTO users (nomutilisateur, email, password,idinformation,categorie)
+                            VALUES (?, ?, ?,?,?)''', (user, mail, generate_password_hash(password), idinformation,categorie))
+                conn.commit() 
+                conn.close()
+                return redirect(url_for('connexion'))
     return render_template("./inscription/inscriptionacces.html")
 
 #     connexion 
@@ -281,12 +370,17 @@ def connexion():
         user = cursor.fetchone()
         if user:
             user_pswd = user[3]
-            # if check_password_hash(user_pswd, password):
-            if password == user_pswd:
+            if check_password_hash(user_pswd, password):
+                cursor.execute('''
+                            SELECT * FROM informations 
+                            WHERE idinformation = ? 
+                            ''', (user[4]))
+                lien = cursor.fetchone()
+                lien=lien[5][6:]
                 session['loggedin'] = True
-                session['Id'] = user[0]
                 session['username'] = user[1]
-                return redirect(url_for('monhopital'))
+                session['lien'] = lien
+                return redirect(url_for('accueil'))
             else:
                 flash("Mot de passe incorrect !", 'info')
                 return redirect(url_for('connexion'))
@@ -362,12 +456,7 @@ def pwdreset():
             flash('veillez saisir le même mot de passe dans les deux champs')
     return render_template("./connexion/pwdreset.html")
 
-
-# ................Fin brayane route (Inscription)#
-
-
 # ................yesufu route (Admin)#
-
 
 @app.route('/admin')
 def admin():
