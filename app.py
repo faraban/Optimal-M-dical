@@ -6,10 +6,11 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
 
 #DESKTOP-FRGCPSS
 #  utilisateurs
+#Impish_Boy
 
 @app.route('/monhopital')
 def monhopital():
@@ -117,7 +118,7 @@ def transferteffectué():
     data = cursor.fetchall()
     
     conn.close()
-    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements, data=data)
 
 
 @app.route('/monprofil')
