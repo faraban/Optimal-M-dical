@@ -82,23 +82,13 @@
                     <th>Services</th>
                     <th>Nombres de place</th>
                     <th>places occuppé</th>
-                    <th></th>
                     <th>Fils d'attente</th>
-                    <th></th>
                 </tr>
                 {% for row in data %}
                 <tr>
                     <td>{{ row[0] }}</td>
                     <td>{{ row[1] }}</td>
-                    <td>
-                        <a class="edit" href="{{ url_for('modifier', item_id=row[0],type=cat ) }}">Modifier</a>
-                        <a class="delete" href="{{ url_for('supprimer', item_id=row[0],type=cat ) }}">Supprimer</a>
-                    </td>
                     <td>{{ row[2] }}</td>
-                    <td>
-                        <a class="edit" href="{{ url_for('modifier', item_id=row[0],type=cat ) }}">Modifier</a>
-                        <a class="delete" href="{{ url_for('supprimer', item_id=row[0],type=cat ) }}">Supprimer</a>
-                    </td>
                 </tr>
                 {% endfor %}
             </table>

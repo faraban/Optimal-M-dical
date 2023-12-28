@@ -5,7 +5,7 @@ CREATE TABLE Commune(
   NomCommune VARCHAR(50) NOT NULL UNIQUE
 );
 
-select * from adresses
+select * from Informations
 
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -284,7 +284,8 @@ CREATE TABLE Informations(
   Matricule VARCHAR(30) NOT NULL UNIQUE,
   Telephone VARCHAR(15) NOT NULL,
   IdAdresse INT NOT NULL,
-  FOREIGN KEY (IdAdresse) REFERENCES Adresses(IdAdresse)
+  FOREIGN KEY (IdAdresse) REFERENCES Adresses(IdAdresse),
+  lienimg varchar(100)
 );
 
 
@@ -294,7 +295,8 @@ CREATE TABLE Users(
   email VARCHAR(100) NOT NULL UNIQUE,
   Password VARCHAR(255) NOT NULL,
   IdInformation INT NOT NULL,
-  FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
+  FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation),
+  categorie varchar(10) not null
 );
 
 CREATE TABLE NomServices(

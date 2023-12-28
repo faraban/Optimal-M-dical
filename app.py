@@ -8,15 +8,14 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
 
-#DESKTOP-FRGCPSS
+#Server=DESKTOP-FRGCPSS\\SQLEXPRESS
 #  utilisateurs
 #Impish_Boy
 
 @app.route('/monhopital')
 def monhopital():
-    
     lien=session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -46,7 +45,11 @@ def monhopital():
     ''')
     etats = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/utilisateurhôpital.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements,lien=lien)
+    
+    
+    
+    
+    return render_template("./utilisateur/utilisateurhopital.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements,lien=lien)
 
 
 @app.route('/transfertECR')
@@ -80,7 +83,7 @@ def transfertECR():
     ''')
     etats = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements,lien=lien)
 
 
 @app.route('/transferteffectué')
@@ -124,7 +127,7 @@ def transferteffectué():
     data = cursor.fetchall()
     
     conn.close()
-    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements, data=data)
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements, data=data,lien=lien)
 
 
 @app.route('/monprofil')
