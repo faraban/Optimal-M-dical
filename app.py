@@ -16,42 +16,66 @@ DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMe
 
 @app.route('/monhopital')
 def monhopital():
-    lien=session.get('lien')
+    if 'username' in session:
+        lien=session.get('lien')
+        idinformation=session.get('idinformation')
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+        SELECT * FROM Nomservices 
+        ''')
+        nomservices = cursor.fetchall()
+
+        cursor.execute('''
+        SELECT * FROM commune 
+        ''')
+        communes = cursor.fetchall()
+
+        cursor.execute('''
+        SELECT * FROM region 
+        ''')
+        regions = cursor.fetchall()
+
+        cursor.execute('''
+        SELECT * FROM departement 
+        ''')
+        departements = cursor.fetchall()
+
+        cursor.execute('''
+        SELECT * FROM EtatPatient 
+        ''')
+        etats = cursor.fetchall()
+        
+        cursor.execute('''
+                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService,Services.placedisponible,Services.attente
+                FROM services
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                where IdInformation = ?
+                ''',idinformation)
+        services = cursor.fetchall()
+        conn.close()
+        
+        return render_template("./utilisateur/utilisateurhopital.html", etats=etats, nomservices=nomservices, communes=communes, regions=regions, departements=departements, lien=lien,services=services)
+    else:
+        return redirect(url_for('accueil'))
+    
+@app.route('/plus/<string:idservice>')    
+def plus(idservice):
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
-
-    cursor.execute('''
-    SELECT * FROM Nomservices 
-    ''')
-    services = cursor.fetchall()
-
-    cursor.execute('''
-    SELECT * FROM commune 
-    ''')
-    communes = cursor.fetchall()
-
-    cursor.execute('''
-    SELECT * FROM region 
-    ''')
-    regions = cursor.fetchall()
-
-    cursor.execute('''
-    SELECT * FROM departement 
-    ''')
-    departements = cursor.fetchall()
-
-    cursor.execute('''
-    SELECT * FROM EtatPatient 
-    ''')
-    etats = cursor.fetchall()
-    conn.close()
+    cursor.execute(''' SELECT * FROM services 
+        where idService= ?
+        ''',idservice)
+    services = cursor.fetchone()
+    if services[4]>services[3]:
+        sql = f"UPDATE services SET placedisponible = {30} WHERE id = {idservice}"
+        cursor.execute(sql)
+        return redirect(url_for('transfert'))
+    return redirect(url_for('monhopital'))
     
     
     
-    
-    return render_template("./utilisateur/utilisateurhopital.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements,lien=lien)
-
-
 @app.route('/transfertECR')
 def transfertECR():
     lien=session.get('lien')
@@ -297,8 +321,10 @@ def ajoutservice():
         idinformation = session.get('idinformation')
         service = request.form['selected_value']
         capacite = request.form['capacite'] 
-        cursor.execute('''INSERT INTO services (Nombreplace, idnomservice, idinformation)
-                       VALUES (?, ?, ?)''', (capacite, service, idinformation))
+        disponible=0
+        attente=0
+        cursor.execute('''INSERT INTO services (idnomservice, Nombreplace, placedisponible, attente, idinformation)
+                       VALUES (?, ?, ?, ?, ?)''', (service, capacite, disponible, attente, idinformation))
         conn.commit() 
         conn.close()
         return redirect(url_for('listeservice'))
@@ -346,21 +372,23 @@ def inscriptionacces():
                 return redirect(url_for('connexion'))
     return render_template("./inscription/inscriptionacces.html")
 
-#     connexion 
-
+#     connexion
 
 @app.route("/", methods=["GET", "POST"])
 def accueil():
-    if 'loggedin' in session:
+    if 'username' in session:
         if session['username'] == 'admin':
-            redirect(url_for('admin'))
+            return redirect(url_for('admin'))
         else:
-            redirect(url_for('monhopital'))
+            return redirect(url_for("monhopital"))
     return redirect(url_for('connexion'))
 
 
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
+    if 'username' in session:
+        return redirect(url_for('accueil'))
+
     if request.method == 'POST':
         user = request.form["identifiant"]
         password = request.form["password"]
@@ -372,21 +400,20 @@ def connexion():
         ''', (user, user))
         user = cursor.fetchone()
         if user:
-            user_pswd = user[3]
-            if check_password_hash(user_pswd, password):
+            pswd = user[3]
+            if check_password_hash(pswd, password):
                 cursor.execute('''
                             SELECT * FROM informations 
                             WHERE idinformation = ? 
                             ''', (user[4]))
                 lien = cursor.fetchone()
                 lien=lien[5][6:]
-                session['loggedin'] = True
                 session['username'] = user[1]
                 session['lien'] = lien
+                session['idinformation'] = user[4]
                 return redirect(url_for('accueil'))
             else:
                 flash("Mot de passe incorrect !", 'info')
-                return redirect(url_for('connexion'))
         else:
             flash("Identifiant incorrect !", 'info')
     return render_template("./connexion/connexion.html")

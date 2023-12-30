@@ -933,37 +933,35 @@ td {
     text-align: center; 
 }
 
-.historique table tr:nth-child(odd) 
-{
+.historique table tr:nth-child(odd) {
     background-color: transparent;
 }
-.historique table tr:nth-child(even) 
-{
+
+.historique table tr:nth-child(even) {
     background-color: rgb(218, 218, 218);
 }
 
-.demande
-{
+.demande{
     width: 90%;
     align-items: center;
 }
-.demande table
-{
+
+.demande table{
     margin-top: 15px;
     width: 100%;
     text-align: center;
     border-collapse: collapse;
     
 }
-.demande table caption
-{
+
+.demande table caption{
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
     text-align: left;
 }
-.demande table tr
-{
+
+.demande table tr{
     border: none !important;
 }
 .demande table tr th
@@ -1034,6 +1032,11 @@ td {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     flex-direction: column;
+}
+
+.container .content-2 img {
+    width: 40px;
+    height: 40px;
 }
 
 .container .content-2 .new-students {

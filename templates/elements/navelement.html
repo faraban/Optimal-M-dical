@@ -1,10 +1,6 @@
 <div class='nav_bar'>
    <div class="img-case">
-        <img src="{{ lien }}" alt="logo">
-    </div>
-    <div class="search">
-        <button type="submit"><img src="{{ url_for('static',filename='./img/search.png')}}" alt=""></button>
-        <input type="text" placeholder="Search..">
+        <img src="{{ url_for('static',filename=lien)}}"  alt="logo">
     </div>
     <div class="user">
         <a href="{{ url_for('monhopital')}}" >Mon Hôpital</a>
