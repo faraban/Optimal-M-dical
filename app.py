@@ -68,11 +68,11 @@ def plus(idservice):
         where idService= ?
         ''',idservice)
     services = cursor.fetchone()
-    if services[4]>services[3]:
-        sql = f"UPDATE services SET placedisponible = {30} WHERE id = {idservice}"
-        cursor.execute(sql)
-        return redirect(url_for('transfert'))
-    return redirect(url_for('monhopital'))
+    if services[2]>services[3]:
+        # sql = f"UPDATE services SET placedisponible = {30} WHERE idservice = {idservice}"
+        # cursor.execute(sql)
+        return redirect(url_for('connexion'))
+    return redirect(url_for('transfert'))
     
     
     
@@ -112,6 +112,7 @@ def transfertECR():
 
 @app.route('/transferteffectué')
 def transferteffectué():
+    idinformation=session.get('idinformation')
     lien=session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -119,7 +120,7 @@ def transferteffectué():
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
-    services = cursor.fetchall()
+    nomservices = cursor.fetchall()
 
     cursor.execute('''
     SELECT * FROM commune 
@@ -141,17 +142,17 @@ def transferteffectué():
     ''')
     etats = cursor.fetchall()
     
-    cursor.execute("""
-                   select NomServices.NomService, Services.NombrePlace, Affiche.Disponible, Affiche.Attente
-                   from Services, Affiche, Informations, NomServices
-                   where Services.IdInformation = Informations.IdInformation
-                   and Affiche.IdInformation = Informations.IdInformation
-                   and Services.IdNomService = NomServices.IdNomServices
-                   """)
-    data = cursor.fetchall()
+    cursor.execute('''
+                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService,Services.placedisponible,Services.attente
+                FROM services
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                where IdInformation = ?
+                ''',idinformation)
+    services = cursor.fetchall()
+    conn.close()
     
     conn.close()
-    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services,communes=communes, regions=regions, departements=departements, data=data,lien=lien)
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, nomservices=nomservices,communes=communes, regions=regions, departements=departements, services=services,lien=lien)
 
 
 @app.route('/monprofil')
@@ -163,34 +164,46 @@ def monprofil():
 @app.route('/transfert', methods=["GET", "POST"])
 def transfert():
     lien=session.get('lien')
+    idinformation=2 #session.get('idinformation')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
     
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
-    service = cursor.fetchall()
-    services = service[1]
+    nomservices = cursor.fetchall()
 
     cursor.execute('''
     SELECT * FROM commune 
     ''')
-    commune = cursor.fetchall()
-    communes = commune[1]
+    communes = cursor.fetchall()
 
     cursor.execute('''
     SELECT * FROM region 
     ''')
-    region = cursor.fetchall()
-    regions = region[1]
+    regions = cursor.fetchall()
 
     cursor.execute('''
     SELECT * FROM departement 
     ''')
     departements = cursor.fetchall()
+    
+    cursor.execute('''
+    SELECT * FROM information
+    where IdInformation != ?
+    ''',idinformation)
+    departements = cursor.fetchall()
+    
+    cursor.execute('''
+                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
+                FROM services
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                where IdInformation != ?
+                ''',idinformation)
+    services = cursor.fetchall()
     conn.close()
 
-    return render_template("./utilisateur/utilisateurtransfert.html", services=services,communes=communes, regions=regions, departements=departements)
+    return render_template("./utilisateur/utilisateurtransfert.html", nomservices=nomservices,communes=communes, regions=regions, services=services, departements=departements,lien=lien)
 
 
 @app.route('/confirmetransfert')
