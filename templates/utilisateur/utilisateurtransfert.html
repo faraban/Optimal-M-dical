@@ -51,96 +51,34 @@
     <div class="content-2">
         <div class="disponibilite">
             <div class="title">
-                <h2>Mettre à jour les disponibilités</h2>
+                <h2>la Disponibilité dans les hopitaux</h2>
             </div>
-            <table>
-                <tr>
-                    <th>select</th>
-                    <th>Services</th>
-                    <th>hopital</th>
-                    <th>communes</th>
-                    <th>departements</th>
-                    <th>places occuppé</th>
-                    <th>Fils d'attente</th>
-                </tr>
-                {% for row in services %}
-                <tr>
-                    <td><input type="checkbox" class="case_cocher" ></td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[1] }}</td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[2] }}</td>
-                    <td>{{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div class="transfert_form">
-            <div class="title">
-                <h2>Formulaire de transfert</h2>
-            </div>
-            <form method='POST'>
-                <div class="form-groupInscri">
-                    <label for="Etablissement">Etablissement de depart :</label>
-                    <input type="text" name='Etablissement' placeholder="Etablissement de depart">
-                </div>
-                <div class="form-groupInscri">
-                    <label for="Etablissement1">Etablissement d'accueil :</label>
-                    <input type="text" name="Etablissement1"  placeholder="Etablissement d'accueil">
-                </div>
-                <div class="form-groupInscri">
-                    <label for="Service">Service d'affectation:</label>
-                    <input type="text" name='Service' placeholder="Service d'affectation">
-                </div>
-                <div class="form-groupInscri">
-                    <label for="etat">l'etat du patient :</label>
-                    <input type="txt" name='etat'  placeholder="l'etat du patient">
-                </div>
-                <button type="submit"> transferer </button>
+            <form method="post" action="{{ url_for('validertransfert') }}">
+                <table>
+                    <tr>
+                        <th>select</th>
+                        <th>Services</th>
+                        <th>hopital</th>
+                        <th>communes</th>
+                        <th>departements</th>
+                        <th>places occuppé</th>
+                        <th>Fils d'attente</th>
+                    </tr>
+                    {% for row in services %}
+                    <tr>
+                        <td><input type="radio" name="selectedService" value="{{ row[0] }}"></td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <input type="submit" value="Valider">
             </form>
         </div>
     </div>
 </div>
-<script>
-    // Récupérer toutes les cases à cocher
-    var cases = document.getElementsByClassName('case_cocher');
-
-    for (var i = 0; i < cases.length; i++) {
-        cases[i].addEventListener('change', function() {
-            var tr = this.parentNode.parentNode;
-            var nom = tr.getElementsByTagName('td')[1].innerText;
-            var email = tr.getElementsByTagName('td')[2].innerText;
-
-            var formulaire = document.getElementById('mon_formulaire');
-            var champ_nom = document.getElementById('champ_nom');
-            var champ_email = document.getElementById('champ_email');
-
-            if (this.checked) {
-                // Remplir automatiquement les champs si la case est cochée
-                champ_nom.value = nom;
-                champ_email.value = email;
-            } else {
-                // Réinitialiser les champs si la case est décochée
-                champ_nom.value = '';
-                champ_email.value = '';
-            }
-        });
-    }
-</script>
-<script>
-    // Récupérer tous les boutons radio
-    var boutonsRadio = document.querySelectorAll('input[type="radio"]');
-
-    for (var i = 0; i < boutonsRadio.length; i++) {
-        boutonsRadio[i].addEventListener('change', function() {
-            // Désélectionner les autres boutons radio lorsque l'un est sélectionné
-            for (var j = 0; j < boutonsRadio.length; j++) {
-                if (boutonsRadio[j] !== this) {
-                    boutonsRadio[j].checked = false;
-                }
-            }
-        });
-    }
-</script>
 {%endblock%}

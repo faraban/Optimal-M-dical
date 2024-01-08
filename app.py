@@ -1,6 +1,7 @@
 from flask import Flask, url_for, render_template, request, flash, redirect, abort, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from sendcode import envoicode
+from datetime import datetime
 import os
 import requests
 import random
@@ -60,7 +61,7 @@ def monhopital():
     else:
         return redirect(url_for('accueil'))
     
-@app.route('/plus/<string:idservice>')    
+@app.route('/plus/<idservice>')    
 def plus(idservice):
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -69,12 +70,36 @@ def plus(idservice):
         ''',idservice)
     services = cursor.fetchone()
     if services[2]>services[3]:
-        # sql = f"UPDATE services SET placedisponible = {30} WHERE idservice = {idservice}"
-        # cursor.execute(sql)
-        return redirect(url_for('connexion'))
-    return redirect(url_for('transfert'))
-    
-    
+        ch=services[3]+1
+        cursor.execute("UPDATE services SET placedisponible = ? WHERE idservice = ?", (ch, idservice))
+        conn.commit()
+        return redirect(url_for('monhopital'))
+    else:
+        ch=services[4]+1
+        cursor.execute("UPDATE services SET attente = ? WHERE idservice = ?", (ch, idservice))
+        conn.commit()
+        return redirect(url_for('monhopital'))
+
+@app.route('/moins/<idservice>')    
+def moins(idservice):
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute(''' SELECT * FROM services 
+        where idService= ?
+        ''',idservice)
+    services = cursor.fetchone()
+    if services[4]>0:
+        ch=services[4]-1
+        cursor.execute("UPDATE services SET attente = ? WHERE idservice = ?", (ch, idservice))
+        conn.commit()
+        return redirect(url_for('monhopital'))
+    elif services[3]>0:
+        ch=services[3]-1
+        cursor.execute("UPDATE services SET placedisponible = ? WHERE idservice = ?", (ch, idservice))
+        conn.commit()
+        return redirect(url_for('monhopital'))
+    else:
+        return redirect(url_for('monhopital'))
     
 @app.route('/transfertECR')
 def transfertECR():
@@ -150,15 +175,7 @@ def transferteffectué():
                 ''',idinformation)
     services = cursor.fetchall()
     conn.close()
-    
-    conn.close()
     return render_template("./utilisateur/transferteffectué.html", etats=etats, nomservices=nomservices,communes=communes, regions=regions, departements=departements, services=services,lien=lien)
-
-
-@app.route('/monprofil')
-def monprofil():
-
-    return render_template("./utilisateur/utilisateurprofil.html")
 
 
 @app.route('/transfert', methods=["GET", "POST"])
@@ -189,7 +206,7 @@ def transfert():
     departements = cursor.fetchall()
     
     cursor.execute('''
-    SELECT * FROM information
+    SELECT * FROM informations
     where IdInformation != ?
     ''',idinformation)
     departements = cursor.fetchall()
@@ -206,10 +223,38 @@ def transfert():
     return render_template("./utilisateur/utilisateurtransfert.html", nomservices=nomservices,communes=communes, regions=regions, services=services, departements=departements,lien=lien)
 
 
-@app.route('/confirmetransfert')
-def confirmetransfert():
+@app.route('/validertransfert',methods=['POST'])
+def validertransfert():
+    selected_index = int(request.form['selectedService'])
+    lien=session.get('lien')
+    idinformation=2 #session.get('idinformation')
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+    SELECT * FROM EtatPatient
+    ''')
+    etatpatient = cursor.fetchall()
+    
+    cursor.execute('''
+                SELECT Services.idservice, NomServices.NomService, users.NomUtilisateur
+                FROM services
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                INNER JOIN NomUtilisateur ON Users.IdInformation = Services.IdInformation 
+                where IdInformation != ?
+                ''',idinformation)
+    services = cursor.fetchall()
+    transf= services[selected_index]
+    if request.method == "POST": 
+        tel = request.form['Tel']
+        date = datetime.now().strftime("%Y-%m-%d"' '"%H:%M:%S")
+    
+    return render_template("./utilisateur/confirmetransfert.html", transf=transf, lien=lien, etatpatient=etatpatient)
 
-    return render_template("./utilisateur/confirmetransfert.html")
+@app.route('/monprofil')
+def monprofil():
+
+    return render_template("./utilisateur/utilisateurprofil.html")
 
 
 @app.route('/inscriptioninfos', methods=["GET", "POST"])

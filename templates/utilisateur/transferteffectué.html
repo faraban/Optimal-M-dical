@@ -55,30 +55,21 @@
         <div class="content-2">
             <div class="recent-payments">
                 <div class="title">
-                    <h2>Mettre à jour des transferts éffectués</h2>
+                    <h2>Les transferts éffectués depuis mon hopital</h2>
                 </div>
                 <table>
                     <tr>
+                        <th>date heure</th>
+                        <th>distination</th>
                         <th>Services</th>
-                        <th>Nombres de place</th>
-                        <th>places disponible</th>
-                        <th></th>
-                        <th>File d'attente</th>
-                        <th></th>
+                        <th>Etat du patient</th>
                     </tr>
                     {% for row in data %}
                     <tr>
                         <td>{{ row[0] }}</td>
                         <td>{{ row[1] }}</td>
-                        <td>
-                            <a class="edit" href="">Modifier</a>
-                            <a class="delete" href="">Supprimer</a>
-                        </td>
                         <td>{{ row[2] }}</td>
-                        <td>
-                            <a class="edit" href="">Modifier</a>
-                            <a class="delete" href="">Supprimer</a>
-                        </td>
+                        <td>{{ row[1] }}</td>
                     </tr>
                     {% endfor %}
                 </table>

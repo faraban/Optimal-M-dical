@@ -5,14 +5,5 @@ DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMe
 idinformation=2
 conn = pyodbc.connect(DSN)
 cursor = conn.cursor()
-cursor.execute(''' SELECT * FROM services 
-        where idService= ?
-        ''',5)
-services = cursor.fetchone()
-if services[2]>services[3]:
-        cursor.execute('''
-                       UPDATE services 
-                       SET PlaceDisponible =5  
-                       WHERE IdService = ?
-                       ''',2)
-        print(services)
+cursor.execute("UPDATE services SET placedisponible = ? WHERE idservice = ?", (10, 5))
+conn.commit()

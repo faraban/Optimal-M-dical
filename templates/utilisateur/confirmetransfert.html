@@ -9,26 +9,31 @@
     <div class="confirme_transfert">
         <div class="confirme_transfert1">
             <div class="title">
-                <h2>veillez vérifié et confirmé le tranfert du patient</h2>
+                <h2>veillez vérifié les details du tranfert du patient et confirmé !</h2>
             </div>
             <form method='POST'>
                 <div class="form-groupInscri">
-                    <label for="Etablissement">Etablissement de depart :</label>
-                    <input type="text" name='Etablissement' value="{{transf[0]}}" placeholder="Etablissement de depart">
+                    <label for='Etabdep'>Etablissement de depart :</label>
+                    <input type="text" name='Etabdep' value="{{transf[0]}}" placeholder='Etabdep' readonly>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="Etablissement1">Etablissement d'accueil :</label>
-                    <input type="text" name="Etablissement1" value="{{transf[1]}}" placeholder="Etablissement d'accueil">
+                    <label for="Etabacc">Etablissement d'accueil :</label>
+                    <input type="text" name="Etabacc" value="{{transf[1]}}" placeholder="Etabacc" readonly>
                 </div>
                 <div class="form-groupInscri">
                     <label for="Service">Service d'affectation:</label>
-                    <input type="text" name='Service'value="{{transf[2]}}" placeholder="Service d'affectation">
+                    <input type="text" name='Service' value="{{transf[2]}}" placeholder="Service d'affectation" readonly>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="etat">l'etat du patient :</label>
-                    <input type="txt" name='etat' value="{{transf[3]}}" placeholder="l'etat du patient">
+                    <label for="username">Etat du patient:</label>
+                    <select name="etatpat">
+                        <option >selectionez</option>
+                        {% for cont in etatpatient  %}
+                             <option value={{cont[0]}}>{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <a href="/utilisateurtransfert">revevir</a>
+                <a href="javascript:history.back()">Revenir en arrière</a>
                 <button type="submit" > confirmer </button>
             </form>
         </div>

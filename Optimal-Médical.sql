@@ -5,7 +5,7 @@ CREATE TABLE Commune(
   NomCommune VARCHAR(50) NOT NULL UNIQUE
 );
 
-select * from affiche
+select * from transfert
 
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -371,13 +371,14 @@ VALUES ('stable'),
 
 CREATE TABLE Transfert(
   IdTransfert INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-  Temps DATETIME NOT NULL,
-  IdService INT NOT NULL,
-  FOREIGN KEY (IdService) REFERENCES Services(IdService),
-  IdEtatPatient INT NOT NULL,
-  FOREIGN KEY (IdEtatPatient) REFERENCES EtatPatient(IdEtatPatient),
   IdUserDep INT NOT NULL,
   FOREIGN KEY (IdUserDep) REFERENCES users(Iduser),
   IdUserDes INT NOT NULL,
-  FOREIGN KEY (IdUserDes) REFERENCES users(Iduser)
+  FOREIGN KEY (IdUserDes) REFERENCES users(Iduser),
+  IdNomService INT NOT NULL,
+  FOREIGN KEY (IdNomService) REFERENCES NomServices(IdNomService),
+  IdEtatPatient INT NOT NULL,
+  FOREIGN KEY (IdEtatPatient) REFERENCES EtatPatient(IdEtatPatient),
+  Dateheure DATETIME NOT NULL
   );
+  select * from nomservices
