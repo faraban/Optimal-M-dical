@@ -419,16 +419,16 @@ def inscriptionacces():
         c = cursor.fetchone()
         
         if b:
-            flash("NomUtilisateur déjà existant!", 'info')
+            flash("NomUtilisateur déjà existant!", 'alert')
             
         elif c:
-            flash("Email déjà existant!", 'info')
+            flash("Email déjà existant!", 'alert')
         
         else:
             if len(password) < 8:
-                flash("le mot de passe doit être superieur ou égal à 8 caractère!", 'info')
+                flash("le mot de passe doit être superieur ou égal à 8 caractère!", 'alert')
             elif password != password1:
-                flash("Repétez le même mot de passe!", 'info') 
+                flash("Repétez le même mot de passe!", 'alert')
             else:
                 categorie = 'Attente'
                 cursor.execute('''INSERT INTO users (nomutilisateur, email, password,idinformation,categorie)
@@ -454,9 +454,6 @@ def accueil():
 
 @app.route("/connexion", methods=["GET", "POST"])
 def connexion():
-    if 'username' in session:
-        return redirect(url_for('accueil'))
-
     if request.method == 'POST':
         user = request.form["identifiant"]
         password = request.form["password"]
@@ -476,6 +473,7 @@ def connexion():
                             ''', (user[4]))
                 lien = cursor.fetchone()
                 lien = lien[5][6:]
+                session['loggedin'] = True
                 session['username'] = user[1]
                 session['lien'] = lien
                 session['idinformation'] = user[4]
@@ -486,11 +484,6 @@ def connexion():
             flash("Identifiant incorrect !", 'info')
     return render_template("./connexion/connexion.html")
 
-
-@app.route("/deconnexion", methods=["GET", "POST"])
-def deconnexion():
-    session.clear()
-    return redirect(url_for('connexion'))
 
 
 @app.route('/pwdoublie', methods=["GET", "POST"])
@@ -559,54 +552,54 @@ def pwdreset():
 
 @app.route('/admin')
 def admin():
-    #    if 'loggedin' in session:
-    conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()
-    cursor.execute(""" SELECT * FROM Informations """)
-    inscrit = cursor.fetchall()
-    nbrinscrit = len(inscrit)
-    cursor.execute(""" SELECT * FROM Transfert """)
-    transfert = cursor.fetchall()
-    nbrtransfert = len(transfert)
-    cursor.execute(""" SELECT * FROM Reclamation """)
-    reclamation = cursor.fetchall()
-    nbrreclamation = len(reclamation)
-    cursor.execute(""" SELECT TOP 5 *
-                    FROM Informations
-                    ORDER BY IdInformation DESC """)
-    inscritrec = cursor.fetchall()
+    if 'loggedin' in session:
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute(""" SELECT * FROM Informations """)
+        inscrit = cursor.fetchall()
+        nbrinscrit = len(inscrit)
+        cursor.execute(""" SELECT * FROM Transfert """)
+        transfert = cursor.fetchall()
+        nbrtransfert = len(transfert)
+        cursor.execute(""" SELECT * FROM Reclamation """)
+        reclamation = cursor.fetchall()
+        nbrreclamation = len(reclamation)
+        cursor.execute(""" SELECT TOP 5 *
+                        FROM Informations
+                        ORDER BY IdInformation DESC """)
+        inscritrec = cursor.fetchall()
 
-    conn.close()
-    return render_template("./admin/admin.html", nbrinscrit=nbrinscrit, nbrtransfert=nbrtransfert,
-                           nbrreclamation=nbrreclamation, inscritrec=inscritrec)
-    #    return redirect(url_for('connexion'))
+        conn.close()
+        return render_template("./admin/admin.html", nbrinscrit=nbrinscrit, nbrtransfert=nbrtransfert,
+                               nbrreclamation=nbrreclamation, inscritrec=inscritrec)
+    return redirect(url_for('connexion'))
 
 
 @app.route('/historique')
 def historique():
-    #    if 'loggedin' in session:
-    conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()
-    cursor.execute("""
-                SELECT InfoDep.Nom, InfoDes.Nom, NomServices.NomService, EtatPatient.Etat, Transfert.Temps
-                FROM Transfert 
-                INNER JOIN Users AS UsersDep ON Transfert.IdUserDep = UsersDep.IdUser
-                INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
-                INNER JOIN Informations AS InfoDep ON UsersDep.IdInformation = InfoDep.IdInformation
-                INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
-                INNER JOIN Services ON Transfert.IdService = Services.IdService
-                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
-                INNER JOIN EtatPatient ON Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
-            """)
-    data = cursor.fetchall()
-    conn.close()
-    return render_template("./admin/historiqueadmin.html", data=data)
-    #    return redirect(url_for('connexion'))
+    if 'loggedin' in session:
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute("""
+                    SELECT InfoDep.Nom, InfoDes.Nom, NomServices.NomService, EtatPatient.Etat, Transfert.Dateheure
+                    FROM Transfert 
+                    INNER JOIN Users AS UsersDep ON Transfert.IdUserDep = UsersDep.IdUser
+                    INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+                    INNER JOIN Informations AS InfoDep ON UsersDep.IdInformation = InfoDep.IdInformation
+                    INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+                    INNER JOIN Services ON Transfert.IdNomService = Services.IdNomService
+                    INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                    INNER JOIN EtatPatient ON Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
+                """)
+        data = cursor.fetchall()
+        conn.close()
+        return render_template("./admin/historiqueadmin.html", data=data)
+    return redirect(url_for('connexion'))
 
 
 @app.route('/demande')
 def demande():
-#    if 'loggedin' in session:
+    if 'loggedin' in session:
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
         cursor.execute("""
@@ -621,12 +614,20 @@ def demande():
         data = cursor.fetchall()
         conn.close()
         return render_template("./admin/demandeadmin.html", data=data)
-#    return redirect(url_for('connexion'))
+    return redirect(url_for('connexion'))
 
 
 @app.route('/listeinscrit')
 def listeinscrit():
     return render_template("./admin/listeinscrit.html")
+
+
+@app.route("/deconnexion")
+def deconnexion():
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect(url_for('connexion'))
 
 
 # ................Fin yesufu route (Admin)#

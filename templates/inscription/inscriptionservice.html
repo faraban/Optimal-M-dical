@@ -18,27 +18,28 @@
     <div class="mainInscription">
         <div class="mainSecond">
             <div class="mainSecondSer1">
-                <a href="{{url_for('ajoutservice')}}" class="btninscriAjL">Ajouter un service </a>
+                <button class="btn6-row"><a href="{{url_for('ajoutservice')}}" >Ajouter un service </a></button>
             </div>
             <div class="mainSecondSer2">
                 <table>
-                    <tr>
-                        <th>id</th>
-                        <th>Capacité d’accueil</th>
+                    <caption>Liste des services enregistrés</caption>
+                    <thead>
                         <th>Services</th>
+                        <th>Capacité d’accueil</th>
                         <th>Actions</th>
-                    </tr>
-                    {% for row in services %}
-                        <tr>
-                            <td>{{ row[0] }}</td>
-                            <td>{{ row[1] }}</td>
-                            <td>{{ row[2] }}</td>
-                            <td>
-                                <a class="modif">Modifier</a>
-                                <a class="suppr" >Supprimer</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for row in services %}
+                              <tr>
+                                  <td>{{ row[2] }}</td>
+                                  <td>{{ row[1] }}</td>
+                                  <td>
+                                      <button class="btn4-row"><a href="">Modifier</a></button>
+                                      <button class="btn5-row"><a href="">Supprimer</a></button>
+                                  </td>
+                              </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>

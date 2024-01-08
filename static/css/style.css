@@ -627,10 +627,11 @@ main .info{
 
 .mainSecondSer1{
     height: 80px;
-    width: 60%;
+    width: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .mainSecondSer2{
@@ -641,21 +642,58 @@ main .info{
     align-items: flex-start;
 }
 
+.mainSecondSer2 table
+{
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    
+}
+.mainSecondSer2 table caption
+{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.mainSecondSer2 table tr
+{
+    border: none !important;
+}
+.mainSecondSer2 table tr th
+{
+    color: grey;
+    text-align: center;
+}
+.mainSecondSer2 table td
+{
+    text-align: center; 
+}
+
+.mainSecondSer2 table tr:nth-child(odd) {
+    background-color: transparent;
+}
+
+.mainSecondSer2 table tr:nth-child(even) {
+    background-color: rgb(218, 218, 218);
+}
+
 #entete{
     width:800px;
     height: 10px;   
 }
 
-.btninscriAjL{
-    height: 30px;
-    width: 135px;
+.btn6-row
+{
     color: white;
-    border-radius: 5px;
+    /* border: solid rgb(0, 103, 144) 1.5px; */
+    border: transparent;
     background-color: #000D82;
+    border-radius: 5px;
     text-align: center;
-    align-items: center;
+    margin-left: 10px;
 }
-
 .tete{
     height: 30px;
     width: 127px;
@@ -1235,3 +1273,33 @@ td {
     height: 30px; 
     width: 400px; 
 } 
+
+.btn4-row
+{
+    color: white;
+    /* border: solid rgb(0, 103, 144) 1.5px; */
+    border: transparent;
+    background-color: #ffc000;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn5-row
+{
+    color: white;
+    /* border: solid rgb(0, 103, 144) 1.5px; */
+    border: transparent;
+    background-color: #ff0000;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.btn4-row a,
+.btn5-row a,
+.btn6-row a
+{
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+}
