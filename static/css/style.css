@@ -520,6 +520,7 @@ main .info{
      flex-direction: column;
      padding: 10px;
      color: #000D82;
+     font-size: 20px;
  }
  
  .form-groupLogo{
@@ -539,14 +540,18 @@ main .info{
      color: black;
      border-radius: 5px;
      border : 3px solid #000D82;
+     padding-left: 1em;
+     margin-top: 4.5px;
  }
 
 
 .form-groupInscriAdresse{
      display: flex;
      flex-direction: column;
-     padding: 10px;
+     justify-content: space-between;
+     padding: 15px;
      color: #000D82;
+     align-items: center;
 }
 
 .Adresse{
@@ -555,6 +560,9 @@ main .info{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 1.5em;
 }
 
 .form-control3{
