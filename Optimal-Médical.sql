@@ -5,6 +5,8 @@ CREATE TABLE Commune(
   NomCommune VARCHAR(50) NOT NULL UNIQUE
 );
 
+select * from Services
+
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomDepartement VARCHAR(50) NOT NULL UNIQUE
@@ -327,8 +329,6 @@ VALUES ('médecine générale'),
 CREATE TABLE Services(
   IdService INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NombrePlace INTEGER NOT NULL,
-  PlaceDisponible INTEGER NOT NULL,
-  Attente INTEGER NOT NULL,
   IdNomService INT NOT NULL,
   FOREIGN KEY (IdNomService) REFERENCES NomServices(IdNomServices),
   IdInformation INT NOT NULL,
@@ -381,4 +381,4 @@ CREATE TABLE Transfert(
   FOREIGN KEY (IdEtatPatient) REFERENCES EtatPatient(IdEtatPatient),
   Dateheure DATETIME NOT NULL
   );
-  select * from nomservices
+  select * from services

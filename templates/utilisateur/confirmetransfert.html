@@ -25,9 +25,9 @@
                     <input type="text" name='Service' value="{{transf[2]}}" placeholder="Service d'affectation" readonly>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="username">Etat du patient:</label>
-                    <select name="etatpat">
-                        <option >selectionez</option>
+                    <label for="Etatpat">Etat du patient:</label>
+                    <select name="Etatpat" required>
+                        <option disabled selected >selectionez</option>
                         {% for cont in etatpatient  %}
                              <option value={{cont[0]}}>{{ cont[1] }}</option>
                         {% endfor %}

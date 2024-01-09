@@ -9,8 +9,9 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;' 
 
+#Server=DESKTOP-FRGCPSS\\SQLEXPRESS
 
 @app.route('/monhopital')
 def monhopital():
@@ -46,8 +47,7 @@ def monhopital():
         etats = cursor.fetchall()
         
         cursor.execute('''
-                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService,Services.placedisponible,
-                Services.attente
+                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
                 FROM services
                 INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
                 where IdInformation = ?
@@ -75,7 +75,7 @@ def plus(idservice):
         cursor.execute("UPDATE services SET placedisponible = ? WHERE idservice = ?", (ch, idservice))
         conn.commit()
         return redirect(url_for('monhopital'))
-    else:
+    elif services[2]==services[3]:
         ch = services[4]+1
         cursor.execute("UPDATE services SET attente = ? WHERE idservice = ?", (ch, idservice))
         conn.commit()
@@ -107,6 +107,7 @@ def moins(idservice):
 @app.route('/transfertECR')
 def transfertECR():
     lien = session.get('lien')
+    iduser=session.get('iduser')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
@@ -134,15 +135,30 @@ def transfertECR():
     SELECT * FROM EtatPatient 
     ''')
     etats = cursor.fetchall()
+    
+    cursor.execute('''
+            SELECT transfert.dateheure, InfoDes.Nom, NomServices.NomService , etatpatient.etat, Departement.NomDepartement, Commune.NomCommune
+            FROM transfert
+            INNER JOIN NomServices ON NomServices.IdNomServices = transfert.IdNomService
+            INNER JOIN etatpatient ON etatpatient.Idetatpatient = transfert.Idetatpatient
+            INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+            INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+            INNER JOIN Adresses ON Adresses.IdAdresse = InfoDes.IdAdresse
+            INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+            INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+            where transfert.Iduserdes = ?
+                ''', iduser)
+    data = cursor.fetchall()
+    
     conn.close()
-    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services, communes=communes,
-                           regions=regions, departements=departements, lien=lien)
+    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services, communes=communes, regions=regions, departements=departements, lien=lien, data=data)
 
 
 @app.route('/transferteffectué')
 def transferteffectué():
     idinformation = session.get('idinformation')
     lien = session.get('lien')
+    iduser=session.get('iduser')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
@@ -172,23 +188,27 @@ def transferteffectué():
     etats = cursor.fetchall()
     
     cursor.execute('''
-                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService,Services.placedisponible,
-                Services.attente
-                FROM services
-                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
-                where IdInformation = ?
-                ''', idinformation)
-    services = cursor.fetchall()
+            SELECT transfert.dateheure, InfoDes.Nom, NomServices.NomService , etatpatient.etat, Departement.NomDepartement, Commune.NomCommune
+            FROM transfert
+            INNER JOIN NomServices ON NomServices.IdNomServices = transfert.IdNomService
+            INNER JOIN etatpatient ON etatpatient.Idetatpatient = transfert.Idetatpatient
+            INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+            INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+            INNER JOIN Adresses ON Adresses.IdAdresse = InfoDes.IdAdresse
+            INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+            INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+            where transfert.Iduserdep = ?
+                ''', iduser)
+    data = cursor.fetchall()
+    
     conn.close()
-    return render_template("./utilisateur/transferteffectué.html", etats=etats, nomservices=nomservices,
-                           communes=communes, regions=regions, departements=departements, services=services,
-                           lien=lien)
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, nomservices=nomservices,communes=communes, regions=regions, departements=departements, data=data, lien=lien)
 
 
 @app.route('/transfert', methods=["GET", "POST"])
 def transfert():
     lien = session.get('lien')
-    idinformation = 2   # session.get('idinformation')
+    idinformation = session.get('idinformation')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
     
@@ -219,8 +239,7 @@ def transfert():
     departements = cursor.fetchall()
     
     cursor.execute('''
-                Services.attente
-                SELECT Services.idservice, Informations.Nom,Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
+                SELECT Services.idService, Informations.Nom, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
                 FROM services
                 INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
                 INNER JOIN Informations ON Informations.IdInformation = Services.IdInformation
@@ -229,15 +248,15 @@ def transfert():
     services = cursor.fetchall()
     conn.close()
 
-    return render_template("./utilisateur/utilisateurtransfert.html", nomservices=nomservices,
-                           communes=communes, regions=regions, services=services, departements=departements, lien=lien)
+    return render_template("./utilisateur/utilisateurtransfert.html", nomservices=nomservices,communes=communes, regions=regions, services=services, departements=departements, lien=lien)
 
 
-@app.route('/validertransfert', methods=['POST'])
+@app.route('/validertransfert', methods=["GET", "POST"])
 def validertransfert():
-    selected_index = int(request.form['selectedService'])
+    index = int(request.form['selectedService'])
     lien = session.get('lien')
-    idinformation = 2  # session.get('idinformation')
+    idinformation = session.get('idinformation')
+    iduser=session.get('iduser')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
     
@@ -247,24 +266,28 @@ def validertransfert():
     etatpatient = cursor.fetchall()
     
     cursor.execute('''
-                SELECT Services.idservice, Informations.Nom, NomServices.NomService, Services.IdNomService
+                SELECT Services.idservice, Informations.Nom, NomServices.NomService, Services.IdNomService, users.iduser
                 FROM services
                 INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
                 INNER JOIN Informations ON Informations.IdInformation = Services.IdInformation
-                where services.IdInformation != ?
-                ''',idinformation)
-    services = cursor.fetchall()
+                INNER JOIN users ON users.IdInformation = Services.IdInformation
+                where services.Idservice = ?
+                ''',index)
+    transf = cursor.fetchone()
     
     cursor.execute('''
                 SELECT * from Informations
-                where IdInformation != ?
+                where IdInformation = ?
                 ''',idinformation)
-    services = cursor.fetchall()
-    transf= services[selected_index]
-    if request.method == "POST": 
-        iddep=session.get('iduser')
-        date = datetime.now().strftime("%Y-%m-%d"' '"%H:%M:%S")
+    Etabdep = cursor.fetchone()
     
+    if request.method == "POST": 
+        idetatpatient= request.form['Etabacc'] 
+        date = datetime.now().strftime("%Y-%m-%d"' '"%H:%M:%S")
+        cursor.execute('''insert into transfert (iduserdep, iduserdes, idnomservice, dateheure, idetatpatient) 
+                                values(?,?,?,?,?)''', (iduser, transf[4], transf[3], date, idetatpatient))
+        conn.commit() 
+        
     return render_template("./utilisateur/confirmetransfert.html", transf=transf, lien=lien, etatpatient=etatpatient,Etabdep=Etabdep)
 
 
@@ -362,8 +385,7 @@ def inscriptioninfos():
                     session['idinformation'] = idinformation[0]
                     conn.close()
                     return redirect(url_for('listeservice'))
-    return render_template("./inscription/inscriptioninfos.html", Region=Region,
-                           Departement=Departement, Commune=Commune)
+    return render_template("./inscription/inscriptioninfos.html", Region=Region,Departement=Departement, Commune=Commune)
 
 
 @app.route('/ListeService', methods=["GET", "POST"])
@@ -481,6 +503,7 @@ def connexion():
                 lien = cursor.fetchone()
                 lien=lien[5][6:]
                 session['username'] = user[1]
+                session['iduser'] = user[0]
                 session['lien'] = lien
                 session['idinformation'] = user[4]
                 return redirect(url_for('accueil'))
