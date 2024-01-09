@@ -17,6 +17,9 @@
     </div>
     <div class="mainInscription">
         <div class="mainSecond">
+            {% for message in get_flashed_messages() %}
+               <div class="flash">{{message}}</div>
+            {% endfor %}
             <form method='POST'>
                 <div class="form-groupInscri">
                     <label for="username">Nom d’utilisateur :</label>
