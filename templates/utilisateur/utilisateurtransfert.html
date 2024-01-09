@@ -59,20 +59,20 @@
                         <th>select</th>
                         <th>Services</th>
                         <th>hopital</th>
-                        <th>communes</th>
                         <th>departements</th>
-                        <th>places occuppé</th>
+                        <th>communes</th>
+                        <th>places disponibles</th>
                         <th>Fils d'attente</th>
                     </tr>
                     {% for row in services %}
                     <tr>
                         <td><input type="radio" name="selectedService" value="{{ row[0] }}"></td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[2] }}</td>
                         <td>{{ row[3] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[0] }}</td>
                         <td>{{ row[4] }}</td>
+                        <td>{{ row[5] }}</td>
                     </tr>
                     {% endfor %}
                 </table>

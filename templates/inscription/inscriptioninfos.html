@@ -23,7 +23,7 @@
             <form method='POST' enctype="multipart/form-data">
                 <div class="form-groupLogo">
                     <label for="logo">Télécharger votre logo</label>
-                    <input type="file" id="logo" accept="image/*" name="logo">
+                    <input type="file" id="logo" accept="image/*" name="logo" required>
                 </div>
 
                 <div class="form-groupInscri">
@@ -44,7 +44,7 @@
                         <div class="form-control3"> 
                             <label for="selected_value1">Choisissez une region :</label>
                             <select name="selected_value1">
-                                <option >option</option>
+                                <option>option</option>
                                 {% for cont in Region  %}
                                     <option value={{ cont[0] }}>{{ cont[1] }}</option>
                                 {% endfor %}

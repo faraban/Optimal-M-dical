@@ -212,10 +212,11 @@ def transfert():
     departements = cursor.fetchall()
     
     cursor.execute('''
-                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
+                SELECT Services.idservice, Informations.Nom,Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
                 FROM services
                 INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
-                where IdInformation != ?
+                INNER JOIN Informations ON Informations.IdInformation = Services.IdInformation
+                where services.IdInformation != ?
                 ''',idinformation)
     services = cursor.fetchall()
     conn.close()
@@ -237,19 +238,26 @@ def validertransfert():
     etatpatient = cursor.fetchall()
     
     cursor.execute('''
-                SELECT Services.idservice, NomServices.NomService, users.NomUtilisateur
+                SELECT Services.idservice, Informations.Nom, NomServices.NomService, Services.IdNomService
                 FROM services
                 INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
-                INNER JOIN NomUtilisateur ON Users.IdInformation = Services.IdInformation 
-                where IdInformation != ?
+                INNER JOIN Informations ON Informations.IdInformation = Services.IdInformation
+                where services.IdInformation != ?
                 ''',idinformation)
     services = cursor.fetchall()
+    
+    cursor.execute('''
+                SELECT * from Informations
+                where IdInformation != ?
+                ''',idinformation)
+    Etabdep = cursor.fetchone()
+    
     transf= services[selected_index]
     if request.method == "POST": 
-        tel = request.form['Tel']
+        iddep=session.get('iduser')
         date = datetime.now().strftime("%Y-%m-%d"' '"%H:%M:%S")
     
-    return render_template("./utilisateur/confirmetransfert.html", transf=transf, lien=lien, etatpatient=etatpatient)
+    return render_template("./utilisateur/confirmetransfert.html", transf=transf, lien=lien, etatpatient=etatpatient,Etabdep=Etabdep)
 
 @app.route('/monprofil')
 def monprofil():
@@ -466,6 +474,7 @@ def connexion():
                             ''', (user[4]))
                 lien = cursor.fetchone()
                 lien=lien[5][6:]
+                session['iduser'] = user[0]
                 session['username'] = user[1]
                 session['lien'] = lien
                 session['idinformation'] = user[4]
@@ -602,7 +611,8 @@ def demande():
             SELECT Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
             , Region.NomRegion, Informations.Telephone
             FROM Informations, Users, Adresses, Commune, Departement, Region
-            WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
+            WHERE Informations.IdInformation = Users.IdInformation 
+            AND Informations.IdAdresse = Adresses.IdAdresse
             AND Adresses.IdCommune = Commune.IdCommune
             AND Adresses.IdDepartement = Departement.IdDepartement
             AND Adresses.IdRegion = Region.IdRegion
