@@ -246,6 +246,9 @@ ul a{
     font-size: 25px;
     text-decoration: none;
 }
+ul{
+    list-style: none;
+}
 
  /* div_logo et logo  */
 
@@ -520,7 +523,7 @@ main .info{
      flex-direction: column;
      padding: 10px;
      color: #000D82;
-     font-size: 20px;
+     font-size: 25px;
  }
  
  .form-groupLogo{
@@ -532,6 +535,7 @@ main .info{
      margin: 10px;
      color: #000D82;
      border: 1px dashed black;
+     margin-top: 80px;
  }
  
  .form-control2{
@@ -624,9 +628,13 @@ main .info{
 }
 
 #btn3{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    /* margin-top: 25px; */
+    gap: 1em;
+    margin: 5px;
 }
 
 
