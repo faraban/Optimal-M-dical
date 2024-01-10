@@ -1,0 +1,28 @@
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
+
+{%block content %}
+<div class='infos'>
+    <div class="mainInscription">
+        <div class="mainSecond">
+            <form method="post">
+                <div class="form-groupInscri">
+                    <label for="nomservice">Service :</label>
+                    <input type="text" class="form-control2" name="nomservice" id="username" value="{{ service[1] }}" readonly>
+                </div>
+                <div class="form-groupInscri">
+                    <label for="capacite">Capacité d’accueil :</label>
+                    <input type="text" class="form-control2" name="capacite" id="username" value="{{ service[0] }}" required>
+                </div>
+                <div id="btn3">
+                    <a href="javascript:history.back()" class="btninscri">Précedant </a>
+                    <button type="submit" class="btninscri2">Appliquer></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

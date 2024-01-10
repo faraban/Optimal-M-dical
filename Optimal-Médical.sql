@@ -5,7 +5,8 @@ CREATE TABLE Commune(
   NomCommune VARCHAR(50) NOT NULL UNIQUE
 );
 
-select * from Services
+select * from informations
+
 
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
@@ -381,4 +382,14 @@ CREATE TABLE Transfert(
   FOREIGN KEY (IdEtatPatient) REFERENCES EtatPatient(IdEtatPatient),
   Dateheure DATETIME NOT NULL
   );
-  select * from services
+  select * from transfert
+
+  SELECT InfoDep.Nom, InfoDes.Nom, NomServices.NomService, EtatPatient.Etat, Transfert.Temps
+                FROM Transfert 
+                INNER JOIN Users AS UsersDep ON Transfert.IdUserDep = UsersDep.IdUser
+                INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+                INNER JOIN Informations AS InfoDep ON UsersDep.IdInformation = InfoDep.IdInformation
+                INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+                INNER JOIN Services ON Transfert.IdService = Services.IdService
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                INNER JOIN EtatPatient ON Transfert.IdEtatPatient = EtatPatient.IdEtatPatient

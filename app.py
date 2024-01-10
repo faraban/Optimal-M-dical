@@ -247,13 +247,18 @@ def transfert():
                 ''',idinformation)
     services = cursor.fetchall()
     conn.close()
+    
+    if request.method == "POST": 
+        index = int(request.form['selectedService'])
+        session['index']=index
+        return redirect(url_for('validertransfert'))
 
     return render_template("./utilisateur/utilisateurtransfert.html", nomservices=nomservices,communes=communes, regions=regions, services=services, departements=departements, lien=lien)
 
 
 @app.route('/validertransfert', methods=["GET", "POST"])
 def validertransfert():
-    index = int(request.form['selectedService'])
+    index = session.get('index')
     lien = session.get('lien')
     idinformation = session.get('idinformation')
     iduser=session.get('iduser')
@@ -282,19 +287,63 @@ def validertransfert():
     Etabdep = cursor.fetchone()
     
     if request.method == "POST": 
-        idetatpatient= request.form['Etabacc'] 
+        idetat = request.form.get("Etatpat")
         date = datetime.now().strftime("%Y-%m-%d"' '"%H:%M:%S")
         cursor.execute('''insert into transfert (iduserdep, iduserdes, idnomservice, dateheure, idetatpatient) 
-                                values(?,?,?,?,?)''', (iduser, transf[4], transf[3], date, idetatpatient))
+                                values(?,?,?,?,?)''', (iduser, transf[4], transf[3], date, idetat))
         conn.commit() 
+        flash(" transfert en cour!", 'info')
+        return redirect(url_for('transfert'))
         
     return render_template("./utilisateur/confirmetransfert.html", transf=transf, lien=lien, etatpatient=etatpatient,Etabdep=Etabdep)
 
 
 @app.route('/monprofil')
 def monprofil():
+    idiformation = session.get('idinformation')
+    lien = session.get('lien')
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()  
+    cursor.execute("""
+                SELECT Services.idservice, Services.Nombreplace, NomServices.NomService
+                FROM services
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                WHERE IdInformation = ?
+            """, idiformation)
+    services = cursor.fetchall()
+    conn.close()
+    return render_template("./utilisateur/utilisateurprofil.html",services=services,lien=lien)
 
-    return render_template("./utilisateur/utilisateurprofil.html")
+@app.route('/suppression/<int:id>')
+def suppression(id):
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute(f"DELETE FROM services WHERE Idservice ={id};")
+    conn.commit()
+    flash(" Le services a été supprimer avec succès !", 'info')
+    return redirect(url_for('monprofil'))
+
+@app.route('/modification/<int:id>', methods=["GET", "POST"])
+def modification(id):
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    lien = session.get('lien')
+    cursor.execute("""
+                SELECT Services.Nombreplace, NomServices.NomService
+                FROM services
+                INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                WHERE Idservice = ?
+            """, id)
+    service = cursor.fetchone()
+    if request.method == "POST": 
+        capacite = request.form["capacite"] 
+        cursor.execute("UPDATE services SET nombreplace = ? WHERE idservice = ?", (capacite, id))
+        conn.commit() 
+        conn.close()
+        flash(f" La capacite de votre service a été modifieé avec succès !", 'info')
+        return redirect(url_for('monprofil'))
+
+    return render_template("./utilisateur/modifservice0.html",service=service, lien=lien)
 
 
 @app.route('/inscriptioninfos', methods=["GET", "POST"])
