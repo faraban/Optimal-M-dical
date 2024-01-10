@@ -14,7 +14,7 @@
             <form method='POST'>
                 <div class="form-groupInscri">
                     <label for='Etabdep'>Etablissement de depart :</label>
-                    <input type="text" name='Etabdep' value="{{transf[0]}}" placeholder='Etabdep' readonly>
+                    <input type="text" name='Etabdep' value="{{Etabdep[1]}}" placeholder='Etabdep' readonly>
                 </div>
                 <div class="form-groupInscri">
                     <label for="Etabacc">Etablissement d'accueil :</label>
@@ -25,9 +25,9 @@
                     <input type="text" name='Service' value="{{transf[2]}}" placeholder="Service d'affectation" readonly>
                 </div>
                 <div class="form-groupInscri">
-                    <label for="username">Etat du patient:</label>
-                    <select name="etatpat">
-                        <option >selectionez</option>
+                    <label for="Etatpat">Etat du patient:</label>
+                    <select name="Etatpat" required>
+                        <option disabled selected >selectionez</option>
                         {% for cont in etatpatient  %}
                              <option value={{cont[0]}}>{{ cont[1] }}</option>
                         {% endfor %}

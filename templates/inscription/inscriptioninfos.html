@@ -23,41 +23,43 @@
             <form method='POST' enctype="multipart/form-data">
                 <div class="form-groupLogo">
                     <label for="logo">Télécharger votre logo</label>
-                    <input type="file" id="logo" accept="image/*" name="logo">
+                    <input type="file" id="logo" accept="image/*" name="logo" required>
                 </div>
 
                 <div class="form-groupInscri">
                     <label for="name">Nom d’établissement sanitaire</label>
                     <input type="text" class="form-control2" name="Nom" id="name" spellcheck="true" placeholder="Nom d’établissement sanitaire" required>
                 </div>
+
                 <div class="form-groupInscri">
                     <label for="Matricule">Numéro d'immatriculation de l'établissement</label>
                     <input type="text" class="form-control2" name="Num" id="Matricule" placeholder="Matricule" required>
                 </div>
+
                 <div class="form-groupInscri">
                     <label for="Telephone">Telephone</label>
                     <input type="text" class="form-control2" name="Tel" id="Telephone" placeholder="Telephone" required>
-                    
                 </div>
+                
                 <div class="form-groupInscri">
                     <label for="username">Adresse:</label>
                 </div>
+
                 <div class="form-groupInscriAdresse">
-                    
                     <div class="Adresse">
                         <div class="form-control3"> 
                             <label for="selected_value1">Choisissez une region :</label>
-                            <select name="selected_value1">
-                                <option >option</option>
+                            <select name="selected_value1" required>
+                                <option disabled selected >option</option>
                                 {% for cont in Region  %}
                                     <option value={{ cont[0] }}>{{ cont[1] }}</option>
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="form-control3"> 
+                        <div class="form-control3" > 
                             <label for="selected_value2">Choisissez un département :</label>
-                            <select name="selected_value2">
-                                <option >option</option>
+                            <select name="selected_value2" required>
+                                <option disabled selected >option</option>
                                 {% for cont in Departement  %}
                                     <option value={{ cont[0] }}>{{ cont[1] }}</option>
                                 {% endfor %}
@@ -65,8 +67,8 @@
                         </div>
                         <div class="form-control3"> 
                             <label for="selected_value3">Choisissez un commune :</label>
-                            <select name="selected_value3">
-                                <option >option</option>
+                            <select name="selected_value3" required>
+                                <option disabled selected >option</option>
                                 {% for cont in Commune %}
                                     <option value={{ cont[0] }}>{{ cont[1] }}</option>
                                 {% endfor %}

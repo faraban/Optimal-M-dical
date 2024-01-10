@@ -6,77 +6,79 @@
 
 {%block content %}
 <div class="container">
-    <div class="cardsm">
-        <div class="cardm">
-            <form method="POST">
-                <select name="selected_value">
-                    <option >par services</option>
-                    {% for cont in nomservices  %}
-                         <option >{{ cont[1] }}</option>
-                    {% endfor %}
-                </select>
-            </form>
-        </div>
-        <div class="cardm">
-            <form method="POST">
-                <select name="selected_value">
-                    <option >par communes</option>
-                    {% for cont in communes  %}
-                         <option >{{ cont[1] }}</option>
-                    {% endfor %}
-                </select>
-            </form>
-        </div>
-        <div class="cardm">
-            <form method="POST">
-                <select name="selected_value">
-                    <option >par regions</option>
-                    {% for cont in regions  %}
-                         <option >{{ cont[1] }}</option>
-                    {% endfor %}
-                </select>
-            </form>
-        </div>
-        <div class="cardm">
-            <form method="POST">
-                <select name="selected_value">
-                    <option >par departements</option>
-                    {% for cont in departements %}
-                         <option >{{ cont[1] }}</option>
-                    {% endfor %}
-                </select>
-            </form>
-        </div>
-    </div>
     <div class="content-2">
-        <div class="disponibilite">
-            <div class="title">
-                <h2>la Disponibilité dans les hopitaux</h2>
+        <div class="cardsm">
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option disabled selected >par services</option>
+                        {% for cont in nomservices  %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
-            <form method="post" action="{{ url_for('validertransfert') }}">
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option disabled selected >par communes</option>
+                        {% for cont in communes  %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option >par regions</option>
+                        {% for cont in regions  %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            <div class="cardm">
+                <form method="POST">
+                    <select name="selected_value">
+                        <option >par departements</option>
+                        {% for cont in departements %}
+                             <option >{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="disponibilite">
+            
+            <form method="post" >
+                <div class="title">
+                    <h2>Disponibilité dans les hopitaux</h2>
+                    <input type="submit" value="Valider">
+                </div>
+                
                 <table>
                     <tr>
                         <th>select</th>
                         <th>Services</th>
                         <th>hopital</th>
-                        <th>communes</th>
                         <th>departements</th>
-                        <th>places occuppé</th>
+                        <th>communes</th>
+                        <th>places disponibles</th>
                         <th>Fils d'attente</th>
                     </tr>
                     {% for row in services %}
                     <tr>
-                        <td><input type="radio" name="selectedService" value="{{ row[0] }}"></td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[2] }}</td>
+                        <td><input type="radio" name="selectedService" value="{{ row[0] }}" required></td>
                         <td>{{ row[3] }}</td>
-                        <td>{{ row[4] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[2]-row[4] }}</td>
+                        <td>{{ row[5] }}</td>
                     </tr>
                     {% endfor %}
                 </table>
-                <input type="submit" value="Valider">
             </form>
         </div>
     </div>

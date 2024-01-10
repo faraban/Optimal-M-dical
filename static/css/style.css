@@ -153,6 +153,8 @@ nav .nav .nav_bar .search img {
 nav .nav .nav_bar .user {
     display: flex;
     justify-content: space-between;
+    /* align-items: center; */
+
 }
 
 nav .nav .nav_bar .user img {
@@ -178,7 +180,7 @@ nav .nav .nav_bar .img-case img {
     background:#1D5C00;
     padding: 10px;
     margin-bottom: 10px;
-    height: 40px;
+    height: 30px;
     width: 180px;
     border-radius: 5px;
     margin-left: 5%;
@@ -202,8 +204,7 @@ ul a{
 .nav_bar .user a:hover {
     color:#000D82;
     background: white;
-    padding: 3px 8px;
-    border: 2px solid #1D5C00;
+    border: 0.5px solid #1D5C00;
 }
 
 
@@ -245,6 +246,9 @@ ul a{
     color: white;
     font-size: 25px;
     text-decoration: none;
+}
+ul{
+    list-style: none;
 }
 
  /* div_logo et logo  */
@@ -529,7 +533,7 @@ main .info{
      flex-direction: column;
      padding: 10px;
      color: #000D82;
-     font-size: 20px;
+     font-size: 25px;
  }
  
  .form-groupLogo{
@@ -541,6 +545,7 @@ main .info{
      margin: 10px;
      color: #000D82;
      border: 1px dashed black;
+     margin-top: 80px;
  }
  
  .form-control2{
@@ -633,9 +638,13 @@ main .info{
 }
 
 #btn3{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    /* margin-top: 25px; */
+    gap: 1em;
+    margin: 5px;
 }
 
 
@@ -784,7 +793,7 @@ td {
 }
 
 .container  .cardsm {
-    width: 60%;
+    width: 100%;
     padding-left: 10px;
     display: flex;
     justify-content: space-between;
@@ -838,7 +847,7 @@ td {
 .container .content-2 {
     min-height: 80%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: flex-start;
 }
 
@@ -1074,12 +1083,14 @@ td {
 
 .inscrit table tr:nth-child(odd) 
 {
-    background-color: transparent;
+   background-color: transparent;
 }
+
 .inscrit table tr:nth-child(even) 
 {
     background-color: rgb(218, 218, 218);
 }
+
 .container  .content-2 .disponibilite {
     min-height: 80vh;
     width: 75%;
@@ -1123,6 +1134,7 @@ td {
     display: flex;
     justify-content: center;
 }
+
 .container-admin  .content-2 .disponibilite {
     min-height: 80vh;
     width: 75%;

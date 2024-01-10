@@ -13,6 +13,7 @@
             <div class="mainBravo">
                 <div class="mainP1">
                     <div class="form-insertlogo">
+                        <img src="{{ url_for('static',filename=lien)}}"  alt="logo">
                         <label for="logo">Télécharger votre logo</label>
                         <input type="file" id="logo" name="logo">
                     </div>
@@ -60,19 +61,17 @@
         <div class="mainSecondSer2">
             <table>
                 <tr>
-                    <th>id</th>
                     <th>Services</th>
                     <th>Capacité d’accueil</th>
                     <th>Actions</th>
                 </tr>
-                {% for row in data %}
+                {% for row in services %}
                     <tr>
-                        <td>{{ row[0] }}</td>
-                        <td>{{ row[1] }}</td>
                         <td>{{ row[2] }}</td>
+                        <td>{{ row[1] }}</td>
                         <td>
-                            <a class="modif">Modifier</a>
-                            <a class="suppr" >Supprimer</a>
+                            <a class="modif" href="{{ url_for('modification', id=row[0] ) }}">Modifier</a>
+                            <a class="suppr" href="{{ url_for('suppression', id=row[0] ) }}">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}
