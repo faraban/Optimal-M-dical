@@ -486,19 +486,28 @@ main .form button, .form1 button {
 main .info{
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-
-.mainone div{
-    height: 100%;
-    width: 50%;
+.mainone{
+    height: 50px;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
+.mainone div{
+    height: 100%;
+    width: 100%;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    border: #000D82 solid 1px;
+}
+
  .mainInscription{
-     height: 380px;
      width: 100%;
      display: flex;
      justify-content: center;
@@ -1308,6 +1317,99 @@ td {
 .btn6-row a
 {
     font-size: 18px;
+    color: white;
+    text-decoration: none;
+}
+
+.right
+{
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.right .right-center-pop
+{
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.right .right-center-pop p
+{
+    font-size: 25px;
+    font-weight: bold;
+    color: #000D82;
+}
+.right .right-center-pop .pop-up
+{
+    height: 55%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.right .right-center-pop .pop-up p
+{
+    height: 60%;
+    width: 70%;
+    font-weight: 100;
+    font-size: 20px;
+    color: white;
+    border: solid #000D82 1px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #1D5C00;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.btn
+{
+    width:  60%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: -30px;
+}
+
+.btn4
+{
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    width: 25%;
+    height: 40%;
+    border: solid #000D82 1px;
+    background-color: red;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn5
+{
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    width: 25%;
+    height: 40%;
+    border: solid #000D82 1px;
+    background-color: #1D5C00;
+    border-radius: 5px;
+    text-align: center;   
+    margin-left: 10px; 
+}
+.btn4 a,
+.btn5 a
+{
+    font-size: 20px;
     color: white;
     text-decoration: none;
 }

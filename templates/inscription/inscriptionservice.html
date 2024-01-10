@@ -34,8 +34,8 @@
                                   <td>{{ row[2] }}</td>
                                   <td>{{ row[1] }}</td>
                                   <td>
-                                      <button class="btn4-row"><a href="">Modifier</a></button>
-                                      <button class="btn5-row"><a href="">Supprimer</a></button>
+                                      <button class="btn4-row"><a href="{{url_for('modifierservice', item_id=row[0])}}">Modifier</a></button>
+                                      <button class="btn5-row"><a href="{{url_for('confirmsupservice', item_id=row[0])}}">Supprimer</a></button>
                                   </td>
                               </tr>
                         {% endfor %}

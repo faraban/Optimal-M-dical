@@ -9,11 +9,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-<<<<<<< Updated upstream
 DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
-=======
-DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;'
->>>>>>> Stashed changes
 
 
 @app.route('/monhopital')
@@ -399,6 +395,57 @@ def ajoutservice():
         conn.close()
         return redirect(url_for('listeservice'))
     return render_template("./inscription/inscriptionservice0.html ", services=services)
+
+
+@app.route("/confirmsupservice/<int:item_id>", methods=['GET', 'POST'])
+def confirmsupservice(item_id):
+    item_id = int(item_id)
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM services WHERE IdService = ?', item_id)
+    data = cursor.fetchone()
+    conn.commit()
+    conn.close()
+    return render_template("./inscription/confirm_sup_service.html", data=data)
+
+
+@app.route('/supprimerservice/<int:item_id>', methods=['GET', 'POST'])
+def supprimerservice(item_id):
+    item_id = int(item_id)
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM services WHERE IdService = ?', item_id)
+    conn.commit()
+    conn.close()
+    flash(f'Le service numéro {item_id} a été supprimé avec succès !', 'info')
+    return redirect(url_for('listeservice'))
+
+
+@app.route('/modifierservice/<int:item_id>', methods=['GET', 'POST'])
+def modifierservice(item_id):
+    item_id = int(item_id)
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM services WHERE IdService = ?', item_id)
+    data = cursor.fetchone()
+    cursor.execute('''
+        SELECT * FROM Nomservices 
+        ''')
+    services = cursor.fetchall()
+    if request.method == 'POST':
+        nom = request.form['nom']
+        categorie = request.form['categorie']
+        prixunitaire = request.form['prixunitaire']
+        cursor.execute('''
+            UPDATE produit
+            SET NomProduit = ?, CatProduit = ?, PrixUnitaire = ?
+            WHERE IdProduit = ?
+        ''', (nom, categorie, prixunitaire, item_id))
+        conn.commit()
+        conn.close()
+        flash(f'Le produit numéro {item_id} a été modifié avec succès !', 'info')
+        return redirect(url_for('afficherproduit'))
+    return render_template('./inscription/modifierservice.html', data=data, services=services)
 
 
 @app.route('/inscriptionacces', methods=["GET", "POST"])

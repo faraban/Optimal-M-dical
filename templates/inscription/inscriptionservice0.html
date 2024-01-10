@@ -12,7 +12,7 @@
                 <div class="form-groupInscri">
                     <label for="username">Nom du service :</label>
                     <select name="selected_value">
-                        <option >-----------</option>
+                        <option disabled>-----------</option>
                         {% for cont in services  %}
                              <option value={{cont[0]}}>{{ cont[1] }}</option>
                         {% endfor %}

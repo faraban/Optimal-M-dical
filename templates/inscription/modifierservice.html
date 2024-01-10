@@ -1,0 +1,33 @@
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/logodiv.html' %} 
+{%endblock%}
+
+{%block content %}
+<div class='infos'>
+    <div class="mainInscription">
+        <div class="mainSecond">
+            <form method="post">
+                <div class="form-groupInscri">
+                    <label for="username">Nom du service :</label>
+                    <select name="selected_value">
+                        <option disabled selected>-----------</option>
+                        {% for cont in services  %}
+                             <option value={{cont[0]}}>{{ cont[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-groupInscri">
+                    <label for="capacite">Capacité d’accueil :</label>
+                    <input type="text" class="form-control2" name="capacite" id="username" placeholder="Capacité d’accueil" value={{data[1]}} required>
+                </div>
+                <div id="btn3">
+                    <a href='/ListeService' class="btninscri">Précedant </a>
+                    <button type="submit" class="btninscri2">Ajout ></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
