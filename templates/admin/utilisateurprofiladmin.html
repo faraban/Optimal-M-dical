@@ -1,0 +1,98 @@
+{% extends '/base.html' %} 
+
+{%block select%} 
+    {% include 'elements/navadmin.html' %}
+{%endblock%}
+
+{%block content %}
+    <div class="profil-view">
+        <div class="view-main">
+            <div class="view-div">
+                <h2>Mon profil</h2>
+            </div>
+            <div class="view-divBravo">
+                <div class="divBravo">
+                    <div class="profile-insertlogo">
+                        <label for="logo">Télécharger votre logo</label>
+                        <input type="file" id="logo" name="logo">
+                    </div>
+                </div>
+                <div class="divBravo2">
+                    <P>Information sur mon établissement</P>
+                    <form >
+                        <div class="input-profile">
+                            <label for="username">Nom d’utilisateur :</label>
+                            <input type="text" name="usrname" class="input-controlProfi" id="username" value= "{{data[1]}}" placeholder="">
+                        </div>
+                        <div class="input-profile">
+                            <label for="telephone">Téléphone :</label>
+                            <input type="tel" name="Téléphone" class="input-controlProfi" id="telephone" value="{{data[2]}}" placeholder="">
+                        </div>
+                        <div class="input-profile2">
+                            <label for="nom">Nom d’établissement sanitaire :</label>
+                            <input type="text" name="name" class="input-controlProfi" id="nom" value="{{data[3]}}" placeholder="">
+                        </div>
+                        <div class="input-profile2">
+                            <label for="nummatricule">Numéro d'immatriculation de l'établissement :</label>
+                            <input type="text" name="matricule" class="input-controlProfi" id="nummatricule" value="{{data[4]}}" placeholder="">
+                        </div>
+                        <div class="input-profile2">
+                            <label for="username">Adresse :</label>
+                            <div class="Adresse">
+                                <select class="input-controlprofil" name="region" id="region">
+                                    <option value={{data[9]}}>{{ data[10] }}</option>
+                                    {% for cont in ListeRegion  %}
+                                        <option value={{cont[0]}} {{ cont[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select class="input-controlprofil" name="Département" id="Département">
+                                    <option value={{data[7]}}>{{ data[8] }}</option>
+                                    {% for cont in ListeDepartement  %}
+                                        <option value={{cont[0]}}>{{ cont[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select class="input-controlprofil" name="Commune" id="Commune">
+                                    <option value={{data[5]}}>{{ data[6] }}</option>
+                                    {% for cont in ListeCommune %}
+                                            <option value={{cont[0]}}>{{ cont[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="text" class="input-controlprofil" id="position" name="localisation" placeholder="Localisation">
+                            </div>
+                        </div>
+                        <div class="input-profile2">
+                            <label for="email">E-mail :</label>
+                            <input type="text" name="mail" class="input-controlProfi2" id="email" value="{{data[12]}}">
+                        </div>
+                        <div id="btn-view">
+                            <a href="" class="BtnView">Modifier</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="view-main2">
+            <table>
+                <caption>Liste des services de l'établissement</caption>
+                <thead>
+                    <th>Services</th>
+                    <th>Capacité d’accueil</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                          <tr>
+                              <td> {{ row[1] }} </td>
+                              <td> {{ row[2] }} </td>
+                              <td>
+                                <a class="modif">Modifier</a>
+                                <a class="suppr" >Supprimer</a>
+                              </td>
+                          </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{%endblock%}

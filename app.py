@@ -13,6 +13,7 @@ DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;
 
 #Server=DESKTOP-FRGCPSS\\SQLEXPRESS
 
+
 @app.route('/monhopital')
 def monhopital():
     if 'username' in session:
@@ -601,7 +602,8 @@ def connexion():
                             WHERE idinformation = ? 
                             ''', (user[4]))
                 lien = cursor.fetchone()
-                lien=lien[5][6:]
+                lien = lien[5][6:]
+                session['loggedin'] = True
                 session['username'] = user[1]
                 session['iduser'] = user[0]
                 session['lien'] = lien
@@ -612,7 +614,6 @@ def connexion():
         else:
             flash("Identifiant incorrect !", 'info')
     return render_template("./connexion/connexion.html")
-
 
 
 @app.route('/pwdoublie', methods=["GET", "POST"])
@@ -693,14 +694,24 @@ def admin():
         cursor.execute(""" SELECT * FROM Reclamation """)
         reclamation = cursor.fetchall()
         nbrreclamation = len(reclamation)
-        cursor.execute(""" SELECT TOP 5 *
-                        FROM Informations
-                        ORDER BY IdInformation DESC """)
+        cursor.execute(""" SELECT TOP 5 Nom, Matricule, Telephone
+                            FROM Informations
+                            ORDER BY IdInformation DESC """)
         inscritrec = cursor.fetchall()
-
+        cursor.execute("""
+                        SELECT InfoDep.Nom, InfoDes.Nom, NomServices.NomService, EtatPatient.Etat, Transfert.Dateheure
+                        FROM Transfert 
+                        INNER JOIN Users AS UsersDep ON Transfert.IdUserDep = UsersDep.IdUser
+                        INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+                        INNER JOIN Informations AS InfoDep ON UsersDep.IdInformation = InfoDep.IdInformation
+                        INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+                        INNER JOIN NomServices ON NomServices.IdNomServices = Transfert.IdNomService
+                        INNER JOIN EtatPatient ON Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
+                        """)
+        historique = cursor.fetchall()
         conn.close()
         return render_template("./admin/admin.html", nbrinscrit=nbrinscrit, nbrtransfert=nbrtransfert,
-                               nbrreclamation=nbrreclamation, inscritrec=inscritrec)
+                               nbrreclamation=nbrreclamation, inscritrec=inscritrec, historique=historique)
     return redirect(url_for('connexion'))
 
 
@@ -716,8 +727,7 @@ def historique():
                     INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
                     INNER JOIN Informations AS InfoDep ON UsersDep.IdInformation = InfoDep.IdInformation
                     INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
-                    INNER JOIN Services ON Transfert.IdNomService = Services.IdNomService
-                    INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                    INNER JOIN NomServices ON NomServices.IdNomServices = Transfert.IdNomService
                     INNER JOIN EtatPatient ON Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
                 """)
         data = cursor.fetchall()
@@ -732,11 +742,10 @@ def demande():
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
+            SELECT Informations.IdInformation, Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
             , Region.NomRegion, Informations.Telephone
             FROM Informations, Users, Adresses, Commune, Departement, Region
-            WHERE Informations.IdInformation = Users.IdInformation 
-            AND Informations.IdAdresse = Adresses.IdAdresse
+            WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
             AND Adresses.IdCommune = Commune.IdCommune
             AND Adresses.IdDepartement = Departement.IdDepartement
             AND Adresses.IdRegion = Region.IdRegion
@@ -744,6 +753,60 @@ def demande():
         data = cursor.fetchall()
         conn.close()
         return render_template("./admin/demandeadmin.html", data=data)
+    return redirect(url_for('connexion'))
+
+
+@app.route('/monprofiladmin/<int:item_id>', methods=['GET', 'POST'])
+def monprofiladmin(item_id):
+    if 'loggedin' in session:
+        item_id = int(item_id)
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Region")
+        Region = cursor.fetchall()
+        cursor.execute("SELECT * FROM Departement")
+        Departement = cursor.fetchall()
+        cursor.execute("SELECT * FROM Commune")
+        Commune = cursor.fetchall()
+        cursor.execute('''
+        SELECT Informations.IdInformation, Users.NomUtilisateur, Informations.Telephone, Informations.Nom, 
+        Informations.Matricule, Commune.IdCommune, Commune.NomCommune, Adresses.IdDepartement, 
+        Departement.NomDepartement, Region.IdRegion, Region.NomRegion, Informations.IdAdresse, Users.email
+        FROM Informations
+        INNER JOIN Users ON Users.IdInformation = Informations.IdInformation
+        INNER JOIN Adresses ON Adresses.IdAdresse = Informations.IdAdresse
+        INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+        INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+        INNER JOIN Region ON Adresses.IdRegion = Region.IdRegion
+        WHERE Informations.IdInformation = ?
+        ''', item_id)
+        data = cursor.fetchone()
+        if request.method == 'POST':
+            user = request.form['usrname']
+            telephone = request.form['Téléphone']
+            nom = request.form['name']
+            matricule = request.form['matricule']
+            region = request.form['region']
+            departement = request.form['Département']
+            commune = request.form['Commune']
+            mail = request.form['mail']
+            cursor.execute('''
+                UPDATE Informations
+                SET Informations.Nom = ?, Informations.Matricule = ?, Informations.Telephone = ?
+                WHERE Informations.IdInformation = ?
+                UPDATE Users
+                SET Users.NomUtilisateur = ?, Users.email = ?
+                WHERE Informations.IdInformation = ?
+                UPDATE Adresses
+                SET Adresses.IdCommune = ?, Adresses.IdDepartement = ?, Adresses.IdRegion = ?
+                WHERE Adresses.IdAdresse = ?
+            ''', (nom, matricule, telephone, item_id, user, mail, item_id, commune, departement, region, data[-1]))
+            conn.commit()
+            conn.close()
+            flash(f'Le produit numéro {item_id} a été modifié avec succès !', 'info')
+            return redirect(url_for('afficherproduit'))
+        return render_template('./admin/utilisateurprofiladmin.html', data=data, ListeRegion=Region,
+                 ListeDepartement=Departement, ListeCommune=Commune)
     return redirect(url_for('connexion'))
 
 
