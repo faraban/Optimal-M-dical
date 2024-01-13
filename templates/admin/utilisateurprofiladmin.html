@@ -13,6 +13,7 @@
             <div class="view-divBravo">
                 <div class="divBravo">
                     <div class="profile-insertlogo">
+                        <img src="{{ url_for('static',filename=lien)}}"  alt="logo">
                         <label for="logo">Télécharger votre logo</label>
                         <input type="file" id="logo" name="logo">
                     </div>
@@ -65,7 +66,7 @@
                             <input type="text" name="mail" class="input-controlProfi2" id="email" value="{{data[12]}}">
                         </div>
                         <div id="btn-view">
-                            <a href="" class="BtnView">Modifier</a>
+                            <button type="submit" class="BtnView">Modifier</button>
                         </div>
                     </form>
                 </div>

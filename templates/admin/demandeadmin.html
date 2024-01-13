@@ -7,7 +7,7 @@
 {%block content %}
     {% include 'elements/sidebaradmin.html' %}
     <div class="container">
-        <div class="content-2">
+        <div class="content-X">
             <div class="demande">
                 <table>
                     <caption>Liste des demandes d'inscription</caption>
@@ -17,7 +17,7 @@
                         <th>Email</th>
                         <th>Adresse</th>
                         <th>Téléphone</th>
-                        <th>Action</th>
+                        <th>Voir profil</th>
                     </thead>
                     <tbody>
                         {% for row in data %}
@@ -28,7 +28,7 @@
                                   <td> {{ row[4] }}, {{ row[5] }}, {{ row[6] }} </td>
                                   <td> {{ row[7] }} </td>
                                   <td>
-                                      <button class="btn"><a href="{{url_for('monprofiladmin', item_id=row[0])}}">voir</a></button>
+                                      <button class="btnX"><a href="{{url_for('monprofiladmin', item_id=row[0])}}">voir</a></button>
                                   </td>
                               </tr>
                         {% endfor %}

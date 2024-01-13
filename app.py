@@ -315,6 +315,7 @@ def monprofil():
     conn.close()
     return render_template("./utilisateur/utilisateurprofil.html",services=services,lien=lien)
 
+
 @app.route('/suppression/<int:id>')
 def suppression(id):
     conn = pyodbc.connect(DSN)
@@ -323,6 +324,7 @@ def suppression(id):
     conn.commit()
     flash(" Le services a été supprimer avec succès !", 'info')
     return redirect(url_for('monprofil'))
+
 
 @app.route('/modification/<int:id>', methods=["GET", "POST"])
 def modification(id):
@@ -760,6 +762,7 @@ def demande():
 def monprofiladmin(item_id):
     if 'loggedin' in session:
         item_id = int(item_id)
+        lien = session.get('lien')
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM Region")
@@ -801,12 +804,13 @@ def monprofiladmin(item_id):
                 SET Adresses.IdCommune = ?, Adresses.IdDepartement = ?, Adresses.IdRegion = ?
                 WHERE Adresses.IdAdresse = ?
             ''', (nom, matricule, telephone, item_id, user, mail, item_id, commune, departement, region, data[-1]))
+
             conn.commit()
             conn.close()
             flash(f'Le produit numéro {item_id} a été modifié avec succès !', 'info')
-            return redirect(url_for('afficherproduit'))
+            return redirect(url_for('demande'))
         return render_template('./admin/utilisateurprofiladmin.html', data=data, ListeRegion=Region,
-                 ListeDepartement=Departement, ListeCommune=Commune)
+                 ListeDepartement=Departement, ListeCommune=Commune, lien=lien)
     return redirect(url_for('connexion'))
 
 
