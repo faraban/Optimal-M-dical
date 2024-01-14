@@ -745,12 +745,14 @@ def demande():
         cursor = conn.cursor()
         cursor.execute("""
             SELECT Informations.IdInformation, Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
-            , Region.NomRegion, Informations.Telephone
+            , Region.NomRegion, Informations.Telephone, Users.categorie
             FROM Informations, Users, Adresses, Commune, Departement, Region
             WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
             AND Adresses.IdCommune = Commune.IdCommune
             AND Adresses.IdDepartement = Departement.IdDepartement
             AND Adresses.IdRegion = Region.IdRegion
+            AND Users.categorie = 'Attente'
+            AND Users.NomUtilisateur <> 'admin'
         """)
         data = cursor.fetchall()
         conn.close()
@@ -769,12 +771,20 @@ def monprofiladmin(item_id):
         Region = cursor.fetchall()
         cursor.execute("SELECT * FROM Departement")
         Departement = cursor.fetchall()
+        cursor.execute("""
+                        SELECT NomServices.NomService, Services.Nombreplace 
+                        FROM services
+                        INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                        WHERE IdInformation = ?
+                    """, item_id)
+        services = cursor.fetchall()
         cursor.execute("SELECT * FROM Commune")
         Commune = cursor.fetchall()
         cursor.execute('''
         SELECT Informations.IdInformation, Users.NomUtilisateur, Informations.Telephone, Informations.Nom, 
         Informations.Matricule, Commune.IdCommune, Commune.NomCommune, Adresses.IdDepartement, 
-        Departement.NomDepartement, Region.IdRegion, Region.NomRegion, Informations.IdAdresse, Users.email
+        Departement.NomDepartement, Region.IdRegion, Region.NomRegion, Informations.IdAdresse, Users.email, 
+        Informations.lienimg
         FROM Informations
         INNER JOIN Users ON Users.IdInformation = Informations.IdInformation
         INNER JOIN Adresses ON Adresses.IdAdresse = Informations.IdAdresse
@@ -785,38 +795,83 @@ def monprofiladmin(item_id):
         ''', item_id)
         data = cursor.fetchone()
         if request.method == 'POST':
-            user = request.form['usrname']
-            telephone = request.form['Téléphone']
-            nom = request.form['name']
-            matricule = request.form['matricule']
-            region = request.form['region']
-            departement = request.form['Département']
-            commune = request.form['Commune']
-            mail = request.form['mail']
+            validation = 'OK'
             cursor.execute('''
-                UPDATE Informations
-                SET Informations.Nom = ?, Informations.Matricule = ?, Informations.Telephone = ?
-                WHERE Informations.IdInformation = ?
                 UPDATE Users
-                SET Users.NomUtilisateur = ?, Users.email = ?
+                SET Users.categorie = ?
+                FROM Users
+                INNER JOIN Informations ON Users.IdInformation = Informations.IdInformation
                 WHERE Informations.IdInformation = ?
-                UPDATE Adresses
-                SET Adresses.IdCommune = ?, Adresses.IdDepartement = ?, Adresses.IdRegion = ?
-                WHERE Adresses.IdAdresse = ?
-            ''', (nom, matricule, telephone, item_id, user, mail, item_id, commune, departement, region, data[-1]))
-
+            ''', (validation, item_id))
             conn.commit()
             conn.close()
-            flash(f'Le produit numéro {item_id} a été modifié avec succès !', 'info')
+            flash(f"L'établissement numéro {item_id} est désormais inscrit !", 'info')
             return redirect(url_for('demande'))
+
         return render_template('./admin/utilisateurprofiladmin.html', data=data, ListeRegion=Region,
-                 ListeDepartement=Departement, ListeCommune=Commune, lien=lien)
+                 ListeDepartement=Departement, ListeCommune=Commune, lien=lien, services=services)
     return redirect(url_for('connexion'))
 
 
 @app.route('/listeinscrit')
 def listeinscrit():
-    return render_template("./admin/listeinscrit.html")
+    if 'loggedin' in session:
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute("""
+                    SELECT Informations.IdInformation, Informations.Matricule, Informations.Nom, Users.email, Commune.NomCommune, Departement.NomDepartement
+                    , Region.NomRegion, Informations.Telephone, Users.categorie
+                    FROM Informations, Users, Adresses, Commune, Departement, Region
+                    WHERE Informations.IdInformation = Users.IdInformation AND Informations.IdAdresse = Adresses.IdAdresse
+                    AND Adresses.IdCommune = Commune.IdCommune
+                    AND Adresses.IdDepartement = Departement.IdDepartement
+                    AND Adresses.IdRegion = Region.IdRegion
+                    AND Users.NomUtilisateur <> 'admin'
+                    AND Users.categorie = 'OK'
+                """)
+        data = cursor.fetchall()
+        conn.close()
+        return render_template("./admin/listeinscrit.html", data=data)
+    return redirect(url_for('connexion'))
+
+
+@app.route('/viewprofiladmin/<int:item_id>', methods=['GET', 'POST'])
+def viewprofiladmin(item_id):
+    if 'loggedin' in session:
+        item_id = int(item_id)
+        lien = session.get('lien')
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Region")
+        Region = cursor.fetchall()
+        cursor.execute("SELECT * FROM Departement")
+        Departement = cursor.fetchall()
+        cursor.execute("""
+                        SELECT NomServices.NomService, Services.Nombreplace 
+                        FROM services
+                        INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
+                        WHERE IdInformation = ?
+                    """, item_id)
+        services = cursor.fetchall()
+        cursor.execute("SELECT * FROM Commune")
+        Commune = cursor.fetchall()
+        cursor.execute('''
+        SELECT Informations.IdInformation, Users.NomUtilisateur, Informations.Telephone, Informations.Nom, 
+        Informations.Matricule, Commune.IdCommune, Commune.NomCommune, Adresses.IdDepartement, 
+        Departement.NomDepartement, Region.IdRegion, Region.NomRegion, Informations.IdAdresse, Users.email, 
+        Informations.lienimg
+        FROM Informations
+        INNER JOIN Users ON Users.IdInformation = Informations.IdInformation
+        INNER JOIN Adresses ON Adresses.IdAdresse = Informations.IdAdresse
+        INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+        INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+        INNER JOIN Region ON Adresses.IdRegion = Region.IdRegion
+        WHERE Informations.IdInformation = ?
+        ''', item_id)
+        data = cursor.fetchone()
+        return render_template('./admin/utilisateurprofiladmin0.html', data=data, ListeRegion=Region,
+                 ListeDepartement=Departement, ListeCommune=Commune, lien=lien, services=services)
+    return redirect(url_for('connexion'))
 
 
 @app.route("/deconnexion")

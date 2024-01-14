@@ -1469,28 +1469,39 @@ td {
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
-    align-items: center; 
- 
-} 
+    align-items: center;
+}
  
 .view-main{ 
-    height: 600px; 
-    width: 60%; 
+    min-height: 800px; 
+    width: 70%; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     justify-content: center; 
-    margin : 35px; 
-    padding: 20px; 
-    border : 3px solid black; 
+    margin : 30px; 
+    padding: 40px 20px; 
+    border : 3px solid #000D82; 
     border-radius: 5%; 
 } 
- 
+
+.view-main form{ 
+    height: 100%; 
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .view-divBravo{ 
     height: 100%; 
     width: 100%; 
     display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
 } 
+
+ 
  
 .divBravo2{ 
     height: 100%; 
@@ -1498,7 +1509,7 @@ td {
     display: flex; 
     justify-content: center; 
     flex-direction: column; 
-    align-items: center; 
+    align-items: center;
 } 
  
 .divBravo{ 
@@ -1513,7 +1524,8 @@ td {
  
 .input-profile{ 
     display: flex; 
-    flex-direction: column; 
+    flex-direction: column;
+    justify-content: flex-start; 
     padding: 10px; 
     color: #000D82; 
 } 
@@ -1525,16 +1537,7 @@ td {
     color: black; 
     border-radius: 5px; 
     border : 3px solid #000D82; 
-} 
- 
-.input-profile2{ 
-    display: flex; 
-    flex-direction: column; 
-    padding: 10px; 
-    color: #000D82; 
- 
-} 
- 
+}
  
 .input-controlProfi2{ 
     height: 30px; 
@@ -1565,7 +1568,46 @@ td {
     display: flex; 
     justify-content: center; 
     align-items: center; 
+}
+
+.BtnW{ 
+    height: 100px; 
+    width: 30%; 
+    color: white;  
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 15px;
 } 
+.BtnW1{
+    height: 100%;
+    width: 47%;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #1D5C00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BtnW2 a
+{
+    font-size: 20px;
+    color: white;
+}
+
+.BtnW2{
+    height: 100%;
+    width: 47%;
+    color: white;
+    border-radius: 5px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
  
 #btn-view{ 
     height: 30px; 
@@ -1602,10 +1644,11 @@ td {
 } 
 
 .view-main2{
-    width: 60%; 
+    width: 70%; 
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
 }
 .view-main2 table
 {
@@ -1615,12 +1658,15 @@ td {
     border-collapse: collapse;
     
 }
+
+.view-main form p,
 .view-main2 table caption
 {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
-    text-align: left;
+    text-align: center;
+    color: #000D82;
 }
 .view-main2 table tr
 {
@@ -1642,4 +1688,12 @@ td {
 .view-main2 table tr:nth-child(even) 
 {
     background-color: rgb(218, 218, 218);
+}
+
+.view-main2 table th:first-child {
+    text-align: left;
+}
+
+.view-main2 table td:first-child {
+    text-align: left;
 }

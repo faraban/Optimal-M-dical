@@ -9,6 +9,9 @@
     <div class="container">
         <div class="content-X">
             <div class="demande">
+                {% for message in get_flashed_messages() %}
+                    <div class="flash">{{message}}</div>
+                {% endfor %}
                 <table>
                     <caption>Liste des demandes d'inscription</caption>
                     <thead>
