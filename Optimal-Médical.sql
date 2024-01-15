@@ -8,9 +8,7 @@ CREATE TABLE Commune(
 <<<<<<< Updated upstream
 =======
 select * from Commune
-
 >>>>>>> Stashed changes
-
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomDepartement VARCHAR(50) NOT NULL UNIQUE
@@ -360,13 +358,8 @@ VALUES ('Médecine générale'),
 CREATE TABLE Services(
   IdService INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NombrePlace INTEGER NOT NULL,
-<<<<<<< Updated upstream
-  placedisponible INTEGER NOT NULL,
-  attente INTEGER NOT NULL,
-=======
   PlaceDisponible INTEGER NOT NULL,
   Attente INTEGER NOT NULL,
->>>>>>> Stashed changes
   IdNomService INT NOT NULL,
   FOREIGN KEY (IdNomService) REFERENCES NomServices(IdNomServices),
   IdInformation INT NOT NULL,
@@ -385,7 +378,7 @@ CREATE TABLE Affiche (
 );
 
 CREATE TABLE Reclamation(
-  IdReclamation INT PRIMAY KEY IDENTITY(1, 1) NOT NULL,
+  IdReclamation INT primary KEY IDENTITY(1, 1) NOT NULL,
   Commentaire VARCHAR(150) NOT NULL,
   Iduser INT NOT NULL,
   FOREIGN KEY (Iduser) REFERENCES users(Iduser)
