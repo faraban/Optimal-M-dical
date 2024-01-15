@@ -1,7 +1,7 @@
-{% extends '/base.html' %} 
+{% extends '/base.html' %}
 
-{%block select%} 
-    {% include 'elements/navelement.html' %} 
+{%block select%}
+    {% include 'elements/navelement.html' %}
 {%endblock%}
 
 {%block content %}
@@ -36,7 +36,7 @@
                             <input type="text" value="{{ users[2] }}" class="form-controlProfi2" id="username" placeholder="" readonly>
                         </div>
                         <div id="btnPRO">
-                            <a href="" class="mainbtnpro">Modifier</a>
+                            <a href="{{ url_for('modificationUsers') }}" class="mainbtnpro">Modifier</a>
                         </div>
                         <div class="form-profile2">
                             <label for="username">Nom d’établissement sanitaire :</label>
@@ -52,11 +52,10 @@
                                 <input type="text" class="form-controlprofil" value="{{ info[5] }}" name="region" id="region" readonly></input>
                                 <input type="text" class="form-controlprofil" value="{{ info[4] }}" name="Département" id="Département" readonly></input>
                                 <input type="text" class="form-controlprofil" value="{{ info[3] }}" name="Commune" id="Commune" readonly></input>
-
                             </div>
                         </div>
                         <div id="btnPRO">
-                            <a href="" class="mainbtnpro">Modifier</a>
+                            <a href="{{ url_for('modifinfo') }}" class="mainbtnpro">Modifier</a>
                         </div>
                     </form>
                 </div>

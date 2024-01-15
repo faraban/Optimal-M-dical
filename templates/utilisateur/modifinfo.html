@@ -1,0 +1,36 @@
+{% extends '/base.html' %}
+
+{%block select%}
+    {% include 'elements/logodiv.html' %}
+{%endblock%}
+
+{%block content %}
+<div class='infos'>
+    <div class="mainInscription">
+        <div class="mainSecond">
+            <form method="post">
+                <div class="form-groupInscri">
+                    <label for="username">Nom d’établissement sanitaire :</label>
+                    <input type="text" class="form-control2" name="username" id="username" value="{{ info[0] }}" required>
+                </div>
+                <div class="form-groupInscri">
+                    <label for="pwd">Numéro d'immatriculation de l'établissement :</label>
+                    <input type="text" class="form-control2" name="pwd" id="pwd" value="{{ info[1] }}" required>
+                </div>
+                <div class="form-groupInscri">
+                    <label for="Adresse">Adresse :</label>
+                    <div class="Adresse">
+                                <input type="text" class="form-controlprofil" value="{{ info[5] }}" name="region" id="region" readonly></input>
+                                <input type="text" class="form-controlprofil" value="{{ info[4] }}" name="Département" id="Département" readonly></input>
+                                <input type="text" class="form-controlprofil" value="{{ info[3] }}" name="Commune" id="Commune" readonly></input>
+                    </div>
+                </div>
+                <div id="btn3">
+                    <a href="javascript:history.back()" class="btninscri">Précedant </a>
+                    <button type="submit" class="btninscri2">Appliquer></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

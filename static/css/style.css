@@ -652,8 +652,9 @@ main .info{
 }
 
 .{
+
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
 }
 
 .form-control3{
@@ -1328,8 +1329,8 @@ td {
 } 
  
 .mainAlpha{ 
-    height: 600px; 
-    width: 60%; 
+    height: 700px;
+    width: 70%;
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -1356,14 +1357,14 @@ td {
 } 
  
 .mainP1{ 
-    height: 250PX; 
+    height: 250px;
     width: 300px; 
-    display: flex; 
-    justify-content: center; 
+    display: flex;
+    justify-content: center;
     align-items: center; 
     border : 20px solid #1D5C00; 
-    border-radius: 50%; 
-} 
+    border-radius: 50%;
+}
  
 .form-profile{ 
     display: flex; 

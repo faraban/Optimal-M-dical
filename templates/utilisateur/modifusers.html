@@ -1,0 +1,32 @@
+{% extends '/base.html' %}
+
+{%block select%}
+    {% include 'elements/logodiv.html' %}
+{%endblock%}
+
+{%block content %}
+<div class='infos'>
+    <div class="mainInscription">
+        <div class="mainSecond">
+            <form method="post">
+                <div class="form-groupInscri">
+                    <label for="username">Nom d’utilisateur :</label>
+                    <input type="text" class="form-control2" name="username" id="username" value="{{users[1]}}" required>
+                </div>
+                <div class="form-groupInscri">
+                    <label for="pwd">Mot de passe :</label>
+                    <input type="text" class="form-control2" name="pwd" id="pwd" value="{{users[0] }}" required>
+                </div>
+                <div class="form-groupInscri">
+                    <label for="email">E-mail :</label>
+                    <input type="text" class="form-control2" name="email" id="email" value="{{users[0] }}" required>
+                </div>
+                <div id="btn3">
+                    <a href="javascript:history.back()" class="btninscri">Précedant </a>
+                    <button type="submit" class="btninscri2">Appliquer></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
