@@ -666,11 +666,6 @@ main .info{
     gap: 1.5em;
 }
 
-.{
-    display: flex;
-    justify-content: space-around;
-}
-
 .form-control3{
      height: 100px;
      width: 140px;
