@@ -9,9 +9,15 @@
         <div class="view-main">
             <form method='POST'>
                 <div class="view-div">
-                    {% for message in get_flashed_messages() %}
-                        <div class="flash">{{message}}</div>
-                    {% endfor %}
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
                     <h2>Profil</h2>
                 </div>
                 <p>Information sur l'établissement</p>

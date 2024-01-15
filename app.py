@@ -9,7 +9,8 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;' 
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
+app.secret_key = 'OPTIMAL-MEDICAL-KEY'
 
 # Impish_Boy
 
@@ -614,9 +615,9 @@ def connexion():
                 session['idinformation'] = user[4]
                 return redirect(url_for('accueil'))
             else:
-                flash("Mot de passe incorrect !", 'info')
+                flash("Mot de passe incorrect !", 'error')
         else:
-            flash("Identifiant incorrect !", 'info')
+            flash("Identifiant incorrect !", 'error')
     return render_template("./connexion/connexion.html")
 
 

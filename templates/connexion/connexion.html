@@ -15,9 +15,15 @@
         <div class="mainConnexion">
             
             <div class="connexion">
-                {% for message in get_flashed_messages() %}
-                   <div class="flash">{{message}}</div>
-                {% endfor %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash alert-{{ category }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
                 <h2 class="bleu">Connectez-vous</h2>
                 <form method="POST">
                     <div class="form-group">

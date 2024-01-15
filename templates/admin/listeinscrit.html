@@ -9,6 +9,15 @@
     <div class="container">
         <div class="content-X">
             <div class="inscrit">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
                 <table>
                     <caption>Liste des établissements inscrits</caption>
                     <thead>

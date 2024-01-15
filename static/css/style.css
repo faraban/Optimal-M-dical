@@ -14,13 +14,22 @@ a, button{
     border: none;
 }
 
-.flash{
-    width: 60%;
-    background-color: aquamarine;
-    text-align: center;
-    font-size: 20px;
-    padding: 10px;
-    border-radius: 10px;
+.alert-success {
+    background-color: #dff0d8;
+    border: 1px solid #3c763d;
+    color: #3c763d;
+}
+
+.alert-error {
+    background-color: #f2dede;
+    border: 1px solid #a94442;
+    color: #a94442;
+}
+
+.alert-info {
+    background-color: #dee2f2;
+    border: 1px solid #000D82;
+    color: #000D82;
 }
 
 /* css de la nav bar */
@@ -229,6 +238,19 @@ ul{
 
 }
 
+.side-menu-admin {
+    background: #000D82;
+    width: 15%;
+    min-height: 100vh;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin-right: 50px;
+
+}
+
 /* .side-menu h1 {
     font-size: 30px;
     text-align: center;
@@ -255,6 +277,32 @@ ul{
     font-size: 80px;
     text-decoration: none;
 }
+
+.side-menu-admin div {
+    width: 90%;
+    margin-bottom: 15px;
+}
+
+.side-menu-admin div:hover,
+.side-menu-admin div:active {
+    background: white;
+    border: #1D5C00 1px solid;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.side-menu-admin div a:hover,
+.side-menu-admin div a:active {
+    color:#1D5C00;
+}
+
+.side-menu-admin div a{
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+    
+}
+
 ul{
     list-style: none;
     font-size: 20PX;

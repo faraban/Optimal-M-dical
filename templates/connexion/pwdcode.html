@@ -6,9 +6,15 @@
 
 {%block content %}
   <div class='contener_form'>
-    {% for message in get_flashed_messages() %}
-      <div class="flash">{{message}}</div>
-    {% endfor %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash alert-{{ category }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div>
       <h2>Code de vérification</h2>
       <p>
