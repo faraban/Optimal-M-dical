@@ -6,15 +6,21 @@
 
 {%block content %} 
     <div class='contener_form'>
-      {% for message in get_flashed_messages() %}
-        <div class="flash">{{message}}</div>
-      {% endfor %}
-      <div class="form">
-        <form method='POST'>
-          <label for="text">veillez entrer le mail ou le Nom d'utilisateur de votre compte</label>
-          <input type="text" name="text" id="text" placeholder="Exemple@gmail.com" />
-          <button type="submit" >Suivant</button>
-        </form>
-      </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="form">
+            <form method='POST'>
+                <label for="text">veillez entrer le mail ou le Nom d'utilisateur de votre compte</label>
+                <input type="text" name="text" id="text" placeholder="Exemple@gmail.com" />
+                <button type="submit" >Suivant</button>
+            </form>
+        </div>
     </div>
 {%endblock%}

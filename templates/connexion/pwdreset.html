@@ -9,9 +9,15 @@
         <h2>
           Veillez entrer un nouveau mot de passe
         </h2>
-        {% for message in get_flashed_messages() %}
-           <div class="flash">{{message}}</div>
-        {% endfor %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="form1">
             <form method='POST'>
                 <label for="password">Nouveau mot de passe</label>

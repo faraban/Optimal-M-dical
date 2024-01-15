@@ -602,23 +602,36 @@ def connexion():
         if user:
             pswd = user[3]
             if check_password_hash(pswd, password):
-                cursor.execute('''
-                            SELECT * FROM informations 
-                            WHERE idinformation = ? 
-                            ''', (user[4]))
-                lien = cursor.fetchone()
-                lien = lien[5][6:]
-                session['loggedin'] = True
-                session['username'] = user[1]
-                session['iduser'] = user[0]
-                session['lien'] = lien
-                session['idinformation'] = user[4]
-                return redirect(url_for('accueil'))
+                if user[-1] == 'OK':
+                    cursor.execute('''
+                                SELECT * FROM informations 
+                                WHERE idinformation = ? 
+                                ''', (user[4]))
+                    lien = cursor.fetchone()
+                    lien = lien[5][6:]
+                    session['loggedin'] = True
+                    session['username'] = user[1]
+                    session['iduser'] = user[0]
+                    session['lien'] = lien
+                    session['idinformation'] = user[4]
+                    return redirect(url_for('accueil'))
+                else:
+                    return redirect(url_for('reclamation'))
             else:
                 flash("Mot de passe incorrect !", 'error')
         else:
             flash("Identifiant incorrect !", 'error')
     return render_template("./connexion/connexion.html")
+
+
+@app.route('/reclamation', methods=["GET", "POST"])
+def reclamation():
+#    if 'loggedin' in session:
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+
+        return render_template("./connexion/reclamation.html", )
+#    return redirect(url_for('connexion'))
 
 
 @app.route('/pwdoublie', methods=["GET", "POST"])
