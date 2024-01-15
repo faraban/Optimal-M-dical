@@ -1,12 +1,8 @@
 <div class="side-menu">
-    <ul>
-        <li><a href="{{ url_for('monhopital') }}"><span style="white-space: nowrap;">Mes infos</span>
-        </a> </li> <br>
-        <br> <br>
-        <li><a href="{{ url_for('transfertECR') }}"><span style="white-space: nowrap;">Transferts ECR</span>
-        </a> </li> <br>
-        <br> <br>
-        <li><a href="{{ url_for('transferteffectué') }}"><span style="white-space: nowrap;">Transferts éffectués</span>
-        </a></li>
-    </ul>
+   <div class="mini-side-menu">
+
+        <div class='div'><a href="{{ url_for('monhopital') }}">Mes infos</a></div>
+        <div class='div'><a href="{{ url_for('transfertECR') }}">Transferts ECR</a></div>
+        <div class='div'><a href="{{ url_for('transferteffectué') }}">Transferts éffectués</a></div>
+   </div>
 </div>
