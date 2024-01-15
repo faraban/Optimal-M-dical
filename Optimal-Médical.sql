@@ -329,8 +329,8 @@ CREATE TABLE Services(
   IdService INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NombrePlace INTEGER NOT NULL,
   placedisponible INTEGER NOT NULL,
-  NombrePlace INTEGER NOT NULL,
-  attente INT NOT NULL,
+  attente INTEGER NOT NULL,
+  IdNomService INT NOT NULL,
   FOREIGN KEY (IdNomService) REFERENCES NomServices(IdNomServices),
   IdInformation INT NOT NULL,
   FOREIGN KEY (IdInformation) REFERENCES Informations(IdInformation)
