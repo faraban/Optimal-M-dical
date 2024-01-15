@@ -9,7 +9,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=DESKTOP-E924B14\\SQLEXPRESS;Database=OptimalMedical;'
 app.secret_key = 'OPTIMAL-MEDICAL-KEY'
 
 # Impish_Boy
@@ -241,7 +241,6 @@ def transfert():
     where IdInformation != ?
     ''', idinformation)
     departements = cursor.fetchall()
-    
     cursor.execute('''
                 SELECT Services.idService, Informations.Nom, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
                 FROM services
@@ -307,7 +306,23 @@ def monprofil():
     idiformation = session.get('idinformation')
     lien = session.get('lien')
     conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()  
+    cursor = conn.cursor()
+    cursor.execute("""
+                       SELECT * FROM users
+                       WHERE IdInformation = ?
+                   """, idiformation)
+    users = cursor.fetchone()
+
+    cursor.execute("""
+                    SELECT informations.Nom, informations.Matricule, Adresses.IdAdresse, Commune.NomCommune, Departement.NomDepartement, Region.NomRegion
+                    FROM informations
+                    INNER JOIN Adresses ON Adresses.IdAdresse = informations.IdAdresse
+                    INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+                    INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+                    INNER JOIN Region ON Region.IdRegion = Adresses.IdRegion
+                    WHERE IdInformation = ?
+                  """, idiformation)
+    info = cursor.fetchone()
     cursor.execute("""
                 SELECT Services.idservice, Services.Nombreplace, NomServices.NomService
                 FROM services
@@ -316,8 +331,7 @@ def monprofil():
             """, idiformation)
     services = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/utilisateurprofil.html",services=services,lien=lien)
-
+    return render_template("./utilisateur/utilisateurprofil.html",services=services,lien=lien,users=users,info=info)
 
 @app.route('/suppression/<int:id>')
 def suppression(id):
