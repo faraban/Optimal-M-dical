@@ -43,7 +43,7 @@ nav .nav{
 }
 
 nav .trait_bleu{
-    height: 10%;
+    height: 50px;
     width: 100%;
     background-color: #000D82;
 }
@@ -89,18 +89,18 @@ nav .nav .nav_bar{
     height: 100%;
     width: 100%;
     padding: 20px;
-    margin-left: 20px;
+    margin-left: 100px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 nav .nav .nav_bar .logos-case{
     height: 90%;
-    width: 35%;
+    width: 50%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
@@ -151,9 +151,11 @@ nav .nav .nav_bar .search img {
 }
 
 nav .nav .nav_bar .user {
+    height: 1px;
     display: flex;
     justify-content: space-between;
     /* align-items: center; */
+    margin-left: 70px;
 
 }
 
@@ -194,6 +196,10 @@ ul a:hover{
 ul a{
     color: white;
 }
+ul{
+ margin-right: 80px;   
+}
+
 
 .nav_bar .user img {
     margin-left: 5%;
@@ -217,19 +223,21 @@ ul a{
     color: #ffffff;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 10px;
+    margin-right: 50px;
 
 }
 
-.side-menu h1 {
+/* .side-menu h1 {
     font-size: 30px;
     text-align: center;
     margin-top: 30px;
     margin-bottom: 20px;
-}
+} */
 .side-menu div {
     width: 100%;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
 
 .side-menu div:hover,
@@ -244,11 +252,16 @@ ul a{
 
 .side-menu div a{
     color: white;
-    font-size: 25px;
+    font-size: 80px;
     text-decoration: none;
 }
 ul{
     list-style: none;
+    font-size: 20PX;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
  /* div_logo et logo  */
@@ -361,9 +374,11 @@ nav .div_logo{
 /* mot de passe oublié */
 
 .main {
+    /* margin-top: 20px; */
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
 } 
 
 main .contener_form{
@@ -758,6 +773,7 @@ tr{
 
 table {
     padding: 10px;
+    width: 100%;
 }
 
 th,
@@ -845,15 +861,25 @@ td {
 }
 
 
+.container .content-2 {
+    min-height: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
 
 .container  .content-2 .recent-payments {
     min-height: 50vh;
+    width: 110%;
     flex: 5;
     background: white;
     margin: 0 25px 25px 25px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     flex-direction: column;
+    ;
 }
 
 .main .container-admin {
@@ -946,10 +972,13 @@ td {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
+    margin-top: 40px;
 }
 
-.container-admin  .content-2 .recent-payments {
-    min-height: 50vh;
+.container-admin.content-2 .recent-payments {
+    margin-top: 40px;
+    width: 70%;
+    min-height: 90vh;
     flex: 5;
     background: white;
     margin: 0 25px 25px 25px;
@@ -1113,7 +1142,7 @@ td {
 
 .container  .content-2 .disponibilite {
     min-height: 80vh;
-    width: 75%;
+    width: 97%;
     background: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
@@ -1124,6 +1153,22 @@ td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.container  .content-2 .disponibilite form .title input{
+  width: 140px;
+  height: 50px;  
+  background-color: #1D5C00;
+  color: white;
+  font-size: 18px;
+  border-radius: 10px ;
+  border: 0.5px solid;
+  cursor: pointer;
+}
+
+.container  .content-2 .disponibilite form .title input:hover{
+    background-color: white;
+    color: black;
 }
 
 .container .content-2 img {
@@ -1168,6 +1213,8 @@ td {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .container-admin .content-2 .new-students {

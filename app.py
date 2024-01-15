@@ -9,7 +9,9 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=Impish_Boy;Database=OptimalMedical;' 
+
+# Impish_Boy
 
 #Server=DESKTOP-FRGCPSS\\SQLEXPRESS
 
