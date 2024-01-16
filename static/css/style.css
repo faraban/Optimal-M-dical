@@ -237,7 +237,7 @@ ul{
 .side-menu {
     background: #000D82;
     width: 20%;
-    min-height: 100vh;
+    min-height: 120vh;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -255,7 +255,7 @@ ul{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 130px;
+    margin-bottom: 200px;
 }
 
 .side-menu .div{
@@ -957,7 +957,7 @@ td {
     flex: 5;
     background: white;
     margin: 0 25px 25px 25px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     display: flex;
     flex-direction: column;
     ;
@@ -1063,9 +1063,13 @@ td {
     flex: 5;
     background: white;
     margin: 0 25px 25px 25px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     display: flex;
     flex-direction: column;
+}
+
+.container-admin.content-2 .recent-payments table {
+    border: none;
 }
 
 .historique
@@ -1225,7 +1229,7 @@ td {
     min-height: 80vh;
     width: 97%;
     background: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     display: flex;
     flex-direction: column;
 }
