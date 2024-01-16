@@ -393,3 +393,10 @@ CREATE TABLE Transfert(
                 INNER JOIN Services ON Transfert.IdService = Services.IdService
                 INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
                 INNER JOIN EtatPatient ON Transfert.IdEtatPatient = EtatPatient.IdEtatPatient
+
+
+UPDATE Users
+SET categorie = 'OK'
+FROM Users
+INNER JOIN Informations ON Users.IdInformation=Informations.IdInformation
+WHERE NomUtilisateur = 'admin'
