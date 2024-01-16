@@ -9,7 +9,7 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
+DSN = 'Driver={SQL Server};Server=y_muhamad\\SQLEXPRESS;Database=OptimalMedical;'
 app.secret_key = 'OPTIMAL-MEDICAL-KEY'
 
 
@@ -20,37 +20,31 @@ app.secret_key = 'OPTIMAL-MEDICAL-KEY'
 
 @app.route('/monhopital')
 def monhopital():
-    if 'username' in session:
+    if 'loggedin' in session:
         lien = session.get('lien')
         idinformation = session.get('idinformation')
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
-
         cursor.execute('''
         SELECT * FROM Nomservices 
         ''')
         nomservices = cursor.fetchall()
-
         cursor.execute('''
         SELECT * FROM commune 
         ''')
         communes = cursor.fetchall()
-
         cursor.execute('''
         SELECT * FROM region 
         ''')
         regions = cursor.fetchall()
-
         cursor.execute('''
         SELECT * FROM departement 
         ''')
         departements = cursor.fetchall()
-
         cursor.execute('''
         SELECT * FROM EtatPatient 
         ''')
         etats = cursor.fetchall()
-
         cursor.execute('''
                 SELECT Services.idservice, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
                 FROM services
@@ -59,12 +53,9 @@ def monhopital():
                 ''', idinformation)
         services = cursor.fetchall()
         conn.close()
-
         return render_template("./utilisateur/utilisateurhopital.html", etats=etats, nomservices=nomservices,
-                               communes=communes, regions=regions, departements=departements, lien=lien,
-                               services=services)
-    else:
-        return redirect(url_for('accueil'))
+                               communes=communes, regions=regions, departements=departements, lien=lien, services=services)
+    return redirect(url_for('connexion'))
 
 
 @app.route('/plus/<idservice>')
@@ -208,7 +199,6 @@ def transferteffectué():
     conn.close()
     return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services, communes=communes,
                            regions=regions, departements=departements, lien=lien, data=data)
-
 
 
 @app.route('/transfert', methods=["GET", "POST"])
@@ -444,6 +434,7 @@ def modifinfo():
         flash(f" Vos informations on étè modifier avec succés !", 'info')
         return redirect(url_for('monprofil'))
     return render_template("./utilisateur/modifinfo.html", info=info)
+
 
 @app.route('/inscriptioninfos', methods=["GET", "POST"])
 def inscriptioninfos():
@@ -801,16 +792,36 @@ def admin():
     if 'loggedin' in session:
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
-        cursor.execute(""" SELECT * FROM Informations """)
+        cursor.execute("""  
+                    SELECT *  
+                    FROM Informations, Users 
+                    WHERE Informations.IdInformation = Users.IdInformation  
+                    AND Users.categorie = 'Attente' 
+                    """)
+        demande = cursor.fetchall()
+        nbrdemande = len(demande)
+        cursor.execute("""  
+                    SELECT *  
+                    FROM Informations, Users 
+                    WHERE Informations.IdInformation = Users.IdInformation  
+                    AND Users.categorie = 'OK' 
+                    """)
         inscrit = cursor.fetchall()
-        nbrinscrit = len(inscrit)
+        cursor.execute(""" 
+                    SELECT * 
+                    FROM Informations, Users 
+                    WHERE Informations.IdInformation = Users.IdInformation 
+                    AND Users.NomUtilisateur = 'admin' 
+                    """)
+        nbradmin = cursor.fetchall()
+        nbrinscrit = len(inscrit) - len(nbradmin)
         cursor.execute(""" SELECT * FROM Transfert """)
         transfert = cursor.fetchall()
         nbrtransfert = len(transfert)
         cursor.execute(""" SELECT * FROM Reclamation """)
         reclamation = cursor.fetchall()
         nbrreclamation = len(reclamation)
-        cursor.execute(""" SELECT TOP 5 Nom, Matricule, Telephone
+        cursor.execute(""" SELECT TOP 5 IdInformation, Nom, Matricule, Telephone
                             FROM Informations
                             ORDER BY IdInformation DESC """)
         inscritrec = cursor.fetchall()
@@ -826,8 +837,8 @@ def admin():
                         """)
         historique = cursor.fetchall()
         conn.close()
-        return render_template("./admin/admin.html", nbrinscrit=nbrinscrit, nbrtransfert=nbrtransfert,
-                               nbrreclamation=nbrreclamation, inscritrec=inscritrec, historique=historique)
+        return render_template("./admin/admin.html", nbrdemande=nbrdemande, nbradmin=nbradmin, nbrinscrit=nbrinscrit,
+                               nbrtransfert=nbrtransfert, nbrreclamation=nbrreclamation, inscritrec=inscritrec, historique=historique)
     return redirect(url_for('connexion'))
 
 
