@@ -5,10 +5,6 @@ CREATE TABLE Commune(
   NomCommune VARCHAR(50) NOT NULL UNIQUE
 );
 
-<<<<<<< Updated upstream
-=======
-select * from Commune
->>>>>>> Stashed changes
 CREATE TABLE Departement(
   IdDepartement INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
   NomDepartement VARCHAR(50) NOT NULL UNIQUE

@@ -9,7 +9,6 @@ import pyodbc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clés_flash'
-<<<<<<< Updated upstream
 DSN = 'Driver={SQL Server};Server=DESKTOP-E924B14\\SQLEXPRESS;Database=OptimalMedical;'
 app.secret_key = 'OPTIMAL-MEDICAL-KEY'
 
@@ -163,54 +162,53 @@ def transfertECR():
 
 @app.route('/transferteffectué')
 def transferteffectué():
-    idinformation = session.get('idinformation')
     lien = session.get('lien')
     iduser = session.get('iduser')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
     cursor.execute('''
-    SELECT * FROM Nomservices 
-    ''')
-    nomservices = cursor.fetchall()
+       SELECT * FROM Nomservices 
+       ''')
+    services = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM commune 
-    ''')
+       SELECT * FROM commune 
+       ''')
     communes = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM region 
-    ''')
+       SELECT * FROM region 
+       ''')
     regions = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM departement 
-    ''')
+       SELECT * FROM departement 
+       ''')
     departements = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM EtatPatient 
-    ''')
+       SELECT * FROM EtatPatient 
+       ''')
     etats = cursor.fetchall()
 
     cursor.execute('''
-            SELECT transfert.dateheure, InfoDes.Nom, NomServices.NomService , etatpatient.etat, Departement.NomDepartement, Commune.NomCommune
-            FROM transfert
-            INNER JOIN NomServices ON NomServices.IdNomServices = transfert.IdNomService
-            INNER JOIN etatpatient ON etatpatient.Idetatpatient = transfert.Idetatpatient
-            INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
-            INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
-            INNER JOIN Adresses ON Adresses.IdAdresse = InfoDes.IdAdresse
-            INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
-            INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
-            where transfert.Iduserdep = ?
-                ''', iduser)
+               SELECT transfert.dateheure, InfoDes.Nom, NomServices.NomService , etatpatient.etat, Departement.NomDepartement, Commune.NomCommune
+               FROM transfert
+               INNER JOIN NomServices ON NomServices.IdNomServices = transfert.IdNomService
+               INNER JOIN etatpatient ON etatpatient.Idetatpatient = transfert.Idetatpatient
+               INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+               INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+               INNER JOIN Adresses ON Adresses.IdAdresse = InfoDes.IdAdresse
+               INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+               INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+               where transfert.Iduserdes = ?
+                   ''', iduser)
     data = cursor.fetchall()
-
     conn.close()
-    return render_template("./utilisateur/transferteffectué.html", etats=etats, nomservices=nomservices,
-                           communes=communes, regions=regions, departements=departements, data=data, lien=lien)
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services, communes=communes,
+                           regions=regions, departements=departements, lien=lien, data=data)
+
 
 
 @app.route('/transfert', methods=["GET", "POST"])
@@ -236,8 +234,8 @@ def transfert():
     regions = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM departement 
-    ''')
+        SELECT * FROM departement 
+        ''')
     departements = cursor.fetchall()
 
     cursor.execute('''
@@ -375,28 +373,55 @@ def modification(id):
 
 @app.route('/modificationUsers', methods=["GET", "POST"])
 def modificationUsers():
-    idiformation = session.get('idiformation')
+    idiformation = session.get('idinformation')
+    lien = session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
     cursor.execute("""
-                SELECT * FROM users
-                WHERE IdInformation = ?
-            """, idiformation)
+                           SELECT * FROM users
+                           WHERE IdInformation = ?
+                       """, idiformation)
     users = cursor.fetchone()
     if request.method == "POST":
-        capacite = request.form["capacite"]
-        cursor.execute("UPDATE services SET nombreplace = ? WHERE idservice = ?", (capacite, id))
+        Nom = request.form["Nom"]
+        cursor.execute("UPDATE users SET NomUtilisateur = ? WHERE IdUser = ?", (Nom))
+        conn.commit()
+        mot = request.form["mot"]
+        cursor.execute("UPDATE users SET Password = ? WHERE IdUser = ?", (mot))
+        conn.commit()
+        mail = request.form["mail"]
+        cursor.execute("UPDATE users SET email = ? WHERE IdUser = ?", (mail))
         conn.commit()
         conn.close()
         flash(f" Vos informations on étè modifier avec succés !", 'info')
         return redirect(url_for('monprofil'))
     return render_template("./utilisateur/modifusers.html", users=users)
 
-@app.route('/modifinfo', methods=["GET", "POST"])
-def modifinfo():
-    idiformation = session.get('idiformation')
+
+@app.route('/modificationLogo', methods=["GET", "POST"])
+def modificationLogo():
+    idiformation = session.get('idinformation')
+    lien = session.get('lien')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
+
+    cursor.execute("""
+                           SELECT informations.Nom, informations.Matricule
+                           FROM informations
+                           WHERE IdInformation = ?
+                         """, idiformation)
+    info = cursor.fetchone()
+
+    return render_template("./utilisateur/modifLogo.html", info=info)
+
+
+@app.route('/modifinfo', methods=["GET", "POST"])
+def modifinfo():
+    idiformation = session.get('idinformation')
+    lien = session.get('lien')
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+
     cursor.execute("""
                         SELECT informations.Nom, informations.Matricule, Adresses.IdAdresse, Commune.NomCommune, Departement.NomDepartement, Region.NomRegion
                         FROM informations
@@ -407,12 +432,13 @@ def modifinfo():
                         WHERE IdInformation = ?
                       """, idiformation)
     info = cursor.fetchone()
+
     if request.method == "POST":
         Nom = request.form["Nom"]
-        cursor.execute("UPDATE informations SET Nom = ? WHERE IdInformation = ?", (Nom, id))
+        cursor.execute("UPDATE informations SET Nom = ? WHERE IdInformation = ?", (Nom))
         conn.commit()
         matricule = request.form["matricule"]
-        cursor.execute("UPDATE informations SET Matricule = ? WHERE IdInformation = ?", (matricule, id))
+        cursor.execute("UPDATE informations SET Matricule = ? WHERE IdInformation = ?", (matricule))
         conn.commit()
         conn.close()
         flash(f" Vos informations on étè modifier avec succés !", 'info')

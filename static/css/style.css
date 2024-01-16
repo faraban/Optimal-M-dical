@@ -529,6 +529,7 @@ main .form button, .form1 button {
     height: 70px;
     width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: center;
 }
 

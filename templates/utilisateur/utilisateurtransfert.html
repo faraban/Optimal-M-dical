@@ -11,8 +11,8 @@
             <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        <option disabled selected >par services</option>
-                        {% for cont in nomservices  %}
+                        <option >par services</option>
+                        {% for cont in services  %}
                              <option >{{ cont[1] }}</option>
                         {% endfor %}
                     </select>
@@ -21,7 +21,7 @@
             <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        <option disabled selected >par communes</option>
+                        <option >par communes</option>
                         {% for cont in communes  %}
                              <option >{{ cont[1] }}</option>
                         {% endfor %}
@@ -59,12 +59,12 @@
                 
                 <table>
                     <tr>
-                        <th>select</th>
+                        <th>Select</th>
                         <th>Services</th>
-                        <th>hopital</th>
-                        <th>departements</th>
-                        <th>communes</th>
-                        <th>places disponibles</th>
+                        <th>Hopital</th>
+                        <th>Departements</th>
+                        <th>Communes</th>
+                        <th>Places disponibles</th>
                         <th>Fils d'attente</th>
                     </tr>
                     {% for row in services %}

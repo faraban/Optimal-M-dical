@@ -16,31 +16,30 @@
                         <img src="{{ url_for('static',filename=lien)}}"  alt="logo">
                     </div>
                 </div>
+                <div>
+                    <a class="modif" href="{{ url_for('modificationLogo') }}"><input type="image" src="../../static/img/edit.png" alt="Submit Form" ></a>
+                </div>
                 <div class="mainP2">
                     <P>Information sur mon établissement</P>
                     <form>
                         <div class="form-profile">
                             <label for="username">Nom d’utilisateur :</label>
-                            <div>
-                                <input type="text" value="{{ users[1] }}" class="form-controlProfi2" id="username" placeholder="" readonly>
-                            </div>
+                            <input type="text" value="{{ users[1] }}" class="form-controlProfi2" id="name" placeholder="" readonly>
                         </div>
                         <div class="form-profile">
                                 <label for="pwd">Mot de passe :</label>
-                                <div>
                                 <input type="password" value="{{ users[3] }}" class="form-controlProfi2" id="pwd" placeholder="" readonly>
-                            </div>
                         </div>
                         <div class="form-profile2">
                             <label for="username">E-mail :</label>
-                            <input type="text" value="{{ users[2] }}" class="form-controlProfi2" id="username" placeholder="" readonly>
+                            <input type="text" value="{{ users[2] }}" class="form-controlProfi2" id="rname" placeholder="" readonly>
                         </div>
                         <div id="btnPRO">
                             <a href="{{ url_for('modificationUsers') }}" class="mainbtnpro">Modifier</a>
                         </div>
                         <div class="form-profile2">
                             <label for="username">Nom d’établissement sanitaire :</label>
-                            <input type="text" value="{{ info[0] }}" class="form-controlProfi2" id="username" placeholder="" readonly>
+                            <input type="text" value="{{ info[0] }}" class="form-controlProfi2" id="usename" placeholder="" readonly>
                         </div>
                         <div class="form-profile2">
                             <label for="username">Numéro d'immatriculation de l'établissement :</label>

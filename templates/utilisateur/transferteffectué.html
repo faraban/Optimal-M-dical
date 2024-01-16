@@ -10,11 +10,11 @@
 
 {%block content %}
     <div class="container">
-        <div class="cardsm">
+         <div class="cardsm">
             <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        <option >par services</option>
+                        <option >Services</option>
                         {% for cont in services  %}
                              <option >{{ cont[1] }}</option>
                         {% endfor %}
@@ -24,7 +24,7 @@
             <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        <option >par communes</option>
+                        <option >Communes</option>
                         {% for cont in communes  %}
                              <option >{{ cont[1] }}</option>
                         {% endfor %}
@@ -34,7 +34,7 @@
             <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        <option >par regions</option>
+                        <option >Regions</option>
                         {% for cont in regions  %}
                              <option >{{ cont[1] }}</option>
                         {% endfor %}
@@ -44,7 +44,7 @@
             <div class="cardm">
                 <form method="POST">
                     <select name="selected_value">
-                        <option >par departements</option>
+                        <option >Departements</option>
                         {% for cont in departements %}
                              <option >{{ cont[1] }}</option>
                         {% endfor %}

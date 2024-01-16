@@ -9,17 +9,18 @@
     <div class="mainInscription">
         <div class="mainSecond">
             <form method="post">
+
                 <div class="form-groupInscri">
                     <label for="username">Nom d’utilisateur :</label>
-                    <input type="text" class="form-control2" name="username" id="username" value="{{users[1]}}" required>
+                    <input type="text" value="{{ users[1] }}" class="form-control2" id="name" placeholder="">
                 </div>
                 <div class="form-groupInscri">
                     <label for="pwd">Mot de passe :</label>
-                    <input type="text" class="form-control2" name="pwd" id="pwd" value="{{users[0] }}" required>
+                    <input type="password" value="{{ users[3] }}" name="Nom" class="form-control2" id="pwd" placeholder="">
                 </div>
                 <div class="form-groupInscri">
-                    <label for="email">E-mail :</label>
-                    <input type="text" class="form-control2" name="email" id="email" value="{{users[0] }}" required>
+                    <label for="username">E-mail :</label>
+                    <input type="text" value="{{ users[2] }}" class="form-control2" id="rname" placeholder="">
                 </div>
                 <div id="btn3">
                     <a href="javascript:history.back()" class="btninscri">Précedant </a>
