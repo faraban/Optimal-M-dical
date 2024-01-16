@@ -1,0 +1,28 @@
+{% extends '/base.html' %}
+
+{%block select%}
+    {% include 'elements/logodiv.html' %}
+{%endblock%}
+
+{%block content %}
+<div class='infos'>
+    <div class="mainInscription">
+        <div class="mainSecond">
+            <form method="post">
+                <div class="form-groupInscri">
+                    <label for="Etablissement">Nom d’établissement sanitaire :</label>
+                    <input type="text" value="{{ info[0] }}" class="form-control2" name="nameEtablissement" id="Etablissement" placeholder="" readonly>
+                </div>
+                 <div class="form-groupInscri">
+                    <label for="logo">Télécharger un nouveau logo :</label>
+                    <input type="file" id="logo" accept="image/*" name="logo" required>
+                </div>
+                <div id="btn3">
+                    <a href="javascript:history.back()" class="btninscri">Précedant</a>
+                    <button type="submit" class="btninscri2">Appliquer></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -12,16 +12,17 @@ app.config['SECRET_KEY'] = 'clés_flash'
 DSN = 'Driver={SQL Server};Server=DESKTOP-FRGCPSS\\SQLEXPRESS;Database=OptimalMedical;'
 app.secret_key = 'OPTIMAL-MEDICAL-KEY'
 
+
 # Impish_Boy
 
-#Server=DESKTOP-FRGCPSS\\SQLEXPRESS
+# Server=DESKTOP-FRGCPSS\\SQLEXPRESS
 
 
 @app.route('/monhopital')
 def monhopital():
     if 'username' in session:
-        lien=session.get('lien')
-        idinformation=session.get('idinformation')
+        lien = session.get('lien')
+        idinformation = session.get('idinformation')
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
 
@@ -49,7 +50,7 @@ def monhopital():
         SELECT * FROM EtatPatient 
         ''')
         etats = cursor.fetchall()
-        
+
         cursor.execute('''
                 SELECT Services.idservice, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
                 FROM services
@@ -58,7 +59,7 @@ def monhopital():
                 ''', idinformation)
         services = cursor.fetchall()
         conn.close()
-        
+
         return render_template("./utilisateur/utilisateurhopital.html", etats=etats, nomservices=nomservices,
                                communes=communes, regions=regions, departements=departements, lien=lien,
                                services=services)
@@ -66,7 +67,7 @@ def monhopital():
         return redirect(url_for('accueil'))
 
 
-@app.route('/plus/<idservice>')    
+@app.route('/plus/<idservice>')
 def plus(idservice):
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -75,18 +76,18 @@ def plus(idservice):
         ''', idservice)
     services = cursor.fetchone()
     if services[2] > services[3]:
-        ch = services[3]+1
+        ch = services[3] + 1
         cursor.execute("UPDATE services SET placedisponible = ? WHERE idservice = ?", (ch, idservice))
         conn.commit()
         return redirect(url_for('monhopital'))
-    elif services[2]==services[3]:
-        ch = services[4]+1
+    elif services[2] == services[3]:
+        ch = services[4] + 1
         cursor.execute("UPDATE services SET attente = ? WHERE idservice = ?", (ch, idservice))
         conn.commit()
         return redirect(url_for('monhopital'))
 
 
-@app.route('/moins/<idservice>')    
+@app.route('/moins/<idservice>')
 def moins(idservice):
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
@@ -95,12 +96,12 @@ def moins(idservice):
         ''', idservice)
     services = cursor.fetchone()
     if services[4] > 0:
-        ch = services[4]-1
+        ch = services[4] - 1
         cursor.execute("UPDATE services SET attente = ? WHERE idservice = ?", (ch, idservice))
         conn.commit()
         return redirect(url_for('monhopital'))
     elif services[3] > 0:
-        ch = services[3]-1
+        ch = services[3] - 1
         cursor.execute("UPDATE services SET placedisponible = ? WHERE idservice = ?", (ch, idservice))
         conn.commit()
         return redirect(url_for('monhopital'))
@@ -111,7 +112,7 @@ def moins(idservice):
 @app.route('/transfertECR')
 def transfertECR():
     lien = session.get('lien')
-    iduser=session.get('iduser')
+    iduser = session.get('iduser')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
@@ -139,7 +140,7 @@ def transfertECR():
     SELECT * FROM EtatPatient 
     ''')
     etats = cursor.fetchall()
-    
+
     cursor.execute('''
             SELECT transfert.dateheure, InfoDes.Nom, NomServices.NomService , etatpatient.etat, Departement.NomDepartement, Commune.NomCommune
             FROM transfert
@@ -153,60 +154,61 @@ def transfertECR():
             where transfert.Iduserdes = ?
                 ''', iduser)
     data = cursor.fetchall()
-    
+
     conn.close()
-    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services, communes=communes, regions=regions, departements=departements, lien=lien, data=data)
+    return render_template("./utilisateur/transfertECR.html", etats=etats, services=services, communes=communes,
+                           regions=regions, departements=departements, lien=lien, data=data)
 
 
 @app.route('/transferteffectué')
 def transferteffectué():
-    idinformation = session.get('idinformation')
     lien = session.get('lien')
-    iduser=session.get('iduser')
+    iduser = session.get('iduser')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
 
     cursor.execute('''
-    SELECT * FROM Nomservices 
-    ''')
-    nomservices = cursor.fetchall()
+       SELECT * FROM Nomservices 
+       ''')
+    services = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM commune 
-    ''')
+       SELECT * FROM commune 
+       ''')
     communes = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM region 
-    ''')
+       SELECT * FROM region 
+       ''')
     regions = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM departement 
-    ''')
+       SELECT * FROM departement 
+       ''')
     departements = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM EtatPatient 
-    ''')
+       SELECT * FROM EtatPatient 
+       ''')
     etats = cursor.fetchall()
-    
+
     cursor.execute('''
-            SELECT transfert.dateheure, InfoDes.Nom, NomServices.NomService , etatpatient.etat, Departement.NomDepartement, Commune.NomCommune
-            FROM transfert
-            INNER JOIN NomServices ON NomServices.IdNomServices = transfert.IdNomService
-            INNER JOIN etatpatient ON etatpatient.Idetatpatient = transfert.Idetatpatient
-            INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
-            INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
-            INNER JOIN Adresses ON Adresses.IdAdresse = InfoDes.IdAdresse
-            INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
-            INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
-            where transfert.Iduserdep = ?
-                ''', iduser)
+               SELECT transfert.dateheure, InfoDes.Nom, NomServices.NomService , etatpatient.etat, Departement.NomDepartement, Commune.NomCommune
+               FROM transfert
+               INNER JOIN NomServices ON NomServices.IdNomServices = transfert.IdNomService
+               INNER JOIN etatpatient ON etatpatient.Idetatpatient = transfert.Idetatpatient
+               INNER JOIN Users AS UsersDes ON Transfert.IdUserDes = UsersDes.IdUser
+               INNER JOIN Informations AS InfoDes ON UsersDes.IdInformation = InfoDes.IdInformation
+               INNER JOIN Adresses ON Adresses.IdAdresse = InfoDes.IdAdresse
+               INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+               INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+               where transfert.Iduserdes = ?
+                   ''', iduser)
     data = cursor.fetchall()
-    
     conn.close()
-    return render_template("./utilisateur/transferteffectué.html", etats=etats, nomservices=nomservices,communes=communes, regions=regions, departements=departements, data=data, lien=lien)
+    return render_template("./utilisateur/transferteffectué.html", etats=etats, services=services, communes=communes,
+                           regions=regions, departements=departements, lien=lien, data=data)
+
 
 
 @app.route('/transfert', methods=["GET", "POST"])
@@ -215,7 +217,7 @@ def transfert():
     idinformation = session.get('idinformation')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
-    
+
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
@@ -232,32 +234,32 @@ def transfert():
     regions = cursor.fetchall()
 
     cursor.execute('''
-    SELECT * FROM departement 
-    ''')
+        SELECT * FROM departement 
+        ''')
     departements = cursor.fetchall()
-    
+
     cursor.execute('''
     SELECT * FROM informations
     where IdInformation != ?
     ''', idinformation)
     departements = cursor.fetchall()
-    
     cursor.execute('''
                 SELECT Services.idService, Informations.Nom, Services.Nombreplace, NomServices.NomService, Services.placedisponible, Services.attente
                 FROM services
                 INNER JOIN NomServices ON NomServices.IdNomServices = Services.IdNomService
                 INNER JOIN Informations ON Informations.IdInformation = Services.IdInformation
                 where services.IdInformation != ?
-                ''',idinformation)
+                ''', idinformation)
     services = cursor.fetchall()
     conn.close()
-    
-    if request.method == "POST": 
+
+    if request.method == "POST":
         index = int(request.form['selectedService'])
-        session['index']=index
+        session['index'] = index
         return redirect(url_for('validertransfert'))
 
-    return render_template("./utilisateur/utilisateurtransfert.html", nomservices=nomservices,communes=communes, regions=regions, services=services, departements=departements, lien=lien)
+    return render_template("./utilisateur/utilisateurtransfert.html", nomservices=nomservices, communes=communes,
+                           regions=regions, services=services, departements=departements, lien=lien)
 
 
 @app.route('/validertransfert', methods=["GET", "POST"])
@@ -265,15 +267,15 @@ def validertransfert():
     index = session.get('index')
     lien = session.get('lien')
     idinformation = session.get('idinformation')
-    iduser=session.get('iduser')
+    iduser = session.get('iduser')
     conn = pyodbc.connect(DSN)
     cursor = conn.cursor()
-    
+
     cursor.execute('''
     SELECT * FROM EtatPatient
     ''')
     etatpatient = cursor.fetchall()
-    
+
     cursor.execute('''
                 SELECT Services.idservice, Informations.Nom, NomServices.NomService, Services.IdNomService, users.iduser
                 FROM services
@@ -281,25 +283,26 @@ def validertransfert():
                 INNER JOIN Informations ON Informations.IdInformation = Services.IdInformation
                 INNER JOIN users ON users.IdInformation = Services.IdInformation
                 where services.Idservice = ?
-                ''',index)
+                ''', index)
     transf = cursor.fetchone()
-    
+
     cursor.execute('''
                 SELECT * from Informations
                 where IdInformation = ?
-                ''',idinformation)
+                ''', idinformation)
     Etabdep = cursor.fetchone()
-    
-    if request.method == "POST": 
+
+    if request.method == "POST":
         idetat = request.form.get("Etatpat")
         date = datetime.now().strftime("%Y-%m-%d"' '"%H:%M:%S")
         cursor.execute('''insert into transfert (iduserdep, iduserdes, idnomservice, dateheure, idetatpatient) 
                                 values(?,?,?,?,?)''', (iduser, transf[4], transf[3], date, idetat))
-        conn.commit() 
+        conn.commit()
         flash(" transfert en cour!", 'info')
         return redirect(url_for('transfert'))
-        
-    return render_template("./utilisateur/confirmetransfert.html", transf=transf, lien=lien, etatpatient=etatpatient,Etabdep=Etabdep)
+
+    return render_template("./utilisateur/confirmetransfert.html", transf=transf, lien=lien, etatpatient=etatpatient,
+                           Etabdep=Etabdep)
 
 
 @app.route('/monprofil')
@@ -307,7 +310,23 @@ def monprofil():
     idiformation = session.get('idinformation')
     lien = session.get('lien')
     conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()  
+    cursor = conn.cursor()
+    cursor.execute("""
+                       SELECT * FROM users
+                       WHERE IdInformation = ?
+                   """, idiformation)
+    users = cursor.fetchone()
+
+    cursor.execute("""
+                    SELECT informations.Nom, informations.Matricule, Adresses.IdAdresse, Commune.NomCommune, Departement.NomDepartement, Region.NomRegion
+                    FROM informations
+                    INNER JOIN Adresses ON Adresses.IdAdresse = informations.IdAdresse
+                    INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+                    INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+                    INNER JOIN Region ON Region.IdRegion = Adresses.IdRegion
+                    WHERE IdInformation = ?
+                  """, idiformation)
+    info = cursor.fetchone()
     cursor.execute("""
                 SELECT Services.idservice, Services.Nombreplace, NomServices.NomService
                 FROM services
@@ -316,7 +335,7 @@ def monprofil():
             """, idiformation)
     services = cursor.fetchall()
     conn.close()
-    return render_template("./utilisateur/utilisateurprofil.html",services=services,lien=lien)
+    return render_template("./utilisateur/utilisateurprofil.html", services=services, lien=lien, users=users, info=info)
 
 
 @app.route('/suppression/<int:id>')
@@ -341,16 +360,90 @@ def modification(id):
                 WHERE Idservice = ?
             """, id)
     service = cursor.fetchone()
-    if request.method == "POST": 
-        capacite = request.form["capacite"] 
+    if request.method == "POST":
+        capacite = request.form["capacite"]
         cursor.execute("UPDATE services SET nombreplace = ? WHERE idservice = ?", (capacite, id))
-        conn.commit() 
+        conn.commit()
         conn.close()
         flash(f" La capacite de votre service a été modifieé avec succès !", 'info')
         return redirect(url_for('monprofil'))
 
-    return render_template("./utilisateur/modifservice0.html",service=service, lien=lien)
+    return render_template("./utilisateur/modifservice0.html", service=service, lien=lien)
 
+
+@app.route('/modificationUsers', methods=["GET", "POST"])
+def modificationUsers():
+    idiformation = session.get('idinformation')
+    lien = session.get('lien')
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+    cursor.execute("""
+                           SELECT * FROM users
+                           WHERE IdInformation = ?
+                       """, idiformation)
+    users = cursor.fetchone()
+    if request.method == "POST":
+        Nom = request.form["Nom"]
+        cursor.execute("UPDATE users SET NomUtilisateur = ? WHERE IdUser = ?", (Nom))
+        conn.commit()
+        mot = request.form["mot"]
+        cursor.execute("UPDATE users SET Password = ? WHERE IdUser = ?", (mot))
+        conn.commit()
+        mail = request.form["mail"]
+        cursor.execute("UPDATE users SET email = ? WHERE IdUser = ?", (mail))
+        conn.commit()
+        conn.close()
+        flash(f" Vos informations on étè modifier avec succés !", 'info')
+        return redirect(url_for('monprofil'))
+    return render_template("./utilisateur/modifusers.html", users=users)
+
+
+@app.route('/modificationLogo', methods=["GET", "POST"])
+def modificationLogo():
+    idiformation = session.get('idinformation')
+    lien = session.get('lien')
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+                           SELECT informations.Nom, informations.Matricule
+                           FROM informations
+                           WHERE IdInformation = ?
+                         """, idiformation)
+    info = cursor.fetchone()
+
+    return render_template("./utilisateur/modifLogo.html", info=info)
+
+
+@app.route('/modifinfo', methods=["GET", "POST"])
+def modifinfo():
+    idiformation = session.get('idinformation')
+    lien = session.get('lien')
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+                        SELECT informations.Nom, informations.Matricule, Adresses.IdAdresse, Commune.NomCommune, Departement.NomDepartement, Region.NomRegion
+                        FROM informations
+                        INNER JOIN Adresses ON Adresses.IdAdresse = informations.IdAdresse
+                        INNER JOIN Departement ON Departement.IdDepartement = Adresses.IdDepartement
+                        INNER JOIN Commune ON Adresses.IdCommune = Commune.IdCommune
+                        INNER JOIN Region ON Region.IdRegion = Adresses.IdRegion
+                        WHERE IdInformation = ?
+                      """, idiformation)
+    info = cursor.fetchone()
+
+    if request.method == "POST":
+        Nom = request.form["Nom"]
+        cursor.execute("UPDATE informations SET Nom = ? WHERE IdInformation = ?", (Nom))
+        conn.commit()
+        matricule = request.form["matricule"]
+        cursor.execute("UPDATE informations SET Matricule = ? WHERE IdInformation = ?", (matricule))
+        conn.commit()
+        conn.close()
+        flash(f" Vos informations on étè modifier avec succés !", 'info')
+        return redirect(url_for('monprofil'))
+    return render_template("./utilisateur/modifinfo.html", info=info)
 
 @app.route('/inscriptioninfos', methods=["GET", "POST"])
 def inscriptioninfos():
@@ -363,15 +456,15 @@ def inscriptioninfos():
     cursor.execute("SELECT * FROM Commune")
     Commune = cursor.fetchall()
     conn.close()
-    if request.method == "POST": 
-        
-        conn = pyodbc.connect(DSN) 
-        cursor = conn.cursor() 
-        
-        nom = request.form['Nom'] 
-        num = request.form['Num'] 
+    if request.method == "POST":
+
+        conn = pyodbc.connect(DSN)
+        cursor = conn.cursor()
+
+        nom = request.form['Nom']
+        num = request.form['Num']
         tel = request.form['Tel']
-        
+
         cursor.execute(''' SELECT * FROM Informations 
                             WHERE Nom = ?
                             ''', nom)
@@ -386,17 +479,17 @@ def inscriptioninfos():
         c = cursor.fetchone()
         if a:
             flash("Ce nom exist déjà!", 'info')
-    
+
         elif b:
             flash("Matricule déjà existant!", 'info')
-            
+
         elif c:
             flash(" déjà existant!", 'info')
-            
+
         else:
             nCommune = request.form['selected_value3']
-            ndepartement = request.form['selected_value2'] 
-            nregion = request.form['selected_value1'] 
+            ndepartement = request.form['selected_value2']
+            nregion = request.form['selected_value1']
             if nCommune == 'option':
                 flash("veillez choisir une commune!", 'info')
             elif ndepartement == 'option':
@@ -412,7 +505,7 @@ def inscriptioninfos():
                     if not os.path.exists(url):
                         os.makedirs(url)
                     image.save(url + image.filename)
-                    
+
                     try:
                         response = requests.get('https://ipinfo.io/json')
                         data = response.json()
@@ -422,17 +515,17 @@ def inscriptioninfos():
                     except Exception as e:
                         latitude = None
                         longitude = None
-                        
-                    localisation = latitude+' '+longitude
+
+                    localisation = latitude + ' ' + longitude
                     idadresse = tel[-10:]
                     cursor.execute('''insert into Adresses (idadresse,idCommune, idDepartement, idRegion,positiongeo) 
                                 values(?,?,?,?,?)''', (idadresse, nCommune, ndepartement, nregion, localisation))
-                    conn.commit() 
-                    
+                    conn.commit()
+
                     cursor.execute('''INSERT INTO Informations (Nom, Matricule, Telephone, idadresse,lienimg)
                                 VALUES (?, ?, ?,?,?)''', (nom, num, tel, idadresse, url + image.filename))
                     conn.commit()
-                    
+
                     cursor.execute(''' SELECT * FROM Informations 
                                         WHERE Matricule = ?
                                         ''', num)
@@ -440,14 +533,15 @@ def inscriptioninfos():
                     session['idinformation'] = idinformation[0]
                     conn.close()
                     return redirect(url_for('listeservice'))
-    return render_template("./inscription/inscriptioninfos.html", Region=Region,Departement=Departement, Commune=Commune)
+    return render_template("./inscription/inscriptioninfos.html", Region=Region, Departement=Departement,
+                           Commune=Commune)
 
 
 @app.route('/ListeService', methods=["GET", "POST"])
 def listeservice():
     idiformation = session.get('idinformation')
     conn = pyodbc.connect(DSN)
-    cursor = conn.cursor()  
+    cursor = conn.cursor()
     cursor.execute("""
                 SELECT Services.idservice, Services.Nombreplace, NomServices.NomService
                 FROM services
@@ -462,7 +556,7 @@ def listeservice():
 @app.route('/AjoutService', methods=["GET", "POST"])
 def ajoutservice():
     conn = pyodbc.connect(DSN)
-    cursor = conn.cursor() 
+    cursor = conn.cursor()
     cursor.execute('''
     SELECT * FROM Nomservices 
     ''')
@@ -470,12 +564,12 @@ def ajoutservice():
     if request.method == "POST":
         idinformation = session.get('idinformation')
         service = request.form['selected_value']
-        capacite = request.form['capacite'] 
+        capacite = request.form['capacite']
         disponible = 0
         attente = 0
         cursor.execute('''INSERT INTO services (idnomservice, Nombreplace, placedisponible, attente, idinformation)
                        VALUES (?, ?, ?, ?, ?)''', (service, capacite, disponible, attente, idinformation))
-        conn.commit() 
+        conn.commit()
         conn.close()
         return redirect(url_for('listeservice'))
     return render_template("./inscription/inscriptionservice0.html ", services=services)
@@ -542,23 +636,23 @@ def inscriptionacces():
         password1 = request.form["password1"]
         conn = pyodbc.connect(DSN)
         cursor = conn.cursor()
-        
+
         cursor.execute(''' SELECT * FROM users 
                             WHERE NomUtilisateur = ?
                             ''', user)
         b = cursor.fetchone()
-        
+
         cursor.execute(''' SELECT * FROM users 
                             WHERE email = ?
                             ''', mail)
         c = cursor.fetchone()
-        
+
         if b:
             flash("NomUtilisateur déjà existant!", 'alert')
-            
+
         elif c:
             flash("Email déjà existant!", 'alert')
-        
+
         else:
             if len(password) < 8:
                 flash("le mot de passe doit être superieur ou égal à 8 caractère!", 'alert')
@@ -569,10 +663,11 @@ def inscriptionacces():
                 cursor.execute('''INSERT INTO users (nomutilisateur, email, password,idinformation,categorie)
                             VALUES (?, ?, ?,?,?)''', (user, mail, generate_password_hash(password),
                                                       idinformation, categorie))
-                conn.commit() 
+                conn.commit()
                 conn.close()
                 return redirect(url_for('connexion'))
     return render_template("./inscription/inscriptionacces.html")
+
 
 #     connexion
 
@@ -626,11 +721,13 @@ def connexion():
 
 @app.route('/reclamation', methods=["GET", "POST"])
 def reclamation():
-#    if 'loggedin' in session:
-        conn = pyodbc.connect(DSN)
-        cursor = conn.cursor()
+    #    if 'loggedin' in session:
+    conn = pyodbc.connect(DSN)
+    cursor = conn.cursor()
 
-        return render_template("./connexion/reclamation.html", )
+    return render_template("./connexion/reclamation.html", )
+
+
 #    return redirect(url_for('connexion'))
 
 
@@ -694,6 +791,7 @@ def pwdreset():
         else:
             flash('veillez saisir le même mot de passe dans les deux champs')
     return render_template("./connexion/pwdreset.html")
+
 
 # ................yesufu route (Admin)#
 
@@ -825,7 +923,7 @@ def monprofiladmin(item_id):
             return redirect(url_for('demande'))
 
         return render_template('./admin/utilisateurprofiladmin.html', data=data, ListeRegion=Region,
-                 ListeDepartement=Departement, ListeCommune=Commune, lien=lien, services=services)
+                               ListeDepartement=Departement, ListeCommune=Commune, lien=lien, services=services)
     return redirect(url_for('connexion'))
 
 
@@ -886,7 +984,7 @@ def viewprofiladmin(item_id):
         ''', item_id)
         data = cursor.fetchone()
         return render_template('./admin/utilisateurprofiladmin0.html', data=data, ListeRegion=Region,
-                 ListeDepartement=Departement, ListeCommune=Commune, lien=lien, services=services)
+                               ListeDepartement=Departement, ListeCommune=Commune, lien=lien, services=services)
     return redirect(url_for('connexion'))
 
 
